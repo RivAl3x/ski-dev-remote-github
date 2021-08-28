@@ -1,0 +1,19 @@
+.mat-expansion-panel-header-title,
+.mat-expansion-panel-header-description {
+  flex-basis: 0;
+}
+
+.mat-expansion-panel-header-description {
+  justify-content: space-between;
+  align-items: center;
+}
+
+.mat-form-field {
+  margin-right: 10px;
+}
+
+@media screen and (max-width: 960px) {
+    .mat-expansion-panel-header-description {
+        flex-grow: 0;
+    }
+}

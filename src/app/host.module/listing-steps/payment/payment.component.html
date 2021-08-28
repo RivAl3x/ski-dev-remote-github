@@ -1,0 +1,11 @@
+<div id="step-payment" [formGroup]="listingForm" fxLayout="column" fxLayoutAlign="space-around start" fxLayoutGap="10px">
+  <h2 class="mt-3 mb-2">{{ 'host.listing.payment-info' | translate }}</h2>
+  <label class="mr-2">{{ 'host.listing.payment-select' | translate }}</label>
+  <ng-container formGroupName="payment">
+    <mat-radio-group formControlName="id" fxLayout="column" fxLayoutAlign="space-around start" fxLayoutGap="10px">
+      <mat-radio-button *ngFor="let payment of payments" [value]="payment.id">{{ payment.bank }} - {{ payment.iban }}</mat-radio-button>
+    </mat-radio-group>
+  </ng-container>
+  
+  <button class="mt-2" type="button" mat-stroked-button (click)="openPaymentDialog(null)">{{ 'host.listing.payment-add' | translate }}</button>
+</div>

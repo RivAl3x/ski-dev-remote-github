@@ -1,0 +1,104 @@
+$custom-grey: (
+  50: #3e3b3b,
+  100: #2a2828,
+  200: #1b1717,
+  300: #2a2828,
+  400: #2a2828,
+  500: #2a2828,
+  600: #2a2828,
+  700: #2a2828,
+  800: #2a2828,
+  900: #2a2828,
+  A100: #2a2828,
+  A200: #2a2828,
+  A400: #2a2828,
+  A700: #ffffff,
+  contrast: (
+    50: white,
+    100: white,
+    200: white,
+    300: white,
+    400: white,
+    500: white,
+    600: white,
+    700: white,
+    800: white,
+    900: white,
+    A100: white,
+    A200: white,
+    A400: white,
+    A700: #1b1717,
+  )
+);
+
+$custom-blue: (
+  50: #4ba1ec,
+  100: #2578BF,
+  200: #0b4f8a,
+  300: #2578BF,
+  400: #2578BF,
+  500: #2578BF,
+  600: #2578BF,
+  700: #2578BF,
+  800: #2578BF,
+  900: #2578BF,
+  A100: #2578BF,
+  A200: #2578BF,
+  A400: #2578BF,
+  A700: #2578BF,
+  contrast: (
+    50: white,
+    100: white,
+    200: white,
+    300: white,
+    400: white,
+    500: white,
+    600: white,
+    700: white,
+    800: white,
+    900: white,
+    A100: white,
+    A200: white,
+    A400: white,
+    A700: white,
+  )
+);
+
+$custom-pink: (
+  50: #dc365c,
+  100: #EE2152,
+  200: #c40934,
+  300: #EE2152,
+  400: #EE2152,
+  500: #EE2152,
+  600: #EE2152,
+  700: #EE2152,
+  800: #EE2152,
+  900: #EE2152,
+  A100: #EE2152,
+  A200: #EE2152,
+  A400: #EE2152,
+  A700: #EE2152,
+  contrast: (
+    50: white,
+    100: white,
+    200: white,
+    300: white,
+    400: white,
+    500: white,
+    600: white,
+    700: white,
+    800: white,
+    900: white,
+    A100: white,
+    A200: white,
+    A400: white,
+    A700: white,
+  )
+);
+
+$orange-primary: mat-palette($custom-pink, 100, 50, 200);
+$orange-accent: mat-palette($custom-grey, 100, 50, 200);
+$orange-warn: mat-palette($mat-red, 500, A200, 800);
+
+$orange-theme: mat-light-theme($orange-primary, $orange-accent, $orange-warn);

@@ -1,0 +1,100 @@
+<div fxLayout="row wrap">
+    <div fxFlex="100" ngClass="mt-1">
+        <h2 mat-dialog-title>{{listing.location.name}}</h2>
+        <div fxLayout="row" fxLayoutAlign="space-between center">
+            <p>{{ 'host.listing.' + listing.location.listingTypeName | translate}} - {{ listing.location.countryName }}, {{ listing.location.locality }}</p>
+        </div>
+    </div>
+
+    <div fxFlex="100">
+        <div fxLayoutAlign="space-between center">
+            <div>Office types</div>
+            <div>
+                <a mat-flat-button [matMenuTriggerFor]="workingHours" #workingHoursTrigger="matMenuTrigger">
+                    <mat-icon class="mat-icon-sm account-icon">info</mat-icon>
+                    <span>Working Hours</span> 
+                </a>
+                <mat-menu #workingHours="matMenu" [overlapTrigger]="false" xPosition="before" class="top-menu-dropdown cart-dropdown">
+                    <span (mouseleave)="workingHoursTrigger.closeMenu()">
+                        <mat-list role="list">
+                            <mat-list-item role="listitem"*ngFor="let hours of listing.hours.availableHours">{{ 'host.listing.' + hours.weekday | translate }}: {{ hours.fromHours }} - {{ hours.toHours }}</mat-list-item>
+                        </mat-list>
+                    </span>
+                </mat-menu>  
+            </div>
+        </div>
+        <div class="divider"></div>
+        <mat-dialog-content>
+            <form class="mat-table admin-table high-row" [formGroup]="spacesForm">
+                <div class="mat-header-row">
+                    <div class="mat-header-cell">Type</div>
+                    <div class="mat-header-cell">Name</div> 
+                    <div class="mat-header-cell">No. of seats</div>
+                    <!-- <div class="mat-header-cell">Hourly price</div>
+                    <div class="mat-header-cell">Daily price</div> -->
+                    <div class="mat-header-cell">Units</div>
+                    <div class="mat-header-cell">Check-In</div>
+                    <div class="mat-header-cell">Check-Out</div>
+                    <div class="mat-header-cell"></div>
+                </div>
+                <ng-container formArrayName="availableSpacesPrice">
+                    <div *ngFor="let spacePrice of availableSpacesPriceControls; let i=index" [formGroupName]="i" class="mat-row">
+                        <div class="mat-cell" data-label="Type">{{ 'host.listing.' + spacePrice.controls.officeTypeCode.value | translate }}</div>
+                        <div class="mat-cell" data-label="Name">{{ spacePrice.controls.availableSpaceName.value }}</div>
+                        <div class="mat-cell" data-label="No. of seats">{{ ( listing.description.availableSpaces | filterById : spacePrice.controls.idAvailableSpace.value )?.seatsNo }} seats</div>
+                        <!-- <div class="mat-cell" data-label="Hourly price">{{ spacePrice.controls.hourlyPrice.value }} €/hour</div>    
+                        <div class="mat-cell" data-label="Daily price">{{ spacePrice.controls.dayPrice.value }} €/day</div>  -->        
+                        <div class="mat-cell">
+                            <mat-form-field>
+                                <input matInput type="number" placeholder="Units" formControlName="bookedUnitsNo">
+                            </mat-form-field>
+                        </div> 
+                        <div class="mat-cell">
+                            <mat-form-field>
+                                <input matInput [ngxMatDatetimePicker]="pickerCheckin" placeholder="Check-In" formControlName="checkin"
+                                  [min]="minDateCheckin" [max]="maxDate" readonly>
+                                <mat-datepicker-toggle matSuffix [for]="pickerCheckin"></mat-datepicker-toggle>
+                                <ngx-mat-datetime-picker #pickerCheckin [defaultTime]="defaultTimeCheckin" [min]="minDateCheckin" [showSpinners]="true" [showSeconds]="false" [stepHour]="1"
+                                  [stepMinute]="30" [stepSecond]="stepSecond" [touchUi]="true" [color]="primary"
+                                  [enableMeridian]="false" [disableMinute]="false" [hideTime]="false">
+                                  <ng-template>
+                                    <span>OK</span>
+                                  </ng-template>
+                                </ngx-mat-datetime-picker>
+                            </mat-form-field>
+                        </div>
+                        <div class="mat-cell">
+                            <mat-form-field>
+                                <input matInput [ngxMatDatetimePicker]="pickerCheckout" placeholder="Check-Out" formControlName="checkout"
+                                  [min]="minDateCheckout" [max]="maxDate" readonly>
+                                <mat-datepicker-toggle matSuffix [for]="pickerCheckout"></mat-datepicker-toggle>
+                                <ngx-mat-datetime-picker #pickerCheckout [defaultTime]="defaultTimeCheckout" [min]="minDateCheckout" [showSpinners]="true" [showSeconds]="false" [stepHour]="1"
+                                [stepMinute]="30" [stepSecond]="stepSecond" [touchUi]="true" [color]="primary"
+                                [enableMeridian]="false" [disableMinute]="false" [hideTime]="false">
+                                  <ng-template>
+                                    <span>OK</span>
+                                  </ng-template>
+                                </ngx-mat-datetime-picker>
+                            </mat-form-field>
+                        </div>
+                        <div class="mat-cell text-right">
+                            <button mat-icon-button type="button"
+                                matTooltip="Direct Book"
+                                [disabled]="!spacePrice.valid" 
+                                (click)="directBooking(spacePrice.value)">
+                                <mat-icon class="mat-icon-lg">list_alt</mat-icon>
+                            </button>
+                        </div>     
+                    </div>
+                </ng-container>
+            </form>
+        </mat-dialog-content>
+        
+    </div>
+</div>
+
+
+
+
+
+

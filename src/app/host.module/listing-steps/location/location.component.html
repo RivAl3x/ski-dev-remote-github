@@ -1,0 +1,72 @@
+<div id="step-location" [formGroup]="listingForm" fxLayout="column" fxLayoutAlign="space-around start" fxLayoutGap="10px">
+  <mat-form-field appearance="legacy" formGroupName="location">
+    <mat-label>{{ 'host.listing.name' | translate }}</mat-label>
+    <input matInput formControlName="name">
+  </mat-form-field>
+
+  <h2 class="mt-3">{{ 'host.listing.location-info' | translate }}</h2>
+  <div fxLayout="row wrap" fxLayoutAlign="start start" fxLayoutGap="20px">
+    <div fxLayout="column" fxLayoutAlign="space-around start" fxLayoutGap="10px">
+      <div fxLayout="row wrap" fxLayoutAlign="start start" fxLayoutGap="20px">
+        <mat-form-field appearance="legacy" formGroupName="location">
+          <mat-label>{{ 'host.listing.street-address' | translate }}</mat-label>
+          <input matInput formControlName="streetAddress">
+        </mat-form-field>
+        <mat-form-field appearance="legacy" formGroupName="location">
+          <mat-label>{{ 'host.listing.apartment-suite' | translate }}</mat-label>
+          <input matInput formControlName="apartmentSuite">
+        </mat-form-field>
+      </div>
+      <div fxLayout="row wrap" fxLayoutAlign="start start" fxLayoutGap="20px">
+        <mat-form-field appearance="legacy" formGroupName="location">
+          <mat-label>{{ 'host.listing.locality' | translate }}</mat-label>
+          <input matInput formControlName="locality">
+        </mat-form-field>
+        <mat-form-field appearance="legacy" formGroupName="location">
+          <mat-label>{{ 'host.listing.state' | translate }}</mat-label>
+          <input matInput formControlName="state">
+        </mat-form-field>
+        <mat-form-field appearance="legacy" formGroupName="location">
+          <mat-label>{{ 'host.listing.zipcode' | translate }}</mat-label>
+          <input matInput formControlName="zipCode">
+        </mat-form-field>
+      </div>
+      <div fxLayout="row" fxLayoutAlign="start start" fxLayoutGap="20px">
+        <mat-form-field appearance="legacy" formGroupName="location">
+          <mat-label>{{ 'account.info.country' | translate }}</mat-label>
+          <input type="text" matInput formControlName="country" [matAutocomplete]="auto">
+          <mat-autocomplete #auto="matAutocomplete" [displayWith]="displayFn" (optionSelected)="onCountrySelect($event)">
+            <mat-option *ngFor="let country of filteredCountries | async" [value]="country">
+              {{ country.name }}
+            </mat-option>
+          </mat-autocomplete>
+        </mat-form-field>
+      </div>
+      <div fxLayout="row wrap" fxLayoutAlign="start start" fxLayoutGap="20px">
+        <mat-form-field appearance="legacy" formGroupName="location">
+          <mat-label>{{ 'host.listing.latitude' | translate }}</mat-label>
+          <input matInput formControlName="latitude">
+        </mat-form-field>
+        <mat-form-field appearance="legacy" formGroupName="location">
+          <mat-label>{{ 'host.listing.longitude' | translate }}</mat-label>
+          <input matInput formControlName="longitude">
+        </mat-form-field>
+      </div>
+    </div>
+    <div fxLayout="column" fxLayoutAlign="space-around start" fxLayoutGap="10px">
+      <app-map [location]=listingLocation [selectedCountry]="selectedCountry$.asObservable()" (onMarkerChange)="mapMarkerData($event)"></app-map>
+    </div>
+  </div>
+
+  <div class="mt-3">
+    <mat-form-field appearance="legacy" formGroupName="location">
+      <mat-label>{{ 'host.listing.listing-type' | translate }}</mat-label>
+      <mat-select matSelect formControlName="listingType">
+        <mat-option>--</mat-option>
+        <mat-option *ngFor="let type of listingTypes" [value]="type.id">
+          {{ 'host.listing.' + type.code | translate }}
+        </mat-option>
+      </mat-select>
+    </mat-form-field>
+  </div>
+</div>

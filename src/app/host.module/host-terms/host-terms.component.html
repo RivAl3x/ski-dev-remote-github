@@ -1,0 +1,30 @@
+  
+  <div id="terms" fxLayout="row" fxLayoutAlign="space-around center" fxFill>
+    <mat-card>
+      <form *ngIf="termsForm!=undefined"  id="termsForm" [formGroup]="termsForm" (ngSubmit)="onSubmit()">
+        <mat-card-header class="p-1" fxLayoutAlign="space-between">
+          <mat-card-title class="m-0"><h2>
+            {{ 'host.terms.title' | translate }}
+          </h2></mat-card-title>
+        </mat-card-header>
+        
+        <mat-card-content>
+          <mat-hint class="mb-2 d-block">{{ 'host.terms.help' | translate }}</mat-hint>
+          <div fxLayout="row" fxLayoutAlign="start center" fxLayoutGap="5px">
+            <mat-checkbox class="ml-2" color="primary" formControlName="agreedTerms"></mat-checkbox>
+            <a routerLink="/" fxShow="false" fxShow.gt-sm mat-button color="primary">{{ 'host.terms.label' | translate }}</a>
+          </div>
+        </mat-card-content>
+        
+        <mat-card-actions>
+          <button routerLink="/" mat-stroked-button color="primary" class="mr-2">{{ 'host.terms.cancel' | translate }}</button>
+
+          <button mat-flat-button [loading]="loading" color="primary" type="submit" [disabled]="!termsForm.valid">
+            {{ 'host.terms.submit' | translate }}
+          </button>
+        </mat-card-actions>
+    
+      </form>
+    </mat-card>
+  </div>
+

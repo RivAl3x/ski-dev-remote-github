@@ -1,0 +1,13 @@
+#map {
+  display: block;
+  width: 100%;
+  height: 100%;
+}
+
+#details-panel {
+  text-align: left;
+}
+
+.leaflet-bottom, .leaflet-left {
+  pointer-events: auto;
+}

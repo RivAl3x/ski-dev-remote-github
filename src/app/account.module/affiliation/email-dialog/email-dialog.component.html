@@ -1,0 +1,25 @@
+<h1 mat-dialog-title>{{ 'account.affiliation.add-new' | translate }}</h1>
+<form [formGroup]="form" (ngSubmit)="onSubmit()" autocomplete="off">
+    <div mat-dialog-content fxLayout="column" class="minh-200">
+        
+        <div fxFlex="100" fxLayout="row" fxLayoutAlign="space-between center" class="px-1">
+            <mat-form-field appearance="legacy" class="w-100">
+                <mat-label>{{ 'account.affiliation.email' | translate }}</mat-label>
+                <input matInput formControlName="email">
+            </mat-form-field>
+        </div>
+        <div fxFlex="100" fxLayout="row" fxLayoutAlign="space-between center" class="px-1">
+            <mat-form-field appearance="legacy" class="w-100">
+                <mat-label>{{ 'account.affiliation.token' | translate }}</mat-label>
+                <input matInput formControlName="token" readonly>
+            </mat-form-field>
+        </div>
+            
+    </div>
+    <div mat-dialog-actions>
+        <div fxLayout="row wrap" fxLayoutAlign="space-between center" class="w-100"> 
+            <button mat-stroked-button type="button" mat-dialog-close>{{ 'close' | translate }}</button>
+            <button mat-flat-button color="primary" [disabled]="!form.valid" type="submit">{{ 'save' | translate }}</button>
+        </div> 
+    </div>
+</form>

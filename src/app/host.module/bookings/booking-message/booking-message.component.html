@@ -1,0 +1,4 @@
+<mat-form-field class="w-100">
+  <input matInput type="text" placeholder="Say something..." [(ngModel)]="message" (keyup)="messageInputKeyUp($event)">
+  <mat-icon matSuffix (click)="sendMessage()">send</mat-icon>
+</mat-form-field>

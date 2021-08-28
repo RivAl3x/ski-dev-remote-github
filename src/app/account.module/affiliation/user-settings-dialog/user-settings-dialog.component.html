@@ -1,0 +1,72 @@
+<h1 mat-dialog-title>{{ 'account.affiliation.manage-user-affiliation' | translate }}</h1>
+<form [formGroup]="form" (ngSubmit)="onSubmit()" autocomplete="off">
+    <div mat-dialog-content>
+        <mat-card *ngIf="affiliation" fxLayout="row" fxLayoutAlign="space-between center" fxLayoutGap="20px" class="mat-elevation-z0 product-item">
+            <div>
+                <a class="title">
+                    {{ 'account.affiliation.user' | translate }}: {{ affiliation.user }}
+                </a>
+                <h4 class="category text-muted lh mb-1">
+                    {{ 'account.affiliation.total-hours-month' | translate }}: <span >{{ affiliation.totalHours }}</span>
+                </h4>
+                <h4 class="category text-muted lh mb-1">
+                    {{ 'account.affiliation.used-hours-month' | translate }}: <span >{{ affiliation.usedHours }}</span>
+                </h4> 
+                <h4 class="category text-muted lh mb-1">
+                    {{ 'account.affiliation.token' | translate }}: <span >{{ affiliation.token }}</span>
+                </h4> 
+                <h4 class="category text-muted lh mb-1">
+                    {{ 'account.affiliation.affiliation-date' | translate }}: <span >{{ affiliation.affiliationDate }}</span>
+                </h4> 
+            </div>
+            <div class="icons">
+                <a mat-button color="primary" mat-dialog-close matTooltip="{{ 'account.affiliation.view-analytics' | translate }}" [routerLink]="['/account/affiliation', affiliation.id]">
+                    <mat-icon class="mat-icon-xxxlg">analytics</mat-icon> 
+                </a>
+            </div>
+        </mat-card>
+        <div fxLayout="column" fxLayoutAlign="space-around start" fxLayoutGap="20px">
+            <ng-container formArrayName="affiliationData">
+                <mat-card 
+                    class="mb-1" 
+                    *ngFor="let control of affiliationDataControls; let i=index" 
+                    [formGroupName]="i" 
+                    fxLayout="row" fxLayoutAlign="space-between start" fxLayoutGap="20px"
+                >
+                    <div fxLayout="row wrap" fxLayoutAlign="start start" fxLayoutGap="20px">
+                        <mat-form-field>
+                            <mat-label>{{ 'account.affiliation.billing-address' | translate }}</mat-label>
+                            <mat-select formControlName="idBillingAddress">
+                                <mat-option *ngFor="let billingAddress of billingAddresses" [value]="billingAddress.id">
+                                    {{ billingAddress.billingAddressType == 'PF' ? billingAddress.firstName + ' ' + billingAddress.lastName : billingAddress.companyName }} | {{ billingAddress.countryName }}, {{ billingAddress.locality }}, {{ billingAddress.streetAddress }}
+                                </mat-option>
+                            </mat-select>
+                        </mat-form-field>
+            
+                        <mat-form-field>
+                            <input matInput placeholder="{{ 'account.affiliation.monthly-hours' | translate }}" formControlName="monthlyHours">
+                        </mat-form-field>
+                    </div>
+                    <div class="p-1 actions">          
+                        &nbsp;
+                        <button mat-icon-button color="warn" matTooltip="{{ 'delete' | translate }}" class="mx-1" (click)="onDeleteAffiliationData(i)">
+                            <mat-icon>delete</mat-icon>
+                        </button>
+                    </div>
+                </mat-card>
+            </ng-container>
+            <div class="p-1 actions">
+                <button type="button" mat-stroked-button (click)="onAddAffiliationData()">{{ 'add-new' | translate }}</button>
+                <!-- <button mat-flat-button color="primary" [disabled]="!form.valid" type="submit">{{ 'save' | translate }}</button> --> 
+            </div>
+        </div>
+
+        <div class="divider mt-2"></div> 
+    </div>
+    <div mat-dialog-actions>
+        <div fxLayout="row wrap" fxLayoutAlign="space-between center" class="w-100"> 
+            <button mat-stroked-button type="button" mat-dialog-close>{{ 'close' | translate }}</button>
+            <button mat-flat-button color="primary" [disabled]="!form.valid" type="submit">{{ 'save' | translate }}</button>
+        </div> 
+    </div>
+</form>

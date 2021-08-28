@@ -1,0 +1,74 @@
+<div id="listings" class="container col-md-12">
+    <mat-card-header class="p-1" fxLayoutAlign="space-between">
+        <div class="button-container">
+            <button type="button" mat-stroked-button (click)="openAddressDialog(null)">{{ 'add-new' | translate }}</button>
+        </div>
+        <mat-card-title class="m-0"><h2>
+            {{ 'account.addresses.menu-title' | translate }}
+        </h2></mat-card-title>
+    </mat-card-header>
+
+    <mat-divider></mat-divider>
+    <mat-tab-group >
+        <mat-tab label="{{ 'account.addresses.personal-addresses' | translate }}">
+            <div class="p-2 mt-1">
+                <div class="mat-table admin-table">
+                    <div class="mat-header-row">
+                        <div class="mat-header-cell">{{ 'account.addresses.type' | translate }}</div>
+                        <div class="mat-header-cell">{{ 'account.addresses.name' | translate }}</div>
+                        <div class="mat-header-cell">{{ 'account.addresses.country' | translate }}</div>
+                        <div class="mat-header-cell">{{ 'account.addresses.locality' | translate }}</div> 
+                        <div class="mat-header-cell">{{ 'account.addresses.address' | translate }}</div>
+                        <div class="mat-header-cell"></div>
+                    </div>
+                    <div *ngFor="let address of addresses" class="mat-row">
+                        <div class="mat-cell" data-label="{{ 'account.addresses.type' | translate }}">{{ 'account.addresses.' + address.billingAddressType | lowercase | translate }}</div>
+                        <div class="mat-cell" data-label="{{ 'account.addresses.name' | translate }}">{{ address.billingAddressType == 'PF' ? address.firstName + ' ' + address.lastName : address.companyName }}</div>
+                        <div class="mat-cell" data-label="{{ 'account.addresses.country' | translate }}">{{ address.countryName }}</div>
+                        <div class="mat-cell" data-label="{{ 'account.addresses.locality' | translate }}">{{ address.locality }}</div>
+                        <div class="mat-cell" data-label="{{ 'account.addresses.address' | translate }}">{{ address.streetAddress }}</div>
+                        <div class="mat-cell text text-right"> 
+                        <button mat-icon-button color="primary" matTooltip="{{ 'account.addresses.set-default' | translate }}" [disabled]="address.isDefault" (click)="setAsDefault(address)">
+                            <mat-icon>check</mat-icon>
+                        </button>        
+                        <button mat-icon-button color="primary" matTooltip="{{ 'edit' | translate }}" (click)="openAddressDialog(address)">
+                            <mat-icon>edit</mat-icon>
+                        </button>
+                        <button mat-icon-button color="warn" matTooltip="{{ 'delete' | translate }}" class="mx-1" (click)="remove(address)">
+                            <mat-icon>delete</mat-icon>
+                        </button>
+                        </div>      
+                    </div>
+                </div>
+            </div>
+        </mat-tab>
+        <mat-tab *ngIf="!currentUser.isCompany" label="{{ 'account.addresses.affiliated-addresses' | translate }}">
+            <div class="p-2 mt-1">
+                <div class="mat-table admin-table">
+                    <div class="mat-header-row">
+                        <div class="mat-header-cell">{{ 'account.addresses.affiliated-company' | translate }}</div>
+                        <div class="mat-header-cell">{{ 'account.addresses.monthly-hours' | translate }}</div>
+                        <div class="mat-header-cell">{{ 'account.addresses.remaining-hours' | translate }}</div>
+                        <div class="mat-header-cell">{{ 'account.addresses.country' | translate }}</div>
+                        <div class="mat-header-cell">{{ 'account.addresses.locality' | translate }}</div> 
+                        <div class="mat-header-cell">{{ 'account.addresses.address' | translate }}</div>
+                        <div class="mat-header-cell"></div>
+                    </div>
+                    <div *ngFor="let address of affiliatedAddresses" class="mat-row">
+                        <div class="mat-cell" data-label="Company">Logic Software</div>
+                        <div class="mat-cell" data-label="{{ 'account.addresses.monthly-hours' | translate }}">20</div>
+                        <div class="mat-cell" data-label="{{ 'account.addresses.remaining-hours' | translate }}">5</div>
+                        <div class="mat-cell" data-label="{{ 'account.addresses.country' | translate }}">{{ address.countryName }}</div>
+                        <div class="mat-cell" data-label="{{ 'account.addresses.locality' | translate }}">{{ address.locality }}</div>
+                        <div class="mat-cell" data-label="{{ 'account.addresses.address' | translate }}">{{ address.streetAddress }}</div>
+                        <div class="mat-cell text text-right"> 
+                        <button mat-icon-button color="primary" matTooltip="{{ 'account.addresses.set-default' | translate }}" [disabled]="address.isDefault" (click)="setAsDefault(address)">
+                            <mat-icon>check</mat-icon>
+                        </button>        
+                        </div>      
+                    </div>
+                </div>
+            </div>
+        </mat-tab>
+    </mat-tab-group>
+</div>

@@ -1,0 +1,26 @@
+<mat-divider class="space-for-toolbar"></mat-divider>
+<mat-sidenav-container>
+    <mat-sidenav #sidenav [opened]="sidenavOpen" [mode]="sidenavOpen ? 'side' : 'over'" class="account-sidenav" perfectScrollbar>
+        <mat-nav-list class="h-100">
+            <mat-list-item>              
+                <mat-icon matListIcon class="mat-icon-sm">dashboard</mat-icon>
+                <a matLine [routerLink]="'dashboard'" routerLinkActive="horizontal-active-link" [routerLinkActiveOptions]="{exact:true}">{{ 'account.dashboard.menu-title' | translate }}</a>
+            </mat-list-item>
+            <mat-list-item *ngFor="let link of dashboardLinks">              
+                <mat-icon matListIcon class="mat-icon-sm">{{ link.icon }}</mat-icon>
+                <a matLine [routerLink]="link.id" routerLinkActive="horizontal-active-link" [routerLinkActiveOptions]="{exact:true}">{{ 'account.' + link.id + '.menu-title' | translate }}</a>
+            </mat-list-item>
+        </mat-nav-list>
+    </mat-sidenav>
+    <mat-sidenav-content class="account-content" ngClass.gt-sm="p-left">
+        <div fxLayout="row" fxLayoutAlign="space-between center" class="header-row text-muted">
+            <button *ngIf="!sidenavOpen" mat-icon-button (click)="sidenav.toggle()">
+                <mat-icon>more_vert</mat-icon>
+            </button>
+            <h2 class="m-0">{{ 'account.title' | translate }}</h2>
+        </div>
+        <div class="account-wrapper">
+            <router-outlet></router-outlet>
+        </div>  
+    </mat-sidenav-content>
+</mat-sidenav-container>

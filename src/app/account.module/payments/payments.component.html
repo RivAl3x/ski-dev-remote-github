@@ -1,0 +1,20 @@
+<div class="mat-table admin-table">
+    <div class="mat-header-row">
+      <div class="mat-header-cell">Reservation No.</div>
+      <div class="mat-header-cell">Date added</div>
+      <div class="mat-header-cell">Status</div>
+      <div class="mat-header-cell">Total</div>
+      <div class="mat-header-cell"></div>
+    </div>
+    <div *ngFor="let payment of payments" class="mat-row">
+      <div class="mat-cell" data-label="Reservation No."><span class="order">{{payment.number}}</span></div>
+      <div class="mat-cell" data-label="Date">{{payment.date}}</div>
+      <div class="mat-cell" data-label="Status">{{payment.status}}</div>
+      <div class="mat-cell" data-label="Total">{{payment.total}}€ for {{payment.items}} items</div>     
+      <div class="mat-cell text-right">          
+        <button mat-icon-button color="primary" matTooltip="View" [routerLink]="['/account/payments', payment.id]">
+          <mat-icon>remove_red_eye</mat-icon>
+        </button>
+      </div>      
+    </div>
+  </div>

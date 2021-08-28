@@ -1,0 +1,115 @@
+<div id="step-description" [formGroup]="listingForm">
+  <mat-form-field appearance="legacy" formGroupName="description">
+    <mat-label>{{ 'host.listing.description' | translate }}</mat-label>
+    <textarea matInput formControlName="description"></textarea>
+    <!-- <mat-error *ngIf="listingForm.controls.listingName.errors?.required">
+      {{ 'host.listing.name-error' | translate }}
+    </mat-error> -->
+  </mat-form-field>
+
+  <h2 class="mt-3">{{ 'host.listing.office-type-info' | translate }}</h2>
+  <div *ngFor="let officeType of officeTypes; let i=index;">
+    <mat-checkbox color="primary" [value]="officeType.id" (change)="onOfficeTypeChange($event)" [checked]="selectedOfficeTypes.includes(officeType.id)">{{ 'host.listing.' + officeType.code | translate }}</mat-checkbox>
+  </div>
+
+  <h2 class="mt-3">{{ 'host.listing.space-available-info' | translate }}</h2>
+  <mat-hint class="mb-2 d-block">{{ 'host.listing.space-available-help' | translate }}</mat-hint>
+  <ng-container formGroupName="description">
+    <ng-container formArrayName="availableSpaces">
+      <mat-card 
+        class="mb-1" 
+        *ngFor="let availableSpace of availableSpacesControls; let i=index" 
+        [formGroupName]="i" 
+        fxLayout="row" fxLayoutAlign="space-between start" fxLayoutGap="20px"
+        @inflate
+      >
+        <div fxLayout="row wrap" fxLayoutAlign="start start" fxLayoutGap="20px">
+          <mat-form-field>
+            <mat-label>{{ 'host.listing.listing-type' | translate }}</mat-label>
+            <mat-select formControlName="idOfficeType">
+              <mat-option *ngFor="let officeType of officeTypes" [value]="officeType.id">
+                {{ 'host.listing.' + officeType.code | translate }}
+              </mat-option>
+            </mat-select>
+          </mat-form-field>
+  
+          <mat-form-field>
+            <input matInput placeholder="{{ 'host.listing.office-name' | translate }}" formControlName="name">
+          </mat-form-field>
+  
+          <mat-form-field>
+            <input matInput placeholder="{{ 'host.listing.office-description' | translate }}" formControlName="description">
+          </mat-form-field>
+  
+          <mat-form-field>
+            <input matInput type="number" placeholder="{{ 'host.listing.seats-no' | translate }}" formControlName="seatsNo">
+          </mat-form-field>
+  
+          <mat-form-field>
+            <input matInput type="number" placeholder="{{ 'host.listing.units-no' | translate }}" formControlName="unitsNo">
+          </mat-form-field>
+        </div>
+        
+        <div class="p-1 actions">          
+          <button mat-icon-button color="primary" matTooltip="Copy" (click)="onDuplicateAvailableSpace(availableSpace.controls)">
+              <mat-icon>content_copy</mat-icon>
+          </button>
+          &nbsp;
+          <button mat-icon-button color="warn" matTooltip="Delete" class="mx-1" (click)="onDeleteAvailableSpace(i)">
+              <mat-icon>delete</mat-icon>
+          </button>
+        </div>
+      </mat-card>
+    </ng-container>
+  </ng-container>
+  <button type="button" mat-stroked-button (click)="onAddAvailableSpace()">{{ 'host.listing.add-space' | translate }}</button>
+
+  <h2 class="mt-3 mb-0">{{ 'host.listing.pictures-info' | translate }}</h2>
+  <div formGroupName="description">
+    <div class="list-photo" fxLayout="row wrap" fxLayoutAlign="start start">
+      <div class="sortable mr-0" [sortablejs]="images">
+        <mat-card *ngFor="let image of images; let i = index">
+          <img class="grabbable" src="{{ image.url }}" />
+          <div class="image-actions">
+            <button class="mr-1" mat-mini-fab color="primary" (click)="openGallery(i)">
+              <mat-icon>zoom_in</mat-icon>
+            </button>
+            <button mat-mini-fab color="primary" (click)="deleteImage(i)">
+              <mat-icon>delete</mat-icon>
+            </button>
+          </div>
+        </mat-card>
+      </div>                                       
+      <mat-card> 
+        <div class="ripple" matRipple>
+          <input type="file" 
+          class="custom-file-input d-none" 
+          id="file" 
+          accept="image/*"
+          formControlName="imageFiles" 
+          multiple="true"
+          (change)="imagesChangeEvent($event)">
+          <label class="" for="file">
+            <mat-icon>add</mat-icon>
+          </label>  
+        </div>                     
+      </mat-card>                    
+    </div>
+  </div>
+
+  <h2 class="mt-3 mb-0">{{ 'host.listing.amenities-info' | translate }}</h2>
+  <div *ngFor="let amenity of amenities; let i=index;">
+    <mat-checkbox color="primary" [value]="amenity.id" (change)="onAmenitiesChange($event)" [checked]="selectedAmenities.includes(amenity.id)">{{ 'host.listing.' + amenity.code | translate }}</mat-checkbox>
+  </div>
+
+</div>
+<ngx-image-gallery 
+  id="image-gallery"
+  [images]="images" 
+  [conf]="conf"
+  (onOpen)="galleryOpened($event)"
+  (onClose)="galleryClosed()"
+  (onImageClicked)="galleryImageClicked($event)"
+  (onImageChange)="galleryImageChanged($event)"
+  (onDelete)="deleteImage($event)"
+></ngx-image-gallery>

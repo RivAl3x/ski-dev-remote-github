@@ -1,0 +1,25 @@
+<h1 mat-dialog-title>{{ 'account.affiliation.add-new' | translate }}</h1>
+<form [formGroup]="form" (ngSubmit)="onSubmit()" autocomplete="off">
+    <div mat-dialog-content fxLayout="column" class="minh-200">
+        
+        <div fxFlex="100" fxLayout="row" fxLayoutAlign="space-between center" class="px-1">
+            <mat-form-field appearance="legacy" class="w-100">
+                <mat-label>{{ 'account.affiliation.token' | translate }}</mat-label>
+                <input matInput formControlName="token">
+            </mat-form-field>
+            <mat-icon *ngIf="currentUser.isCompany" class="ml-2 text-muted" matTooltip="{{ 'refresh' | translate }}" (click)="refreshToken()">loop</mat-icon>
+        </div>
+        <div *ngIf="form.contains('validationType')" fxFlex="100" fxLayout="row" fxLayoutAlign="space-between center" class="px-1">
+            <mat-radio-group formControlName="validationType" fxLayout="row" fxLayoutAlign="start start" fxLayoutGap="10px">
+                <mat-radio-button *ngFor="let type of validationTypes" [value]="type.id">{{ type.name }}</mat-radio-button>
+            </mat-radio-group> 
+        </div>
+            
+    </div>
+    <div mat-dialog-actions>
+        <div fxLayout="row wrap" fxLayoutAlign="space-between center" class="w-100"> 
+            <button mat-stroked-button type="button" mat-dialog-close>{{ 'close' | translate }}</button>
+            <button mat-flat-button color="primary" [disabled]="!form.valid" type="submit">{{ 'save' | translate }}</button>
+        </div> 
+    </div>
+</form>

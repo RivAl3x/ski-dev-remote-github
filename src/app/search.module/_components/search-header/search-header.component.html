@@ -1,0 +1,39 @@
+<form [formGroup]="form" fxLayout="row" fxLayoutAlign="space-around start" fxLayoutGap="10px" class="search-header border-muted">
+  <!-- <mat-form-field fxFlex>
+    <mat-label>{{ 'search.office-types' | translate }}</mat-label>
+    <mat-select formControlName="officeTypes" multiple>
+      <mat-option *ngFor="let officeType of officeTypes" [value]="officeType.id">{{ 'host.listing.' + officeType.code | translate }}</mat-option>
+    </mat-select>
+  </mat-form-field> -->
+  <mat-form-field fxFlex>
+    <mat-label>{{ 'search.location-search' | translate }}</mat-label>
+    <input matInput formControlName="location">
+  </mat-form-field>
+  <!-- <mat-form-field fxFlex>
+    <mat-label>{{ 'search.start-date' | translate }}</mat-label>
+    <input matInput [matDatepicker]="startDate" formControlName="startDate">
+    <mat-datepicker-toggle matSuffix [for]="startDate"></mat-datepicker-toggle>
+    <mat-datepicker #startDate></mat-datepicker>
+  </mat-form-field> -->
+  <mat-form-field fxFlex>
+    <mat-label>{{ 'search.range' | translate }}</mat-label>
+    <mat-date-range-input formGroupName="range" [rangePicker]="picker" (click)="picker.open()">
+      <input matStartDate formControlName="startDate" placeholder="{{ 'search.start-date' | translate }}" readonly>
+      <input matEndDate formControlName="endDate" placeholder="{{ 'search.end-date' | translate }}" readonly>
+    </mat-date-range-input>
+    <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+    <mat-date-range-picker touchUi #picker></mat-date-range-picker>
+  </mat-form-field>
+  <mat-form-field fxFlex>
+    <mat-label>{{ 'search.participants' | translate }}</mat-label>
+    <input matInput type="number" formControlName="participants">
+  </mat-form-field>
+  <span [matTooltipDisabled]="form.valid" matTooltip="{{ 'search.disabled-help' | translate }}" matTooltipPosition="below">
+    <button type="button" mat-mini-fab [disabled]="!form.valid" (click)="searchSubmit()" color="primary" class="search-btn">
+      <mat-icon>search</mat-icon>
+    </button>
+  </span>
+  <!-- <button mat-mini-fab (click)="searchSubmit()" type="button" class="search-btn mat-elevation-z0 text-muted">
+    <mat-icon>search</mat-icon>
+  </button>  -->
+</form>

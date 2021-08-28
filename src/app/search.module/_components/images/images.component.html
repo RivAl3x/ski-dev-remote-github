@@ -1,0 +1,35 @@
+<div class="banners-container" fxLayout="column" fxLayout.gt-sm="row" *ngIf="images.length > 0">
+    <div fxLayout="row" fxLayout.gt-sm="column" fxLayout.xs="column" fxFlex="100" fxFlex.gt-sm="50">
+        <div class="banner" fxFlex="100" fxFlex.gt-sm="100" [style.background-image]="images[0] ? 'url(' + images[0].url  + ')' : 'url(assets/images/no-image.jpg)'" (click)="openGallery(0)">
+            <div class="info" fxLayoutAlign="start start"></div> 
+        </div>
+    </div>
+    <div fxLayout="row" fxLayout.gt-sm="column" fxLayout.xs="column" fxFlex="100" fxFlex.gt-sm="50">
+        <div fxLayout="row" fxFlex="100" fxFlex.gt-sm="50">
+            <div class="banner" fxFlex [style.background-image]="images[1] ? 'url(' + images[1].url  + ')' : 'url(assets/images/no-image.jpg)'" (click)="openGallery(1)">
+                <div class="info" fxLayoutAlign="space-around center"></div>
+            </div>
+            <div class="banner" fxFlex [style.background-image]="images[2] ? 'url(' + images[2].url  + ')' : 'url(assets/images/no-image.jpg)'" (click)="openGallery(2)">
+                <div class="info" fxLayoutAlign="center center"></div> 
+            </div>
+        </div>
+        <div fxLayout="row" fxFlex="100" fxFlex.gt-sm="50">
+            <div class="banner" fxFlex [style.background-image]="images[3] ? 'url(' + images[3].url  + ')' : 'url(assets/images/no-image.jpg)'" (click)="openGallery(3)">
+                <div class="info" fxLayoutAlign="space-around center"></div>
+            </div>
+            <div class="banner" fxFlex [style.background-image]="images[4] ? 'url(' + images[4].url  + ')' : 'url(assets/images/no-image.jpg)'" (click)="openGallery(4)">
+                <div class="info" fxLayoutAlign="center center"></div> 
+            </div>
+        </div>
+    </div>
+</div>
+<ngx-image-gallery 
+  id="image-gallery"
+  [images]="images" 
+  [conf]="conf"
+  (onOpen)="galleryOpened($event)"
+  (onClose)="galleryClosed()"
+  (onImageClicked)="galleryImageClicked($event)"
+  (onImageChange)="galleryImageChanged($event)"
+  (onDelete)="deleteImage($event)"
+></ngx-image-gallery>

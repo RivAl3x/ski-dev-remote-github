@@ -1,0 +1,17 @@
+<p *ngIf="user" class="text-muted">{{ 'account.dashboard.menu-description' | translate:{'name':user.fullName} }}</p>
+
+<div fxLayout="row wrap" class="flex-wrapper">
+  <div *ngFor="let card of dashboardCards" fxFlex="33.3" fxFlex.sm="50" fxFlex.xs="100" class="col">
+    <mat-card class="p-0">
+      <a class="no-link-style" [routerLink]="'/account/' + card.id">
+        <mat-card-header class="p-1 account-card-title" fxLayoutAlign="space-between">
+          <mat-icon color="primary" class="mat-icon-lg">{{ card.icon }}</mat-icon>
+          <mat-card-title class="m-0"><h3>{{ 'account.' + card.id + '.menu-title' | translate }}</h3></mat-card-title>
+        </mat-card-header>
+        <mat-card-content class="p-2 text-muted account-card-content">
+          <p>{{ 'account.' + card.id + '.menu-description' | translate }}</p>
+        </mat-card-content>
+      </a>
+    </mat-card>
+  </div>
+</div>

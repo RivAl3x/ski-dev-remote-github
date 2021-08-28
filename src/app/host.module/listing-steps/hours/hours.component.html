@@ -1,0 +1,84 @@
+<div id="step-hours" [formGroup]="listingForm">
+  <h2 class="mt-3">{{ 'host.listing.hours-info' | translate }}</h2>
+
+  <mat-hint class="mt-2 d-block">{{ 'host.listing.monday-friday' | translate }}</mat-hint>
+  <div fxLayout="row wrap" fxLayoutAlign="start center" fxLayoutGap="20px">
+    <mat-form-field formGroupName="hours" *ngIf="!differentHoursValue" @inflate>
+      <input matInput
+        formControlName="fromHours"
+        format="24"
+        [ngxMatTimepicker]="pickerFromHours"
+        placeholder="from"
+        readonly 
+        [disabled]="differentHoursValue"
+      />
+      <mat-icon matSuffix (click)="pickerFromHours.open()">watch_later</mat-icon>
+    </mat-form-field>
+      
+    <mat-form-field formGroupName="hours" *ngIf="!differentHoursValue" @inflate>
+      <input matInput
+        formControlName="toHours"
+        format="24"
+        [ngxMatTimepicker]="pickerToHours"
+        placeholder="to"
+        readonly
+        [disabled]="differentHoursValue"
+      />
+      <mat-icon matSuffix (click)="pickerToHours.open()">watch_later</mat-icon>
+    </mat-form-field>
+    
+    <ng-container formGroupName="hours">
+      <mat-checkbox color="primary" formControlName="differentHours" (change)="onDifferentHoursChange($event)">{{ 'host.listing.different' | translate }}</mat-checkbox>
+    </ng-container>
+  </div>
+  <ngx-mat-timepicker #pickerFromHours></ngx-mat-timepicker>
+  <ngx-mat-timepicker #pickerToHours></ngx-mat-timepicker>
+
+  <div class="mb-3" fxLayout="row" fxLayoutAlign="start center" fxLayoutGap="20px" formGroupName="hours">
+    <mat-checkbox color="primary" formControlName="satOpen" (change)="onSatOpenChange($event)">{{ 'host.listing.sat-open' | translate }}</mat-checkbox>
+    <mat-checkbox color="primary" formControlName="sunOpen" (change)="onSunOpenChange($event)">{{ 'host.listing.sun-open' | translate }}</mat-checkbox>
+  </div>
+
+  <ng-container formGroupName="hours">
+    <ng-container formArrayName="availableHours">
+      <ng-container class="mb-3" *ngFor="let availableHours of availableHoursControls; let i=index" [formGroupName]="i">
+        <div *ngIf="(differentHoursValue && workdays.includes(availableHours.controls.weekday.value)) || !workdays.includes(availableHours.controls.weekday.value)" @inflate>
+          <mat-form-field >
+            <input matInput
+              formControlName="weekday"
+              placeholder="{{ 'host.listing.select-day' | translate }}"
+              readonly 
+            />
+          </mat-form-field>
+          <div fxLayout="row wrap" fxLayoutAlign="start center" fxLayoutGap="20px">
+            <mat-form-field >
+              <input matInput
+                formControlName="fromHours"
+                format="24"
+                [ngxMatTimepicker]="pickerFromHours"
+                placeholder="from"
+                readonly
+              />
+              <mat-icon matSuffix (click)="pickerFromHours.open()">watch_later</mat-icon>
+            </mat-form-field>
+            <ngx-mat-timepicker #pickerFromHours></ngx-mat-timepicker>
+              
+            <mat-form-field >
+              <input matInput
+                formControlName="toHours"
+                format="24"
+                [ngxMatTimepicker]="pickerToHours"
+                placeholder="to"
+                readonly 
+              />
+              <mat-icon matSuffix (click)="pickerToHours.open()">watch_later</mat-icon>
+            </mat-form-field>
+          </div>
+          <ngx-mat-timepicker #pickerToHours></ngx-mat-timepicker>
+        </div>
+      </ng-container>
+    </ng-container>
+  </ng-container>
+  
+  
+</div>

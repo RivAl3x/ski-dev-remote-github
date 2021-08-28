@@ -1,0 +1,69 @@
+<div id="listings" class="container col-md-12">
+  <mat-card-header class="p-1" fxLayoutAlign="space-between">
+    <!-- <div class="button-container">
+      <button type="button" mat-stroked-button>{{ 'host.listing.create-listing' | translate }}</button>
+    </div> -->
+    <mat-card-title class="m-0"><h2>
+      {{ 'host.listing.published-list' | translate }}
+    </h2></mat-card-title>
+  </mat-card-header>
+
+  <mat-expansion-panel class="mb-2">
+    <mat-expansion-panel-header>
+      <mat-panel-title>
+        {{ 'host.listing.filters' | translate }}
+      </mat-panel-title>
+      <mat-panel-description>
+        <span fxShow="false" fxShow.gt-sm >{{ 'host.listing.filters-help-inhouse' | translate }}</span>
+        <mat-icon>filter_alt</mat-icon>
+      </mat-panel-description>
+    </mat-expansion-panel-header>
+
+    <mat-form-field>
+      <mat-label>{{ 'host.listing.listing-name' | translate }}</mat-label>
+      <input matInput (keyup)="applyKeywordFilter($event)" #input>
+    </mat-form-field>
+  
+    <mat-form-field>
+      <mat-label>{{ 'host.listing.office-type' | translate }}</mat-label>
+      <mat-select (selectionChange)="applyOfficeTypeFilter($event)" multiple>
+        <mat-option *ngFor="let officeType of officeTypes" [value]="officeType.id">{{ 'host.listing.' + officeType.code | translate }}</mat-option>
+      </mat-select>
+    </mat-form-field>
+  </mat-expansion-panel>
+
+  <mat-divider></mat-divider>
+  <div class="mat-table admin-table">
+    <div class="mat-header-row">
+      <div class="mat-header-cell">{{ 'host.listing.image' | translate }}</div>
+      <div class="mat-header-cell">{{ 'host.listing.listing-name' | translate }}</div>
+      <div class="mat-header-cell">{{ 'host.listing.location' | translate }}</div>
+      <ng-container *ngIf="officeTypes">
+        <div *ngFor="let officeType of officeTypes" class="mat-header-cell">{{ 'host.listing.' + officeType.code | translate }}</div>
+      </ng-container> 
+      <div class="mat-header-cell"></div>
+    </div>
+  
+    <div *ngFor="let listing of filteredListings" class="mat-row">
+      <div class="mat-cell">
+        <ngx-skeleton-loader *ngIf="listing.description.images[0] == undefined" count="1" appearance="circle" [theme]="{
+          width: '100px',
+          height: '66px',
+          'border-radius': '1px'
+        }">
+        </ngx-skeleton-loader>
+        <img class="mt-1" width="100px" height="auto" *ngIf="listing.description.images[0] != undefined" [src]="listing.description.images[0].url">
+      </div>
+      <div class="mat-cell" data-label="{{ 'host.listing.listing-name' | translate }}">{{ listing.location.name }}</div>
+      <div class="mat-cell" data-label="{{ 'host.listing.location' | translate }}">{{ listing.location.countryName }}, {{ listing.location.locality }}</div>
+      <ng-container *ngIf="officeTypes">
+        <div *ngFor="let officeType of officeTypes" class="mat-cell" [attr.data-label]="'host.listing.' + officeType.code | translate">{{ listing.description.availableSpacesCount ? ( listing.description.availableSpacesCount | filterByIdOffice : officeType.id )?.unitsNo : '-' }}</div>
+      </ng-container>     
+      <div class="mat-cell text-right">
+        <button mat-icon-button color="primary" matTooltip="{{ 'host.listing.add-booking' | translate }}" (click)="openBookingDialog(listing)">
+          <mat-icon>list_alt</mat-icon>
+      </button>
+      </div>      
+    </div>
+  </div>
+</div>

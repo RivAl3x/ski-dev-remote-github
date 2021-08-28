@@ -1,0 +1,82 @@
+<div id="listings" class="container col-md-12">
+    <mat-card-header class="p-1" fxLayoutAlign="space-between">
+        <div class="button-container">
+            <button type="button" mat-stroked-button [routerLink]="['/account/affiliation-chart', affiliationId]">{{ 'account.affiliation.view-chart' | translate }}</button>
+        </div>
+        <mat-card-title class="m-0"><h2>
+            {{ 'account.affiliation.user-analytics' | translate }}
+        </h2></mat-card-title>
+    </mat-card-header>
+
+    <mat-divider></mat-divider>
+    <mat-tab-group >
+        <mat-tab *ngFor="let item of affiliationData" label="{{item.month}}">
+            <div class="p-2 mt-1">
+                <app-hours-usage [hoursUsage]="item.hoursUsageData"></app-hours-usage>
+                <div class="mt-2 mat-table admin-table">
+                    <div class="mat-header-row">
+                        <div class="mat-header-cell">Reservation No.</div>
+                        <div class="mat-header-cell">Building</div>
+                        <div class="mat-header-cell">Name</div>
+                        <div class="mat-header-cell">Office type</div>
+                        <div class="mat-header-cell">Period</div>
+                        <div class="mat-header-cell">Location</div>
+                        <!-- <div class="mat-header-cell"></div> -->
+                      </div>
+                      <div *ngFor="let booking of item.bookings" class="mat-row">
+                        <div class="mat-cell" data-label="Reservation No."><span class="order">{{ booking.reservationNo }}</span></div>
+                        <div class="mat-cell" data-label="Building">{{ booking.listingName }}</div>
+                        <div class="mat-cell" data-label="Name">{{ booking.officeName }}</div>
+                        <div class="mat-cell" data-label="Office type">{{ 'host.listing.' + booking.officeTypeCode | translate }}</div>     
+                        <div class="mat-cell" data-label="Period">{{ booking.checkin | date:"dd.MM.YYYY', ' HH:mm" }} - {{ booking.checkout | date:"dd.MM.YYYY', ' HH:mm" }}</div>     
+                        <div class="mat-cell text-left" data-label="Location">
+                          <a class="p-0" mat-button href="{{ 'https://www.google.com/maps/place/' + booking.latitude + ',' + booking.longitude }}" target="_blank"><mat-icon>place</mat-icon> View on map</a>
+                        </div>     
+                        <!-- <div class="mat-cell text-right">   
+                          <button mat-icon-button color="primary" matTooltip="Contact Host" (click)="openBottomSheet(booking.id)">
+                            <mat-icon>chat</mat-icon>
+                          </button>       
+                          <button mat-icon-button color="warn" matTooltip="Cancel reservation" [routerLink]="['/account/bookings', booking.id]">
+                            <mat-icon>clear</mat-icon>
+                          </button>
+                        </div>  -->     
+                      </div>
+                </div>
+            </div>
+        </mat-tab>
+        <mat-tab *ngIf="!currentUser.isCompany" label="Affiliated addresses">
+            <div class="p-2 mt-1">
+                <div class="mat-table admin-table">
+                    <div class="mat-header-row">
+                        <div class="mat-header-cell">Company</div>
+                        <div class="mat-header-cell">Monthly hours</div>
+                        <div class="mat-header-cell">Remaining hours</div>
+                        <div class="mat-header-cell">Country</div>
+                        <div class="mat-header-cell">Locality</div> 
+                        <div class="mat-header-cell">Address</div>
+                        <div class="mat-header-cell"></div>
+                    </div>
+                    <div *ngFor="let address of affiliatedAddresses" class="mat-row">
+                        <div class="mat-cell" data-label="Company">Logic Software</div>
+                        <div class="mat-cell" data-label="Monthly hours">20</div>
+                        <div class="mat-cell" data-label="Remaining hours">5</div>
+                        <div class="mat-cell" data-label="Country">{{ address.countryName }}</div>
+                        <div class="mat-cell" data-label="Locality">{{ address.locality }}</div>
+                        <div class="mat-cell" data-label="Address">{{ address.streetAddress }}</div>
+                        <div class="mat-cell text text-right"> 
+                        <button mat-icon-button color="primary" matTooltip="Set as default address" [disabled]="address.isDefault" (click)="setAsDefault(address)">
+                            <mat-icon>check</mat-icon>
+                        </button>        
+                        <!-- <button mat-icon-button color="primary" matTooltip="Edit" (click)="openAddressDialog(address)">
+                            <mat-icon>edit</mat-icon>
+                        </button>
+                        <button mat-icon-button color="warn" matTooltip="Delete" class="mx-1" (click)="remove(address)">
+                            <mat-icon>delete</mat-icon>
+                        </button> -->
+                        </div>      
+                    </div>
+                </div>
+            </div>
+        </mat-tab>
+    </mat-tab-group>
+</div>

@@ -1,0 +1,67 @@
+<h1 mat-dialog-title>Payment options</h1>
+<form [formGroup]="form" (ngSubmit)="onSubmit()" autocomplete="off">
+    <div mat-dialog-content>
+        <div fxLayout="row wrap">
+            <div fxFlex="100" fxFlex.gt-sm="33.3" class="px-1">
+                <mat-form-field appearance="legacy" class="w-100">
+                    <mat-label>{{ 'host.listing.bank' | translate }}</mat-label>
+                    <input matInput formControlName="bank">
+                </mat-form-field>
+            </div>
+            <div fxFlex="100" fxFlex.gt-sm="33.3" class="px-1">
+                <mat-form-field appearance="legacy" class="w-100">
+                    <mat-label>{{ 'host.listing.iban' | translate }}</mat-label>
+                    <input matInput formControlName="iban">
+                </mat-form-field>
+            </div>
+            <div fxFlex="100" fxFlex.gt-sm="33.3" class="px-1">
+                <mat-form-field appearance="legacy" class="w-100">
+                    <mat-label>{{ 'host.listing.swift' | translate }}</mat-label>
+                    <input matInput formControlName="swift">
+                </mat-form-field>
+            </div>
+            <div fxFlex="100" fxFlex.gt-sm="33.3" class="px-1">
+                <mat-form-field appearance="legacy" class="w-100">
+                    <mat-label>{{ 'host.listing.locality' | translate }}</mat-label>
+                    <input matInput formControlName="locality">
+                </mat-form-field>
+            </div>
+            <div fxFlex="100" fxFlex.gt-sm="33.3" class="px-1">
+                <mat-form-field appearance="legacy" class="w-100">
+                    <mat-label>{{ 'host.listing.street' | translate }}</mat-label>
+                    <input matInput formControlName="street">
+                </mat-form-field>
+            </div>
+            <div fxFlex="100" fxFlex.gt-sm="33.3" class="px-1">
+                <mat-form-field appearance="legacy" class="w-100">
+                    <mat-label>{{ 'host.listing.street-no' | translate }}</mat-label>
+                    <input matInput formControlName="streetNo">
+                </mat-form-field>
+            </div>
+            <div fxFlex="100" fxFlex.gt-sm="33.3" class="px-1">
+                <mat-form-field appearance="legacy" class="w-100">
+                    <mat-label>{{ 'host.listing.apartment' | translate }}</mat-label>
+                    <input matInput formControlName="apartment">
+                </mat-form-field>
+            </div>
+            <div fxFlex="100" fxFlex.gt-sm="33.3" class="px-1">
+                <mat-form-field appearance="legacy" class="w-100">
+                    <mat-label>{{ 'host.listing.floor' | translate }}</mat-label>
+                    <input matInput formControlName="floor">
+                </mat-form-field>
+            </div>
+            <div fxFlex="100" fxFlex.gt-sm="33.3" class="px-1">
+                <mat-form-field appearance="legacy" class="w-100">
+                    <mat-label>{{ 'host.listing.zip-code' | translate }}</mat-label>
+                    <input matInput formControlName="zipCode">
+                </mat-form-field>
+            </div>
+        </div>
+    </div>
+    <div mat-dialog-actions>
+        <div fxLayout="row" fxLayoutAlign="space-between center" class="w-100"> 
+            <button mat-stroked-button type="button" mat-dialog-close>Close</button>
+            <button mat-flat-button color="primary" type="submit">Save</button>
+        </div> 
+    </div>
+</form>

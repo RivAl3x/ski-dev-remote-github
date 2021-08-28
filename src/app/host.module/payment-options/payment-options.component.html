@@ -1,0 +1,37 @@
+<div id="listings" class="container col-md-12">
+    <mat-card-header class="p-1" fxLayoutAlign="space-between">
+        <div class="button-container">
+            <button type="button" mat-stroked-button (click)="openPaymentDialog(null)">{{ 'host.payments.add-new' | translate }}</button>
+        </div>
+        <mat-card-title class="m-0"><h2>
+        {{ 'host.payments.title' | translate }}
+        </h2></mat-card-title>
+    </mat-card-header>
+  
+    <mat-divider></mat-divider>
+    <div class="mat-table admin-table">
+        <div class="mat-header-row">
+            <div class="mat-header-cell">Bank</div>
+            <div class="mat-header-cell">Iban</div> 
+            <div class="mat-header-cell">Swift</div>
+            <div class="mat-header-cell">Locality</div>
+            <div class="mat-header-cell">Address</div>
+            <div class="mat-header-cell"></div>
+        </div>
+        <div *ngFor="let payment of payments" class="mat-row">
+            <div class="mat-cell" data-label="Bank">{{ payment.bank }}</div>
+            <div class="mat-cell" data-label="Iban">{{ payment.iban }}</div>
+            <div class="mat-cell" data-label="Swift">{{ payment.swift }}</div>
+            <div class="mat-cell" data-label="Locality">{{ payment.locality }}</div> 
+            <div class="mat-cell" data-label="Address">{{ payment.street }} {{ payment.streetNo }}</div>    
+            <div class="mat-cell text-right">          
+                <button mat-icon-button color="primary" matTooltip="Edit" (click)="openPaymentDialog(payment)">
+                    <mat-icon>edit</mat-icon>
+                </button>
+                <button mat-icon-button color="warn" matTooltip="Delete" class="mx-1" (click)="remove(payment)">
+                    <mat-icon>delete</mat-icon>
+                </button>
+            </div>      
+        </div>
+    </div>
+</div>

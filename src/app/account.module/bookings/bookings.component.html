@@ -1,0 +1,52 @@
+<div class="wrapper">
+  <div fxLayout="row wrap" fxLayoutAlign="space-between center">
+    <div *ngIf="bookings.length > 0" class="mb-2"> 
+      <mat-card class="p-0 text-left mat-elevation-z0">           
+        <button *ngFor="let type of filters" class="mr-1" mat-flat-button [color]="type.id == typeId ? 'accent' : 'primary'" (click)="onChangeType(type.id)">{{ type.name }}</button>
+      </mat-card>
+    </div>
+    <div class="mb-2"> 
+      <mat-card class="p-0 text-left mat-elevation-z0">           
+        <button class="mr-1" mat-stroked-button color="accent" [routerLink]="['/account/bookings-calendar']">{{ 'account.bookings.view-calendar' | translate }}</button>
+      </mat-card>
+    </div>
+  </div>
+  
+  
+  <div class="mat-table admin-table">
+    <div class="mat-header-row">
+      <div class="mat-header-cell">{{ 'account.bookings.reservation-no' | translate }}</div>
+      <div class="mat-header-cell">{{ 'account.bookings.building' | translate }}</div>
+      <div class="mat-header-cell">{{ 'account.bookings.office-name' | translate }}</div>
+      <div class="mat-header-cell">{{ 'account.bookings.office-type' | translate }}</div>
+      <div class="mat-header-cell">{{ 'account.bookings.period' | translate }}</div>
+      <div class="mat-header-cell">{{ 'account.bookings.location' | translate }}</div>
+      <div class="mat-header-cell"></div>
+    </div>
+    <div *ngFor="let booking of bookings | paginate: { itemsPerPage: pageSize, currentPage: pageNumber }" class="mat-row">
+      <div class="mat-cell" data-label="{{ 'account.bookings.reservation-no' | translate }}"><span class="order">{{ booking.reservationNo }}</span></div>
+      <div class="mat-cell" data-label="{{ 'account.bookings.building' | translate }}">{{ booking.listingName }}</div>
+      <div class="mat-cell" data-label="{{ 'account.bookings.office-name' | translate }}">{{ booking.officeName }}</div>
+      <div class="mat-cell" data-label="{{ 'account.bookings.office-type' | translate }}">{{ 'host.listing.' + booking.officeTypeCode | translate }}</div>     
+      <div class="mat-cell" data-label="{{ 'account.bookings.period' | translate }}">{{ booking.checkin | date:"dd.MM.YYYY', ' HH:mm" }} - {{ booking.checkout | date:"dd.MM.YYYY', ' HH:mm" }}</div>     
+      <div class="mat-cell text-left" data-label="{{ 'account.bookings.location' | translate }}">
+        <a class="p-0" mat-button href="{{ 'https://www.google.com/maps/place/' + booking.latitude + ',' + booking.longitude }}" target="_blank"><mat-icon>place</mat-icon> {{ 'account.bookings.get-directions' | translate }}</a>
+      </div>     
+      <div class="mat-cell text-right">   
+        <button mat-icon-button color="primary" matTooltip="{{ 'account.bookings.contact-host' | translate }}" (click)="openBottomSheet(booking.id)">
+          <mat-icon>chat</mat-icon>
+        </button>       
+        <button mat-icon-button color="warn" matTooltip="{{ 'account.bookings.cancel-reservation' | translate }}" [routerLink]="['/account/bookings', booking.id]">
+          <mat-icon>clear</mat-icon>
+        </button>
+      </div>      
+    </div>
+  </div>
+  <div *ngIf="bookings.length > 0" fxLayout="row wrap">
+    <div fxFlex="100"> 
+        <mat-card class="p-0 text-right mat-elevation-z0">           
+            <pagination-controls class="product-pagination" autoHide="true" maxSize="5" (pageChange)="onPageChanged($event)"></pagination-controls>
+        </mat-card>
+    </div>
+  </div>
+</div>

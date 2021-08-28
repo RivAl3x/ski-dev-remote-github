@@ -1,0 +1,48 @@
+<div id="listings" class="container col-md-12">
+    <mat-card-header class="p-1" fxLayoutAlign="space-between">
+      <div class="button-container">
+        <button class="mr-1" mat-stroked-button color="accent" [routerLink]="['/host/bookings']">{{ 'host.bookings.view-list' | translate }}</button>
+      </div>
+      <mat-card-title class="m-0"><h2>
+        {{ 'host.bookings.calendar' | translate }}
+      </h2></mat-card-title>
+    </mat-card-header>
+  
+    <mat-expansion-panel class="mb-2">
+      <mat-expansion-panel-header>
+        <mat-panel-title>
+          {{ 'host.bookings.filters' | translate }}
+        </mat-panel-title>
+        <mat-panel-description>
+          <span fxShow="false" fxShow.gt-sm >{{ 'host.bookings.filters-calendar-help' | translate }}</span>
+          <mat-icon>filter_alt</mat-icon>
+        </mat-panel-description>
+      </mat-expansion-panel-header>
+  
+      <form [formGroup]="form" fxLayout="row" fxLayoutAlign="space-around start" fxLayoutGap="10px" class="search-header">
+        <mat-form-field fxFlex>
+          <mat-label>{{ 'host.bookings.building' | translate }}</mat-label>
+          <input matInput formControlName="buildingName">
+        </mat-form-field>
+        <mat-form-field fxFlex>
+          <mat-label>{{ 'host.bookings.office-type' | translate }}</mat-label>
+          <mat-select formControlName="officeTypes" multiple>
+            <mat-option *ngFor="let officeType of officeTypes" [value]="officeType.id">{{ 'host.listing.' + officeType.code | translate }}</mat-option>
+          </mat-select>
+        </mat-form-field>
+        <mat-form-field fxFlex>
+          <mat-label>{{ 'host.bookings.office-name' | translate }}</mat-label>
+          <input matInput formControlName="officeName">
+        </mat-form-field>
+        <span [matTooltipDisabled]="form.value" matTooltip="{{ 'host.bookings.disabled-help' | translate }}" matTooltipPosition="below">
+          <button type="button" mat-mini-fab color="primary" [disabled]="!form.value" (click)="filterSubmit()" class="search-btn mat-elevation-z0 text-muted">
+            <mat-icon>search</mat-icon>
+          </button>
+        </span>
+      </form>
+    </mat-expansion-panel>
+  
+    <!-- <mat-divider></mat-divider> -->
+    
+    <full-calendar #calendar deepChangeDetection="true" [options]="calendarOptions"></full-calendar>
+  </div>

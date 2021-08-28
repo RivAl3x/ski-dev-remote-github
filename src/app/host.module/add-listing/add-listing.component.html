@@ -1,0 +1,117 @@
+<div id="listing" class="container col-md-12">
+  <form *ngIf="listingForm!=undefined" id="listingForm" [formGroup]="listingForm">
+    <mat-card-header class="p-1" fxLayout="row wrap" fxLayoutAlign="space-between center">
+      <div class="button-container">
+        <button type="button" mat-stroked-button (click)="onSaveListing(5)">{{ 'host.listing.save-draft' | translate }}</button>
+        &nbsp;
+        <span [matTooltipDisabled]="listingForm.valid" [matTooltip]="'Please fill all fields to post your listing!'" matTooltipPosition="above">
+          <button type="button" mat-flat-button color="primary" [disabled]="!listingForm.valid" (click)="onSaveListing(4)">{{ 'host.listing.post-listing' | translate }}</button>
+        </span>
+      </div>
+      <mat-card-title class="m-0"><h2>
+        {{ 'host.listing.title' | translate }}
+      </h2></mat-card-title>
+    </mat-card-header>
+
+    <mat-horizontal-stepper #stepper (selectionChange)="onStepChange($event)">
+
+      <mat-step  
+        formGroupName="location" 
+        errorMessage="{{ 'host.listing.step-error' | translate }}"
+        [stepControl]="listingForm.get('location')">
+        <ng-template matStepLabel>{{ 'host.listing.step-location' | translate }}</ng-template>
+        <app-location 
+          [listingForm]="listingForm" 
+          [listingTypes]="listingTypes"
+          [countries]="countries"
+        ></app-location>
+        <div class="mt-3">
+          <button type="button" mat-stroked-button matStepperNext>{{ 'host.listing.next' | translate }}</button>
+        </div>
+      </mat-step>
+
+      <mat-step 
+        formGroupName="description"
+        errorMessage="{{ 'host.listing.step-error' | translate }}"
+        [stepControl]="listingForm.get('description')">
+        <ng-template matStepLabel>{{ 'host.listing.step-description' | translate }}</ng-template>
+        <app-description 
+          [listingForm]="listingForm" 
+          [officeTypes]="officeTypes" 
+          [selectedOfficeTypes]="listing.description.officeTypes" 
+          [amenities]="amenities"
+          [selectedAmenities]="listing.description.amenities"
+          [savedAvailableSpaces]="listing.description.availableSpaces"
+          [savedImages]="listing.description.images"
+        ></app-description>
+        <div class="mt-3">
+          <button type="button" mat-stroked-button matStepperPrevious>{{ 'host.listing.previous' | translate }}</button>
+          &nbsp;
+          <button type="button" mat-stroked-button matStepperNext>{{ 'host.listing.next' | translate }}</button>
+        </div>
+      </mat-step>
+
+      <mat-step 
+        formGroupName="price"
+        errorMessage="{{ 'host.listing.step-error' | translate }}"
+        [stepControl]="listingForm.get('price')">
+        <ng-template matStepLabel>{{ 'host.listing.step-price' | translate }}</ng-template>
+        <app-price 
+          [listingForm]="listingForm"
+          [currencies]="currencies" 
+          [officeTypes]="officeTypes" 
+          [savedAvailableSpaces]="listing.description.availableSpaces"
+          [savedAvailableSpacesPrice]="listing.price.availableSpacesPrice"
+        ></app-price>
+        <div class="mt-3">
+          <button type="button" mat-stroked-button matStepperPrevious>{{ 'host.listing.previous' | translate }}</button>
+          &nbsp;
+          <button type="button" mat-stroked-button matStepperNext>{{ 'host.listing.next' | translate }}</button>
+        </div>
+      </mat-step>
+
+      <mat-step 
+        formGroupName="hours"
+        errorMessage="{{ 'host.listing.step-error' | translate }}"
+        [stepControl]="listingForm.get('hours')">
+        <ng-template matStepLabel>{{ 'host.listing.step-hours' | translate }}</ng-template>
+        <app-hours 
+          [listingForm]="listingForm"
+          [savedAvailableHours]="listing.hours.availableHours"
+        ></app-hours>
+        <div class="mt-3">
+          <button type="button" mat-stroked-button matStepperPrevious>{{ 'host.listing.previous' | translate }}</button>
+          &nbsp;
+          <button type="button" mat-stroked-button matStepperNext>{{ 'host.listing.next' | translate }}</button>
+        </div>
+      </mat-step>
+
+      <mat-step 
+        errorMessage="{{ 'host.listing.step-error' | translate }}"
+        [stepControl]="listingForm.get('payment')">
+        <ng-template matStepLabel>{{ 'host.listing.step-payment' | translate }}</ng-template>
+        <app-payment 
+          [listingForm]="listingForm"
+        ></app-payment>
+        <div class="mt-3">
+          <button type="button" mat-stroked-button matStepperPrevious>{{ 'host.listing.previous' | translate }}</button>
+          &nbsp;
+          <button type="button" mat-stroked-button matStepperNext>{{ 'host.listing.next' | translate }}</button>
+        </div>
+      </mat-step>
+
+      <mat-step 
+        formGroupName="documents"
+        errorMessage="{{ 'host.listing.step-error' | translate }}"
+        [stepControl]="listingForm.get('documents')">
+        <ng-template matStepLabel>{{ 'host.listing.step-documents' | translate }}</ng-template>
+        <app-documents [listingForm]="listingForm"></app-documents>
+        <div class="mt-3">
+          <button type="button" mat-stroked-button matStepperPrevious>{{ 'host.listing.previous' | translate }}</button>
+        </div>
+      </mat-step>
+
+    </mat-horizontal-stepper>
+
+  </form>
+</div>

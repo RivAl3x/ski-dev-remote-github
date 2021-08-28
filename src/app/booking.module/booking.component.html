@@ -1,0 +1,98 @@
+<mat-divider class="space-for-toolbar"></mat-divider>
+<mat-card *ngIf="bookingService.bookingList.length == 0" fxLayout="column" fxLayoutAlign="center center" class="text-center py-5"> 
+  <svg viewBox="0 0 24 24" class="mat-icon empty-cart-icon primary-color">
+      <path d="M19 20C19 21.11 18.11 22 17 22C15.89 22 15 21.1 15 20C15 18.89 15.89 18 17 18C18.11 18 19 18.9 19 20M7 18C5.89 18 5 18.89 5 20C5 21.1 5.89 22 7 22C8.11 22 9 21.11 9 20S8.11 18 7 18M7.2 14.63L7.17 14.75C7.17 14.89 7.28 15 7.42 15H19V17H7C5.89 17 5 16.1 5 15C5 14.65 5.09 14.32 5.24 14.04L6.6 11.59L3 4H1V2H4.27L5.21 4H20C20.55 4 21 4.45 21 5C21 5.17 20.95 5.34 20.88 5.5L17.3 11.97C16.96 12.58 16.3 13 15.55 13H8.1L7.2 14.63M8.5 11H10V9H7.56L8.5 11M11 9V11H14V9H11M14 8V6H11V8H14M17.11 9H15V11H16L17.11 9M18.78 6H15V8H17.67L18.78 6M6.14 6L7.08 8H10V6H6.14Z" />
+  </svg> 
+  <h1 class="mt-3">{{ 'bookings.empty-list' | translate }}</h1>
+  <p class="text-muted">{{ 'bookings.empty-list-help' | translate }}</p>  
+  <a [routerLink]="['/']" mat-raised-button color="primary" class="mt-3">Back home</a> 
+</mat-card> 
+
+<ng-container *ngIf="bookingService.bookingList?.length > 0">
+  <mat-card *ngFor="let listing of bookingService.bookingList" class="mat-card" fxLayout="row wrap">
+    <div fxFlex="100" ngClass="mt-1">
+      <h2>{{listing.location.name}}</h2>
+      <div fxLayout="row" fxLayoutAlign="space-between center">
+          <p>{{ 'host.listing.' + listing.location.listingTypeName | translate}} - {{ listing.location.countryName }}, {{ listing.location.locality }}</p>
+          <button class="text-muted" mat-icon-button><mat-icon>favorite</mat-icon></button>
+      </div>
+    </div>
+
+    <div fxFlex="100">
+      <p>{{ 'bookings.booked-offices' | translate }}</p>
+      <div class="divider"></div>
+      <div class="mat-table admin-table">
+          <div class="mat-header-row">
+            <div class="mat-header-cell">{{ 'bookings.office-type' | translate }}</div>
+            <div class="mat-header-cell">{{ 'bookings.office-name' | translate }}</div> 
+            <div class="mat-header-cell">{{ 'bookings.units-no' | translate }}</div>
+            <div class="mat-header-cell">{{ 'bookings.price' | translate }}</div>
+            <div class="mat-header-cell">{{ 'bookings.period' | translate }}</div>
+            <div class="mat-header-cell"></div>
+          </div>
+        
+          <div *ngFor="let spacePrice of listing.bookedSpaces" class="mat-row">
+              <div class="mat-cell" data-label="{{ 'bookings.office-type' | translate }}">{{ 'host.listing.' + spacePrice.officeTypeCode | translate }}</div>
+              <div class="mat-cell" data-label="{{ 'bookings.office-name' | translate }}">{{ spacePrice.availableSpaceName }}</div>
+              <div class="mat-cell" data-label="{{ 'bookings.units-no' | translate }}">{{ spacePrice.bookedUnitsNo }} units</div>
+              <div class="mat-cell" data-label="{{ 'bookings.price' | translate }}">{{ spacePrice.bookedPrice | number : '1.2-2'}} €</div>                          
+              <div class="mat-cell" data-label="{{ 'bookings.period' | translate }}">
+                {{ spacePrice.checkin | date:"dd.MM.YYYY', ' HH:mm" }} - {{ spacePrice.checkout | date:"dd.MM.YYYY', ' HH:mm" }}
+              </div> 
+              <div class="mat-cell text-right">
+                  <button *ngIf="!spacePrice.isAvailable" mat-stroked-button matTooltip="{{ 'bookings.unavailable-help' | translate }}">
+                    <mat-icon color="warn">warning</mat-icon> 
+                    {{ 'bookings.unavailable' | translate }}
+                  </button>
+                  <button mat-flat-button color="warn" (click)="remove(listing.id, spacePrice)">{{ 'remove' | translate }}</button>
+              </div>     
+          </div>
+      </div>
+    </div>
+  </mat-card>
+
+  <mat-card class="mat-card mt-3" fxLayout="row wrap" fxLayoutAlign="space-between center">
+    <p>{{ 'bookings.total' | translate }}: <span class="fw-700">{{bookingService.totalPrice | number : '1.2-2'}}€</span></p>
+    <button mat-flat-button color="warn" (click)="clear()" matTooltipPosition="after">{{ 'clear-all' | translate }}</button>
+  </mat-card>
+
+  <mat-card *ngIf="authGuard.authenticated" class="mat-card mt-3">
+    <h3 class="mt-3 mb-2">{{ 'bookings.billing-address' | translate }}</h3>
+    <label class="mr-2">{{ addresses.length ? ('bookings.select-address' | translate) : ('bookings.no-address' | translate) }}</label>
+    <mat-tab-group >
+      <mat-tab label="{{ 'bookings.personal-addresses' | translate }}">
+        <ng-container>
+          <mat-radio-group (change)="onAddressChange(event)" [(ngModel)]="billingAddressId" class="mt-2" formControlName="id" fxLayout="column" fxLayoutAlign="space-around start" fxLayoutGap="10px">
+            <mat-radio-button *ngFor="let address of addresses; let i=index" [value]="address.id" [checked]="address.isDefault">{{ address.billingAddressType == 'PF' ? address.firstName + ' ' + address.lastName : address.companyName }} | {{ address.countryName }}, {{ address.locality }}, {{ address.streetAddress }}</mat-radio-button>
+          </mat-radio-group>
+        </ng-container>
+        <div fxLayout="row" fxLayoutAlign="space-between center">
+          <button class="mt-2" type="button" mat-stroked-button (click)="openAddressDialog(null)">{{ 'bookings.new-address' | translate }}</button>
+          <button class="mt-2" mat-flat-button type="button" color="primary"
+            (click)="confirmBooking()">
+            {{ 'bookings.confirm' | translate }}
+          </button>
+        </div>
+      </mat-tab>
+      <mat-tab *ngIf="!currentUser.isCompany" label="{{ 'bookings.affiliated-addresses' | translate }}">
+        <ng-container>
+          <mat-radio-group (change)="onAddressChange(event)" [(ngModel)]="billingAddressId" class="mt-2" formControlName="id" fxLayout="column" fxLayoutAlign="space-around start" fxLayoutGap="10px">
+            <mat-radio-button *ngFor="let address of affiliatedAddresses; let i=index" [value]="address.id" [checked]="address.isDefault">{{ address.billingAddressType == 'PF' ? address.firstName + ' ' + address.lastName : address.companyName }} | {{ address.countryName }}, {{ address.locality }}, {{ address.streetAddress }}</mat-radio-button>
+          </mat-radio-group>
+        </ng-container>
+        <div fxLayout="row" fxLayoutAlign="end center">
+          <button class="mt-2" mat-flat-button type="button" color="primary"
+            (click)="confirmBooking()">
+            {{ 'bookings.confirm' | translate }}
+          </button>
+        </div>
+      </mat-tab>
+    </mat-tab-group>
+  </mat-card>
+
+  <mat-card *ngIf="!authGuard.authenticated" class="mat-card mt-3">
+    <h3 class="mt-3 mb-2">Billing address</h3>
+    <label class="mr-2">Please login or register for booking.</label>
+  </mat-card>
+
+</ng-container>

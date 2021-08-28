@@ -1,0 +1,46 @@
+<div id="step-description" [formGroup]="listingForm">
+  <mat-form-field appearance="legacy" formGroupName="price">
+    <mat-label>{{ 'host.listing.currency' | translate }}</mat-label>
+    <mat-select matSelect formControlName="currency">
+      <mat-option>--</mat-option>
+      <mat-option *ngFor="let currency of currencies" [value]="currency.id">
+        {{ currency.code }}
+      </mat-option>
+    </mat-select>
+  </mat-form-field>
+
+  <h2 class="mt-3">{{ 'host.listing.space-price-info' | translate }}</h2>
+  <mat-hint class="mb-2 d-block">{{ 'host.listing.space-price-help' | translate }}</mat-hint>
+  <ng-container formGroupName="price">
+    <ng-container formArrayName="availableSpacesPrice">
+      <mat-card class="mb-1" *ngFor="let availableSpace of availableSpacesPriceControls; let i=index" [formGroupName]="i" fxLayout="row wrap" fxLayoutAlign="space-between start" fxLayoutGap="20px">
+        <mat-form-field>
+          <mat-label>{{ 'host.listing.listing-type' | translate }}</mat-label>
+          <mat-select formControlName="idOfficeType" [disabled]="true">
+            <mat-option *ngFor="let officeType of officeTypes" [value]="officeType.id">
+              {{ 'host.listing.' + officeType.code | translate }}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+
+        <mat-form-field>
+          <input matInput placeholder="{{ 'host.listing.office-name' | translate }}" formControlName="availableSpaceName" readonly>
+        </mat-form-field>
+
+        <mat-form-field>
+          <input matInput type="number" placeholder="{{ 'host.listing.hourly-price' | translate }}" formControlName="hourlyPrice">
+        </mat-form-field>
+
+        <mat-form-field>
+          <input matInput type="number" placeholder="{{ 'host.listing.day-price' | translate }}" formControlName="dayPrice">
+        </mat-form-field>
+
+        <mat-form-field>
+          <input matInput type="number" placeholder="{{ 'host.listing.month-price' | translate }}" formControlName="monthlyPrice">
+        </mat-form-field>
+      </mat-card>
+    </ng-container>
+  </ng-container>
+
+
+</div>

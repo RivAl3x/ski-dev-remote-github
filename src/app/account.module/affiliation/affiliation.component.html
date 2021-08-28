@@ -1,0 +1,52 @@
+<div id="listings" class="container col-md-12">
+  <mat-card-header class="p-1" fxLayoutAlign="space-between">
+      <div class="button-container">
+          <!-- <button *ngIf="currentUser.isCompany" mat-icon-button class="mr-1" color="primary" matTooltip="Affiliation settings" (click)="openSettingsDialog()">
+            <mat-icon>settings</mat-icon>
+          </button> -->
+          <button type="button" mat-stroked-button (click)="openAffiliationDialog(null)">{{ 'account.affiliation.add-new' | translate }}</button>
+      </div>
+      <mat-card-title class="m-0"><h2>
+        {{ 'account.affiliation.menu-title' | translate }}
+      </h2></mat-card-title>
+  </mat-card-header>
+
+  <mat-divider></mat-divider>
+  <div class="mat-table admin-table">
+      <div class="mat-header-row">
+          <div class="mat-header-cell">{{ 'account.affiliation.date' | translate }}</div>
+          <div class="mat-header-cell">{{ 'account.affiliation.token' | translate }}</div>
+          <div *ngIf="currentUser.isCompany" class="mat-header-cell">{{ 'account.affiliation.status' | translate }}</div>
+          <div *ngIf="currentUser.isCompany" class="mat-header-cell">{{ 'account.affiliation.user' | translate }}</div> 
+          <div *ngIf="!currentUser.isCompany" class="mat-header-cell">{{ 'account.affiliation.company' | translate }}</div> 
+          <div class="mat-header-cell"></div>
+      </div>
+      <div *ngFor="let affiliation of affiliations" class="mat-row">
+          <div class="mat-cell" data-label="{{ 'account.affiliation.date' | translate }}">{{ affiliation.dateAdded | date:"dd.MM.YYYY" }}</div>
+          <div class="mat-cell" data-label="{{ 'account.affiliation.token' | translate }}">{{ affiliation.token }}</div>
+          <div *ngIf="currentUser.isCompany" class="mat-cell" data-label="{{ 'account.affiliation.status' | translate }}">{{ affiliation.status }}</div>
+          <div *ngIf="currentUser.isCompany" class="mat-cell" data-label="{{ 'account.affiliation.user' | translate }}">{{ affiliation.user }}</div>
+          <div *ngIf="!currentUser.isCompany" class="mat-cell" data-label="{{ 'account.affiliation.company' | translate }}">{{ affiliation.companyName }}</div>
+          <div class="mat-cell text text-right">  
+            <button *ngIf="currentUser.isCompany && affiliation.status == 'pending'" mat-stroked-button (click)="approveAffiliation(affiliation.id)">
+              {{ 'account.affiliation.approve' | translate }}
+            </button>  
+            <button mat-icon-button color="primary" 
+              *ngIf="currentUser.isCompany && affiliation.status == 'generated'"
+              matTooltip="{{ 'account.affiliation.send-email' | translate }}" 
+              (click)="openEmailDialog(affiliation)">
+              <mat-icon>email</mat-icon>
+            </button>    
+            <button *ngIf="currentUser.isCompany && affiliation.status == 'approved'" mat-icon-button color="primary" matTooltip="{{ 'account.affiliation.view-analytics' | translate }}" [routerLink]="['/account/affiliation', affiliation.id]">
+              <mat-icon>analytics</mat-icon>
+            </button>
+            <button *ngIf="currentUser.isCompany && affiliation.status == 'approved'" mat-icon-button color="primary" matTooltip="{{ 'account.affiliation.manage-user-affiliation' | translate }}" (click)="openUserSettingsDialog(affiliation)">
+              <mat-icon>manage_accounts</mat-icon>
+            </button>
+            <button mat-icon-button color="warn" matTooltip="{{ 'delete' | translate }}" class="mx-1" (click)="remove(affiliation)">
+              <mat-icon>delete</mat-icon>
+            </button>
+          </div>      
+      </div>
+  </div>
+</div>

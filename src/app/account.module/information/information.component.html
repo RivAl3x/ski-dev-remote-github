@@ -1,0 +1,110 @@
+<form *ngIf="form" [formGroup]="form" (ngSubmit)="onSubmit(form.value)" fxLayout="column" fxLayoutAlign="space-around start" fxLayoutGap="10px">
+  <!-- Email address -->
+  <h2 class="mt-3">{{ 'account.info.email-address' | translate }}</h2>
+  <mat-form-field appearance="legacy">
+    <mat-label>{{ 'account.info.email-address' | translate }}</mat-label>
+    <input matInput formControlName="email">
+  </mat-form-field>
+
+  <!-- Legal name -->
+  <h2 class="mt-3">{{ 'account.info.legal-name' | translate }}</h2>
+  <div fxLayout="row" fxLayoutAlign="space-around start" fxLayoutGap="20px">
+    <mat-form-field appearance="legacy">
+      <mat-label>{{ 'account.info.first-name' | translate }}</mat-label>
+      <input matInput formControlName="firstName">
+    </mat-form-field>
+    <mat-form-field appearance="legacy">
+      <mat-label>{{ 'account.info.last-name' | translate }}</mat-label>
+      <input matInput formControlName="lastName">
+    </mat-form-field>
+    <mat-form-field appearance="legacy">
+      <mat-label>{{ 'account.info.company-name' | translate }}</mat-label>
+      <input matInput formControlName="companyName">
+    </mat-form-field>
+  </div>
+
+  <!-- Gender -->
+  <h2 class="mt-3">{{ 'account.info.gender' | translate }}</h2>
+  <div fxLayout="row" fxLayoutAlign="space-around start" fxLayoutGap="20px">
+    <mat-form-field appearance="legacy">
+      <mat-label>{{ 'account.info.gender' | translate }}</mat-label>
+      <mat-select matSelect formControlName="idGender">
+        <mat-option *ngFor="let gender of genders" [value]="gender.id">
+          {{ gender.name }}
+        </mat-option> 
+      </mat-select>
+    </mat-form-field>
+  </div>
+
+  <!-- Date of birth -->
+  <h2 class="mt-3">{{ 'account.info.birthdate' | translate }}</h2>
+  <mat-form-field appearance="legacy">
+    <mat-label>{{ 'account.info.birthdate' | translate }}</mat-label>
+    <input matInput [matDatepicker]="birthDate" formControlName="birthDate">
+    <mat-datepicker-toggle matSuffix [for]="birthDate"></mat-datepicker-toggle>
+    <mat-datepicker #birthDate></mat-datepicker>
+  </mat-form-field>
+
+  <!-- Phone number -->
+  <h2 class="mt-3">{{ 'account.info.phone-no' | translate }}</h2>
+  <mat-form-field appearance="legacy">
+    <mat-label>{{ 'account.info.phone-no' | translate }}</mat-label>
+    <input matInput formControlName="phoneNo">
+  </mat-form-field>
+
+  <!-- Government ID -->
+  <h2 class="mt-3">{{ 'account.info.government-id' | translate }}</h2>
+  <div fxLayout="row" fxLayoutAlign="space-around start" fxLayoutGap="20px">
+    <mat-form-field appearance="legacy">
+      <mat-label>{{ 'account.info.id-type' | translate }}</mat-label>
+      <mat-select matSelect formControlName="idGovernmentType">
+        <mat-option *ngFor="let governmentIdType of governmentIdTypes" [value]="governmentIdType.id">
+          {{ governmentIdType.name }}
+        </mat-option> 
+      </mat-select>
+    </mat-form-field>
+  </div>
+
+  <!-- Address-->
+  <h2 class="mt-3">{{ 'account.info.address' | translate }}</h2>
+  <div fxLayout="row" fxLayoutAlign="space-around start" fxLayoutGap="20px">
+    <mat-form-field appearance="legacy">
+      <mat-label>{{ 'account.info.street-address' | translate }}</mat-label>
+      <input matInput formControlName="streetAddress">
+    </mat-form-field>
+    <mat-form-field appearance="legacy">
+      <mat-label>{{ 'account.info.apartment-suite' | translate }}</mat-label>
+      <input matInput formControlName="apartmentSuite">
+    </mat-form-field>
+  </div>
+  <div fxLayout="row" fxLayoutAlign="space-around start" fxLayoutGap="20px">
+    <mat-form-field appearance="legacy">
+      <mat-label>{{ 'account.info.locality' | translate }}</mat-label>
+      <input matInput formControlName="locality">
+    </mat-form-field>
+    <mat-form-field appearance="legacy">
+      <mat-label>{{ 'account.info.state' | translate }}</mat-label>
+      <input matInput formControlName="state">
+    </mat-form-field>
+    <mat-form-field appearance="legacy">
+      <mat-label>{{ 'account.info.zipcode' | translate }}</mat-label>
+      <input matInput formControlName="zipCode">
+    </mat-form-field>
+  </div>
+  <div fxLayout="row" fxLayoutAlign="space-around start" fxLayoutGap="20px">
+    <mat-form-field appearance="legacy">
+      <mat-label>{{ 'account.info.country' | translate }}</mat-label>
+      <input matInput formControlName="idCountry" [matAutocomplete]="auto">
+      <mat-autocomplete #auto="matAutocomplete" [displayWith]="displayFn">
+        <mat-option *ngFor="let country of filteredCountries | async" [value]="country">
+          {{ country.name }}
+        </mat-option>
+      </mat-autocomplete>
+    </mat-form-field>
+  </div>
+
+  <div class="mt-2">
+    <button mat-flat-button color="primary" [disabled]="!form.valid">{{ 'account.info.update-button' | translate }}</button>
+  </div>
+</form>
+  

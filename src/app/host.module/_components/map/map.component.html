@@ -1,0 +1,11 @@
+<div class="w-100">
+  <div id="map"
+       leaflet
+       (leafletMapReady)="initializeMap($event)"
+       [leafletOptions]="options"
+       (leafletClick)="onMapClick($event)">
+  </div>
+</div>
+<!-- <div id="details-panel">
+  <app-map-point-form [mapPoint]="mapPoint"></app-map-point-form>
+</div> -->

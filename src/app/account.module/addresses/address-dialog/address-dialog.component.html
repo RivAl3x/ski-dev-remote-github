@@ -1,0 +1,111 @@
+<h1 mat-dialog-title>{{ 'account.addresses.dialog-title' | translate }}</h1>
+<form [formGroup]="form" (ngSubmit)="onSubmit()" autocomplete="off">
+    <div mat-dialog-content>
+        <div class="mt-2 mb-1" fxLayout="row wrap" fxLayoutAlign="start start" fxLayoutGap="20px">
+            <ng-container>
+                <mat-radio-group formControlName="billingAddressType" fxLayout="row wrap" fxLayoutAlign="start start" fxLayoutGap="10px">
+                <mat-radio-button *ngFor="let type of billingAddressTypes" [value]="type">{{ 'account.addresses.' + type | lowercase | translate}}</mat-radio-button>
+                </mat-radio-group>
+            </ng-container>
+        </div>
+        <div *ngIf="form.controls.billingAddressType.value == 'PF'" fxLayout="row wrap" @inflate>
+            <div fxFlex="100" fxFlex.gt-sm="33.3" class="px-1">
+                <mat-form-field appearance="legacy" class="w-100">
+                    <mat-label>{{ 'account.info.first-name' | translate }}</mat-label>
+                    <input matInput formControlName="firstName">
+                </mat-form-field>
+            </div>
+            <div fxFlex="100" fxFlex.gt-sm="33.3" class="px-1">
+                <mat-form-field appearance="legacy" class="w-100">
+                    <mat-label>{{ 'account.info.last-name' | translate }}</mat-label>
+                    <input matInput formControlName="lastName">
+                </mat-form-field>
+            </div>
+        </div>
+        <div *ngIf="form.controls.billingAddressType.value == 'PJ'" fxLayout="row wrap" @inflate>
+            <div fxFlex="100" fxFlex.gt-sm="33.3" class="px-1">
+                <mat-form-field appearance="legacy" class="w-100">
+                    <mat-label>{{ 'account.info.company-name' | translate }}</mat-label>
+                    <input matInput formControlName="companyName">
+                </mat-form-field>
+            </div>
+            <div fxFlex="100" fxFlex.gt-sm="33.3" class="px-1">
+                <mat-form-field appearance="legacy" class="w-100">
+                    <mat-label>{{ 'account.info.vat-id' | translate }}</mat-label>
+                    <input matInput formControlName="vatId">
+                </mat-form-field>
+            </div>
+            <div fxFlex="100" fxFlex.gt-sm="33.3" class="px-1">
+                <mat-form-field appearance="legacy" class="w-100">
+                    <mat-label>{{ 'account.info.reg-com' | translate }}</mat-label>
+                    <input matInput formControlName="regCom">
+                </mat-form-field>
+            </div>
+            <div fxFlex="100" fxFlex.gt-sm="33.3" class="px-1">
+                <mat-form-field appearance="legacy" class="w-100">
+                    <mat-label>{{ 'account.info.bank-name' | translate }}</mat-label>
+                    <input matInput formControlName="bankName">
+                </mat-form-field>
+            </div>
+            <div fxFlex="100" fxFlex.gt-sm="33.3" class="px-1">
+                <mat-form-field appearance="legacy" class="w-100">
+                    <mat-label>{{ 'account.info.bank-account' | translate }}</mat-label>
+                    <input matInput formControlName="bankAccount">
+                </mat-form-field>
+            </div>
+        </div>
+        
+        <div fxLayout="row wrap">
+            <div fxFlex="100" fxFlex.gt-sm="33.3" class="px-1">
+                <mat-form-field appearance="legacy" class="w-100">
+                    <mat-label>{{ 'account.info.street-address' | translate }}</mat-label>
+                    <input matInput formControlName="streetAddress">
+                </mat-form-field>
+            </div>
+            <div fxFlex="100" fxFlex.gt-sm="33.3" class="px-1">
+                <mat-form-field appearance="legacy" class="w-100">
+                    <mat-label>{{ 'account.info.apartment-suite' | translate }}</mat-label>
+                    <input matInput formControlName="apartmentSuite">
+                </mat-form-field>
+            </div>
+            <div fxFlex="100" fxFlex.gt-sm="33.3" class="px-1">
+                <mat-form-field appearance="legacy" class="w-100">
+                    <mat-label>{{ 'account.info.locality' | translate }}</mat-label>
+                    <input matInput formControlName="locality">
+                </mat-form-field>
+            </div>
+            <div fxFlex="100" fxFlex.gt-sm="33.3" class="px-1">
+                <mat-form-field appearance="legacy" class="w-100">
+                    <mat-label>{{ 'account.info.state' | translate }}</mat-label>
+                    <input matInput formControlName="state">
+                </mat-form-field>
+            </div>
+            <div fxFlex="100" fxFlex.gt-sm="33.3" class="px-1">
+                <mat-form-field appearance="legacy" class="w-100">
+                    <mat-label>{{ 'account.info.zipcode' | translate }}</mat-label>
+                    <input matInput formControlName="zipCode">
+                </mat-form-field>
+            </div>
+            <div fxFlex="100" fxFlex.gt-sm="33.3" class="px-1">
+                <mat-form-field appearance="legacy" class="w-100">
+                    <mat-label>{{ 'account.info.country' | translate }}</mat-label>
+                    <input type="text" matInput formControlName="country" [matAutocomplete]="auto">
+                    <mat-autocomplete #auto="matAutocomplete" [displayWith]="displayFn">
+                        <mat-option *ngFor="let country of filteredCountries | async" [value]="country">
+                        {{ country.name }}
+                        </mat-option>
+                    </mat-autocomplete>
+                </mat-form-field>
+            </div>
+        </div>
+        <div fxLayout="row wrap" fxLayoutAlign="start start" fxLayoutGap="20px">
+            <mat-slide-toggle color="primary" formControlName="isDefault">{{ 'account.addresses.set-default' | translate }}</mat-slide-toggle>
+        </div>
+    </div>
+    <div mat-dialog-actions>
+        <div fxLayout="row wrap" fxLayoutAlign="space-between center" class="w-100"> 
+            <button mat-stroked-button type="button" mat-dialog-close>{{ 'close' | translate }}</button>
+            <button mat-flat-button color="primary" type="submit">{{ 'save' | translate }}</button>
+        </div> 
+    </div>
+</form>

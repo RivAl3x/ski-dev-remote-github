@@ -1,0 +1,51 @@
+<mat-sidenav-container class="container">
+  <mat-sidenav #sidenav class="conversation-sidenav"
+      mode="side" position="end" opened="true" 
+      [fixedInViewport]="true" 
+      [fixedTopGap]="90"
+      [fixedBottomGap]="0"
+    >
+    <perfect-scrollbar [config]="{suppressScrollX: true, wheelPropagation: false}" #sidebarScroll>
+      <!-- <div class="p-2"> -->
+        <div fxLayout="column" *ngFor="let item of conversations" 
+          (click)="selectConversation(item.id)" 
+          [ngClass]="{ 'selected': selectedConversation && item.id===selectedConversation.id, 'updated': item.updated, 'list-item p-1': true }"
+        >
+          <div fxLayout="row wrap" fxLayoutAlign="space-between center">
+            <p class=" mb-0 truncate">
+              <mat-icon class="mat-icon-lg">account_circle</mat-icon> {{ item.userName }} - {{ item.reservationNo }}
+              <span *ngIf="item.newMessages > 0" class="has-chat-updates">{{item.newMessages}}</span>
+            </p>
+            <p class="mb-1 text-muted text-small">{{ item.lastMessageTime }}</p>
+          </div>
+          <p class="mb-1 text-muted text-small">{{ item.lastMessage }}</p>
+        </div>
+      <!-- </div> -->
+    </perfect-scrollbar>
+  </mat-sidenav>
+
+  <mat-sidenav-content class="conversation-container">
+    <div *ngIf="selectedConversation" class="second-conversation-container" fxLayout="column" fxFlex="100" fxLayoutAlign="space-between stretch" fxFill>
+      <div class="conversation-header" fxLayout="column" fxFlex="100" fxLayoutAlign="center stretch">
+        <p class="mb-0 py-1"><mat-icon fxHide="false" fxHide.gt-sm class="mat-icon-lg" (click)="sidenav.open()">arrow_back_ios</mat-icon><mat-icon class="mat-icon-lg">account_circle</mat-icon> {{ selectedConversation.userName }}</p>
+        <!-- <mat-divider></mat-divider> -->
+      </div>
+      <perfect-scrollbar class="scroll conversation-body" [config]="{suppressScrollX: true, wheelPropagation: false}" #scroll>
+          <div class="flex-wrapper">
+            <mat-card *ngFor="let m of selectedConversation.messages" [ngClass]="{'flex-right': m.operation==='sent', 'mt-1 mb-1' : true }">
+              <span class="mb-0 mr-3 text-semi-muted">{{m.text}} </span>
+              <span class="text-extra-small text-muted message-time">{{m.time}}</span>
+            </mat-card>
+          </div>
+          
+      </perfect-scrollbar>
+      <div class="conversation-input" fxLayout="column" fxFlex="100" fxLayoutAlign="center stretch">
+        <!-- <mat-divider></mat-divider> -->
+        <mat-form-field>
+          <input matInput type="text" placeholder="Say something..." [(ngModel)]="message" (keyup)="messageInputKeyUp($event)">
+          <mat-icon matSuffix (click)="sendMessage()">send</mat-icon>
+        </mat-form-field>
+      </div>
+    </div>
+  </mat-sidenav-content>
+</mat-sidenav-container>

@@ -1,0 +1,343 @@
+{
+  "user": {
+    "login": "Log in",
+    "signup": "Sign up",
+    "account": "Account",
+    "chat": "Conversations",
+    "logout": "Logout",
+    "help": "Help",
+    "forgot-question": "Forgot password?",
+    "terms-agree": "By selecting Agree and continue below, I agree to Desk hub’s Terms of Service, Payment Terms of Service, Privacy Policy and Nondiscrimination Policy.",
+    "host-terms-agree": "By selecting Agree and continue below, I agree to Desk hub’s Terms of Service, Payment Terms of Service, Privacy Policy, Nondiscrimination Policy and HOST TERMS",
+    "become-host": "Devenir hôte",
+    "switch-to-host": "passer à l'hôte",
+    "switch-to-rider": "Passer au cavalier",
+    "more-options": "More login options",
+    "less-options": "Less options",
+    "go-on-with": "Continue with {{name}}",
+    "account-question": "Already have an account?",
+    "no-account-question": "Don’t have an account?",
+    "email": "Email",
+    "email-error-required": "Please specify an email address.",
+    "email-error-format": "Ooops! It looks like this is not a valid email.",
+    "fullName": "Name / Company name",
+    "fullName-error": "Please specify your name here.",
+    "phone": "Phone number",
+    "phone-error": "Please specify your phone number here.",
+    "password": "Password",
+    "password-error-required": "A password is required.",
+    "password-error-format": "Password not accepted.",
+    "password-criteria": {
+      "lower": "contains at least one lower character",
+      "upper": "contains at least one upper character",
+      "digits": "contains at least one digit character",
+      "nonWords": "contains at least one special character",
+      "length": "contains at least 8 characters"
+    },
+    "auth-error": {
+      "invalid_username_or_password": "Email and password don’t match.",
+      "user_exists": "You already created an account using this email. Please log in instead.",
+      "user_error": "An error ocurred. Please try again."
+    },
+    "login-pages": {
+      "signIn": {
+        "title": "Log in",
+        "message": "",
+        "caption": "Log in"
+      },
+      "register": {
+        "title": "Sign up",
+        "message": "",
+        "caption": "Agree and continue"
+      },
+      "registerHost": {
+        "title": "Sign up",
+        "message": "",
+        "caption": "Agree and continue"
+      },
+      "confirmAccount": {
+        "title": "Confirm Account",
+        "message": "Please verify your email to confirm your account.",
+        "caption": "Confirm Account"
+      },
+      "forgotPassword": {
+        "title": "Reset password",
+        "message": "We'll be sending a link to reset the password to your email.",
+        "caption": "Reset password"
+      }
+    }
+    
+  },
+
+  "account": {
+    "title": "Account",
+    "login": "Log in",
+    "signup": "Sign up",
+    "add-listing": "Add Listing",
+    "email": "Email",
+    "password": "Password",
+    "dashboard": {
+      "menu-title": "Dashboard",
+      "menu-description": "Hello {{name}}. From your Account Dashboard you have the ability to view a snapshot of your recent account activity and update your account information"
+    },
+    "info": {
+      "menu-title": "Personal info",
+      "menu-description": "Provide personal details and how we can reach you",
+      "email-address": "Email address",
+      "legal-name": "Legal name",
+      "first-name": "First name",
+      "last-name": "Last name",
+      "company-name": "Company name",
+      "vat-id": "VatId",
+      "reg-com": "RegCom",
+      "bank-name": "Bank name",
+      "bank-account": "Bank account",
+      "gender": "Gender",
+      "birthdate": "Date of birth",
+      "phone-no": "Phone number",
+      "government-id": "Government ID",
+      "id-type": "ID type",
+      "address": "Address",
+      "street-address": "Street address",
+      "apartment-suite": "Apt, suite (optional)",
+      "locality": "Locality",
+      "state": "State",
+      "zipcode": "ZIP code",
+      "country": "Country",
+      "update-button": "Update info"
+    },
+    "addresses": {
+      "menu-title": "Billing addresses",
+      "menu-description": "Manage your billing addresses",
+      "pf": "Individual",
+      "pj": "Company"
+    },
+    "security": {
+      "menu-title": "Login & security",
+      "menu-description": "Update your password and secure your account",
+      "current-password": "Current Password",
+      "new-password": "New Password",
+      "confirm-password": "Confirm New Password",
+      "change-password": "Change Password"
+
+    },
+    "bookings": {
+      "menu-title": "Reservations manager",
+      "menu-description": "Manage your reservations."
+    },
+    "payments": {
+      "menu-title": "Payments",
+      "menu-description": "Review payments, coupons, gift cards, and taxes"
+    }
+  },
+
+  "host": {
+    "terms": {
+      "title": "Become a host",
+      "help": "By agreeing Terms and conditions your process can continue.",
+      "label": "Agree on Terms and Conditions",
+      "submit": "Submit",
+      "cancel": "Cancel"
+    },
+    "dashboard": {
+      "title": "Dashboard"
+    },
+    "payments": {
+      "title": "Payment options",
+      "add-new": "Create new payment"
+    },
+    "listing": {
+      "title": "Add listing",
+      "list": "Listings",
+      "published-list": "Published Listings",
+      "next": "Next",
+      "previous": "Previous",
+      "save-draft": "Save draft",
+      "post-listing": "Post listing",
+      "create-listing": "Create new listing",
+      "step-location": "What's your location",
+      "step-description": "Describe your space",
+      "step-price": "Set your price",
+      "step-hours": "Available hours",
+      "step-payment": "Payment information",
+      "step-documents": "Additional documents",
+      "step-error": "Please fill all required fields",
+      "name": "Name your listing",
+      "location": "Location",
+      "location-info": "Give more information about your location",
+      "show-map": "Show map",
+      "street-address": "Street address",
+      "apartment-suite": "Apt, suite (optional)",
+      "locality": "Locality",
+      "state": "State",
+      "zipcode": "ZIP code",
+      "country": "Country",
+      "latitude": "Latitude",
+      "longitude": "Longitude",
+      "listing-type": "Type:",
+      "shared-office": "Shared office building",
+      "private-house": "Private house",
+      "apartment": "Apartment",
+      "coffee-place": "Coffee place",
+      "hotel-lounge": "Hotel lounge",
+      "office-type-info": "Which type of offices do you have?",
+      "hot-desk": "Hot-desk",
+      "private-office": "Private office",
+      "team-room": "Team room",
+      "meeting-room": "Meeting room",
+      "description": "Description",
+      "space-available-info": "Add your space available",
+      "space-available-help": "This describes how the user should encode the table below",
+      "office-type": "Office type",
+      "office-name": "Identify your office",
+      "office-description": "Describe your office",
+      "seats-no": "# of seats per office",
+      "units-no": "# of such units",
+      "add-space": "Add space",
+      "delete-space": "Delete space",
+      "duplicate-space": "Duplicate space",
+      "pictures-info": "Add picture(s)",
+      "amenities-info": "Amenities?",
+      "amenities-coffee": "Coffee",
+      "amenities-printing": "Printing",
+      "amenities-meeting-rooms": "Meeting rooms",
+      "amenities-essentials": "Essentials",
+      "amenities-wifi": "Wifi",
+      "amenities-sport-room": "Sport room",
+      "amenities-parking": "Parking",
+      "currency": "Currency",
+      "space-price-info": "What is the price of each?",
+      "space-price-help": "Available space selected already in Step 2",
+      "half-day-price": "1/2 day",
+      "hourly-price": "hourly",
+      "day-price": "day",
+      "month-price": "month",
+      "hours-info": "Available hours:",
+      "monday-friday": "Monday - Friday",
+      "monday": "Monday",
+      "tuesday": "Tuesday",
+      "wednesday": "Wednesday",
+      "thursday": "Thursday",
+      "friday": "Friday",
+      "saturday": "Saturday",
+      "sunday": "Sunday",
+      "select-day": "Select day",
+      "from": "From",
+      "to": "To",
+      "different": "Different",
+      "sat-open": "Sat - Open",
+      "sun-open": "Sun - Open",
+      "add-hours": "Add",
+      "payment-info": "Add payment information",
+      "payment-select": "Pick your payment option",
+      "payment-add": "Add payment option",
+      "bank": "Bank",
+      "iban": "IBAN",
+      "swift": "Swift",
+      "address": "Address",
+      "documents-info": "Add documents:",
+      "documents-help": "tbd",
+      "local-status-help": "This listing was autosaved on this device.",
+      "statuses": {
+        "loc-local": "Saved Locally",
+        "loc-draft": "Draft",
+        "loc-publish": "Published"
+      }
+    },
+    "bookings": {
+      "list": "Bookings list",
+      "calendar": "Bookings calendar"
+    }
+
+  },
+
+  "host-nav": {  
+    "dashboard": "Dashboard",  
+    "listings": "Listings", 
+    "bookings": "Bookings Manager", 
+    "inhouse-booking": "Book your own", 
+    "add-listing": "Add Listing",
+    "payments": "Payment options",
+    "conversations": "Conversations"
+  },
+  
+  "LOWER_CASE_CRITERIA_MSG" : "contains at least one lower character",
+  "UPPER_CASE_CRITERIA_MSG" : "contains at least one upper character",
+  "DIGITS_CRITERIA_MSG" : "contains at least one digit",
+  "SPECIAL_CHARS_CRITERIA_MSG" : "contains at least one special character",
+  "MIN_CHARS_CRITERIA_MSG" : "contains at least {{value}} characters",
+
+  "WELCOME": "Welcome to our market!", 
+  "LOGIN": "Sign In", 
+  "LOGOUT": "Logout", 
+  "REGISTER": "Register",
+  "ACCOUNT": "Account", 
+  "COMPARE": "Compare",
+  "WISHLIST": "Wishlist", 
+  "NAV": {  
+    "HOME": "Home",  
+    "PAGES": "Pages", 
+    "SHOP": "Shop",
+    "ALL_PRODUCTS": "All products",
+    "PRODUCT_DETAIL": "Product detail",
+    "CART": "Cart",
+    "CHECKOUT": "Checkout",
+    "FAQS": "Faqs",
+    "PRICING": "Pricing",
+    "TERMS_CONDITIONS": "Terms & Conditions",
+    "LANDING": "Landing", 
+    "404_PAGE": "404 Page",
+    "OTHERS": "Others",
+    "EXTERNAL_LINK": "External Link",
+    "MENU_ITEM": "Menu Item",
+    "CONTACT": "Contact",
+    "ABOUT_US": "About Us",
+    "ADMIN": "Admin Panel"
+  },
+  "ADMIN_NAV": {  
+    "DASHBOARD": "Dashboard",  
+    "PRODUCTS": "Products", 
+    "CATEGORIES": "Categories",
+    "PRODUCT_LIST": "Products List", 
+    "PRODUCT_DETAIL": "Product Detail",
+    "ADD_PRODUCT": "Add Product",
+    "SALES": "Sales",
+    "ORDERS": "Orders",
+    "TRANSACTIONS": "Transactions",
+    "USERS": "Users", 
+    "CUSTOMERS": "Customers", 
+    "COUPONS": "Coupons",
+    "WITHDRAWAL": "Withdrawal",
+    "ANALYTICS": "Analytics",
+    "REFUND": "Refund",
+    "FOLLOWERS": "Followers",
+    "SUPPORT": "Support",
+    "REVIEWS": "Reviews", 
+    "EXTERNAL_LINK": "External Link" 
+  },
+  "BTN": {
+    "ADD": "Add",
+    "SAVE": "Save",
+    "SUBMIT": "Submit",
+    "CANCEL": "Cancel",
+    "UPLOAD": "Upload",
+    "REMOVE": "Remove",
+    "YES": "Yes",
+    "NO": "No",
+    "OK": "OK"
+  },
+  "MESSAGE": {
+    "SURE_DELETE": "Are you sure you want to delete?",
+    "FILE_SIZE": "The file size cannot exceed {{param}} kb."
+  },
+  "FIELD": { 
+    "NAME": "Name" 
+  }, 
+  "PAGINATION":{
+    "ITEMS_PER_PAGE": "Items per page:",
+    "NEXT_PAGE": "Next page",
+    "PREV_PAGE": "Previous page",
+    "FIRST_PAGE": "First page",
+    "LAST_PAGE": "Last page"
+  }
+}

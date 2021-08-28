@@ -1,0 +1,30 @@
+<button mat-icon-button [matMenuTriggerFor]="userMenu" #userMenuTrigger="matMenuTrigger" >
+    <mat-icon>account_circle</mat-icon>
+    <mat-icon *ngIf="chatUpdates" class="mat-icon-lg has-chat-updates">chat</mat-icon> 
+</button>
+
+<mat-menu #userMenu="matMenu" [overlapTrigger]="false" class="toolbar-dropdown-menu user-menu">
+    <span (mouseleave)="userMenuTrigger.closeMenu()">
+        <a mat-menu-item fxShow="show" fxHide.gt-sm routerLink="/"> 
+            <mat-icon>person</mat-icon>
+            <span>{{ 'user.switch-to-rider' | translate }}</span> 
+        </a>
+        <a mat-menu-item routerLink="/host/chat" (click)="resetChatUpdates()"> 
+            <mat-icon [color]="chatUpdates ? 'warn' : ''" class="mat-icon-sm">chat</mat-icon>
+            <span>{{ 'user.chat' | translate }}</span> 
+        </a>
+        <a mat-menu-item routerLink="/host"> 
+            <mat-icon>settings</mat-icon>
+            <span>Settings</span> 
+        </a>
+        <a mat-menu-item routerLink="/host"> 
+            <mat-icon>help</mat-icon>
+            <span>Help</span> 
+        </a>
+        <div class="divider"></div>
+        <a mat-menu-item (click)="onSignOut()"> 
+            <mat-icon class="mat-icon-sm">power_settings_new</mat-icon>
+            <span>{{ 'user.logout' | translate }}</span> 
+        </a>
+    </span>
+</mat-menu>

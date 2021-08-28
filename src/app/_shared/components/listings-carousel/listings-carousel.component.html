@@ -1,0 +1,50 @@
+<div *ngIf="listings" class="swiper-container" [swiper]="config">
+    <div class="swiper-wrapper h-100">
+        <div *ngFor="let listing of listings" class="swiper-slide">
+            <mat-card class="product-item">
+
+                <a [routerLink]="['/search/results', listing.id]" class="image-link">
+
+                  <!-- <ngx-skeleton-loader *ngIf="listing.description.images[0] == undefined" count="1" appearance="circle" [theme]="{
+                    width: '300px',
+                    height: '200px',
+                    'border-radius': '1px'
+                  }">
+                </ngx-skeleton-loader> -->
+                    <img  [attr.data-src]="listing.description.images[0].url" class="swiper-lazy"/>
+                    <div class="swiper-lazy-preloader"></div>
+
+                </a>
+                <!-- <h4 class="category text-muted">{{ ( appService.Data.categories | filterById : product.categoryId )?.name }}</h4> -->
+                <a [routerLink]="['/search/results', listing.id]" class="title text-truncate">
+                    {{listing.location.name}}
+                </a>
+
+
+
+                <div fxLayout="row" fxLayoutAlign="space-between center" class="prices">
+                    <!-- <div fxLayout="column" fxLayoutAlign="center start">
+                        <p class="old-price text-muted"><span *ngIf="product.oldPrice">${{product.oldPrice | number : '1.2-2'}}</span></p>
+                        <p class="new-price">${{product.newPrice | number : '1.2-2'}}</p>
+                    </div>
+                    <app-rating [ratingsCount]="product.ratingsCount" [ratingsValue]="product.ratingsValue" [direction]="'column'"></app-rating> -->
+                    <p class="new-price mb-0">From {{ listing.price.listPrice | number : '1.2-2' }} €/day</p>
+                    <p class="text-muted lh mb-0">
+                      Location type: {{ 'host.listing.' + listing.location.listingTypeName | translate }}
+                  </p>
+                  </div>
+
+
+
+
+
+                <div class="divider mt-2"></div>
+                <div class="icons">
+
+                </div>
+            </mat-card>
+        </div>
+    </div>
+    <button mat-mini-fab class="swiper-button-prev swipe-arrow"><mat-icon>keyboard_arrow_left</mat-icon></button>
+    <button mat-mini-fab class="swiper-button-next swipe-arrow"><mat-icon>keyboard_arrow_right</mat-icon></button>
+</div>

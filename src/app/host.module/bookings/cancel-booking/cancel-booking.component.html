@@ -1,0 +1,44 @@
+
+<mat-card class="mat-card mt-2" fxLayout="row wrap">
+  <div fxFlex="100">
+    <h2>{{ 'host.bookings.booking-info' | translate }}</h2>
+    <div class="divider"></div>
+    <div class="mat-table admin-table">
+      <div class="mat-header-row">
+        <div class="mat-header-cell">{{ 'host.bookings.reservation-no' | translate }}</div>
+      <div class="mat-header-cell">{{ 'host.bookings.building' | translate }}</div>
+      <div class="mat-header-cell">{{ 'host.bookings.office-name' | translate }}</div>
+      <div class="mat-header-cell">{{ 'host.bookings.office-type' | translate }}</div>
+      <div class="mat-header-cell">{{ 'host.bookings.period' | translate }}</div>
+      <div class="mat-header-cell">{{ 'host.bookings.rider' | translate }}</div>
+      </div>
+      <div *ngIf="booking" class="mat-row">
+        <div class="mat-cell" data-label="{{ 'host.bookings.reservation-no' | translate }}"><span class="order">{{ booking.reservationNo }}</span></div>
+        <div class="mat-cell" data-label="{{ 'host.bookings.building' | translate }}">{{ booking.listingName }}</div>
+        <div class="mat-cell" data-label="{{ 'host.bookings.office-name' | translate }}">{{ booking.officeName }}</div>
+        <div class="mat-cell" data-label="{{ 'host.bookings.office-type' | translate }}">{{ 'host.listing.' + booking.officeTypeCode | translate }}</div>     
+        <div class="mat-cell" data-label="{{ 'host.bookings.period' | translate }}">{{ booking.checkin | date:"dd.MM.YYYY', ' HH:mm" }} - {{ booking.checkout | date:"dd.MM.YYYY', ' HH:mm" }}</div>         
+        <div class="mat-cell text-left" data-label="{{ 'host.bookings.rider' | translate }}"> - </div>          
+      </div>
+    </div>
+    <h2 class="mt-3">{{ 'host.bookings.cancel-reason' | translate }}</h2>
+    <form [formGroup]="form" fxLayout="column" fxLayoutAlign="space-around start" fxLayoutGap="10px" class="search-header">
+      <ng-container>
+        <mat-radio-group formControlName="cancelReason" fxLayout="column" fxLayoutAlign="start start" fxLayoutGap="10px">
+        <mat-radio-button *ngFor="let reason of cancelReasons" [value]="reason.id">{{ 'host.listing.' + reason.code | lowercase | translate}}</mat-radio-button>
+        </mat-radio-group>
+      </ng-container>
+      <mat-form-field appearance="legacy" class="mt-2 w-50">
+        <mat-label>{{ 'host.bookings.details' | translate }}</mat-label>
+        <textarea matInput formControlName="details"></textarea>
+      </mat-form-field>
+    </form>
+  </div>
+</mat-card>
+<div fxLayout="row wrap" fxLayoutAlign="space-between center" class="w-100 mt-2">
+  <a mat-flat-button [routerLink]="['/host/bookings']">{{ 'host.bookings.cancel-policy' | translate }}</a>
+  <div> 
+    <button mat-flat-button type="button" color="primary" class="mr-2" [routerLink]="['/host/bookings']">{{ 'host.bookings.keep-reservation' | translate }}</button>
+    <button mat-flat-button color="warn" type="submit" [disabled]="!form.valid" (click)="cancelBooking(booking)">{{ 'host.bookings.cancel-reservation' | translate }}</button>
+</div> 
+</div>

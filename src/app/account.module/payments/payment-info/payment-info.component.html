@@ -1,0 +1,59 @@
+<mat-card fxLayout="row" fxLayoutAlign="space-between start" class=""> 
+  <div>
+    <h2>Reservation details</h2>
+    <mat-list role="list">
+      <mat-list-item role="listitem">Reservation No: {{ payment.number }}</mat-list-item>
+      <mat-list-item role="listitem">Date added: {{ payment.date }}</mat-list-item>
+      <mat-list-item role="listitem">Status: {{ payment.status }}</mat-list-item>
+      <mat-list-item role="listitem">Total: {{ payment.total }}€ for {{ payment.itemsCount }} items</mat-list-item>
+    </mat-list> 
+  </div>
+  <div>
+    <h2>Billing address</h2>
+    <mat-list role="list">
+      <mat-list-item role="listitem">Type: {{ 'account.addresses.' + address.billingAddressType | lowercase | translate }}</mat-list-item>
+      <mat-list-item role="listitem">Name: {{ address.billingAddressType == 'PF' ? address.firstName + ' ' + address.lastName : address.companyName }}</mat-list-item>
+      <mat-list-item role="listitem">Country: {{ address.countryName }}</mat-list-item>
+      <mat-list-item role="listitem">Locality: {{ address.locality }}</mat-list-item>
+      <mat-list-item role="listitem">Address: {{ address.streetAddress }}</mat-list-item>
+    </mat-list>
+  </div>
+</mat-card>
+
+<mat-card *ngFor="let item of payment.items" class="mat-card mt-2" fxLayout="row wrap">
+  <div fxFlex="100" ngClass="mt-1">
+    <h2>{{item.name}}</h2>
+    <div fxLayout="row" fxLayoutAlign="space-between center">
+        <p>{{ 'host.listing.' + item.listingTypeName | translate}} - {{ item.countryName }}, {{ item.locality }}</p>
+        <button class="text-muted" mat-icon-button><mat-icon>favorite</mat-icon></button>
+    </div>
+  </div>
+
+  <div fxFlex="100">
+    <p>Booked offices</p>
+    <div class="divider"></div>
+    <div class="mat-table admin-table">
+        <div class="mat-header-row">
+          <div class="mat-header-cell">Type</div>
+          <div class="mat-header-cell">Name</div> 
+          <div class="mat-header-cell">No. of units</div>
+          <div class="mat-header-cell">Price</div>
+          <div class="mat-header-cell">From</div>
+          <div class="mat-header-cell"></div>
+        </div>
+      
+        <div *ngFor="let bookedSpace of item.bookedSpaces" class="mat-row">
+            <div class="mat-cell" data-label="Type">{{ 'host.listing.' + bookedSpace.officeTypeCode | translate }}</div>
+            <div class="mat-cell" data-label="Name">{{ bookedSpace.availableSpaceName }}</div>
+            <div class="mat-cell" data-label="No. of units">{{ bookedSpace.bookedUnitsNo }} units</div>
+            <div class="mat-cell" data-label="Price">{{ bookedSpace.bookedPrice | number : '1.2-2'}} €</div>                          
+            <div class="mat-cell" data-label="From">
+              {{ bookedSpace.checkin | date:"dd.MM.YYYY', ' HH:mm" }} - {{ bookedSpace.checkout | date:"dd.MM.YYYY', ' HH:mm" }}
+            </div> 
+            <div class="mat-cell text-right">
+                <button mat-flat-button color="warn" (click)="cancel(item.id, bookedSpace)">Cancel</button>
+            </div>     
+        </div>
+    </div>
+  </div>
+</mat-card>

@@ -1,0 +1,16 @@
+<h1 mat-dialog-title>Manage user affiliation</h1>
+<form [formGroup]="form" (ngSubmit)="onSubmit()" autocomplete="off">
+    <div mat-dialog-content>
+        <ng-container>
+            <mat-radio-group formControlName="autoValidation" fxLayout="column" fxLayoutAlign="start start" fxLayoutGap="10px">
+                <mat-radio-button *ngFor="let option of validationOptions" [value]="option.id">{{ option.name }}</mat-radio-button>
+            </mat-radio-group>
+          </ng-container>
+    </div>
+    <div mat-dialog-actions>
+        <div fxLayout="row wrap" fxLayoutAlign="space-between center" class="w-100"> 
+            <button mat-stroked-button type="button" mat-dialog-close>Close</button>
+            <button mat-flat-button color="primary" [disabled]="!form.valid" type="submit">Save</button>
+        </div> 
+    </div>
+</form>

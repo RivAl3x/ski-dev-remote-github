@@ -1,0 +1,85 @@
+/* You can add global styles to this file, and also import other style files */
+@import url('https://fonts.googleapis.com/css?family=Roboto:100,100i,300,300i,400,400i,500,500i,700,700i,900,900i');
+@import url('https://fonts.googleapis.com/icon?family=Material+Icons');
+@import '~@angular/material/prebuilt-themes/indigo-pink.css'; 
+@import '~swiper/swiper-bundle.min.css';
+@import "app/_theme/styles/base";
+@import "app/_theme/styles/admin";
+@import "app/_theme/styles/theme";
+@import "app/_theme/styles/gradients";
+@import "app/_theme/styles/rtl";
+
+//responsive table
+@media screen and (max-width: 960px) {
+    .admin-table.mat-table .mat-row, .admin-table.mat-table .mat-header-row {
+        display: block;
+        border-bottom-width: auto;
+        border-bottom-style: auto;
+        align-items: center;
+        min-height: auto;
+        padding: 0;
+        min-width: auto;
+    }
+
+    .mat-table {
+      border: 0;
+      vertical-align: middle
+    }
+  
+    .mat-table caption {
+      font-size: 1em;
+    }
+    
+    .mat-table .mat-header-cell {
+      border: 10px solid;
+      clip: rect(0 0 0 0);
+      height: 1px;
+      margin: -1px;
+      padding: 0;
+      position: absolute;
+      width: 1px;
+    }
+   
+    .mat-table .mat-row {
+      border-bottom: 3px solid #ddd !important;
+      display: block;
+    }
+    /*
+    .mat-table .mat-row:nth-child(even) {background: #CCC}
+    .mat-table .mat-row:nth-child(odd) {background: #FFF}
+    */
+    .mat-table .mat-cell {
+      border-bottom: 1px solid #ddd;
+      display: block;
+      font-size: 1em;
+      text-align: right;
+      font-weight: bold;
+      height: 30px;
+      margin-bottom: 15px;
+    }
+    .mat-table.high-row .mat-cell {
+      border-bottom: 1px solid #ddd;
+      display: block;
+      font-size: 1em;
+      text-align: right;
+      font-weight: bold;
+      height: 40px;
+      margin-bottom: 15px;
+    }
+    .mat-table .mat-cell:before {
+      content: attr(data-label);
+      float: left;
+      text-transform: uppercase;
+      font-weight: normal;
+      font-size: .85em;
+    }
+    .mat-table .mat-cell:last-child {
+      border-bottom: 0;
+      margin-top: -7px;
+      margin-bottom: 20px;
+      height: 40px;
+    }
+    .mat-table .mat-cell:first-child {
+      margin-top: 15px;
+    }
+}

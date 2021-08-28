@@ -1,0 +1,92 @@
+<div id="listings" class="container col-md-12">
+  <mat-card-header class="p-1" fxLayoutAlign="space-between">
+    <div class="button-container">
+      <button class="mr-1" mat-stroked-button color="accent" [routerLink]="['/host/bookings-calendar']">View calendar</button>
+    </div>
+    <mat-card-title class="m-0"><h2>
+      {{ 'host.bookings.list' | translate }}
+    </h2></mat-card-title>
+  </mat-card-header>
+
+  <mat-expansion-panel class="mb-2">
+    <mat-expansion-panel-header>
+      <mat-panel-title>
+        {{ 'host.bookings.filters' | translate }}
+      </mat-panel-title>
+      <mat-panel-description>
+        <span fxShow="false" fxShow.gt-sm >{{ 'host.bookings.filters-help' | translate }}</span>
+        <mat-icon>filter_alt</mat-icon>
+      </mat-panel-description>
+    </mat-expansion-panel-header>
+
+    <form [formGroup]="form" fxLayout="row" fxLayoutAlign="space-around start" fxLayoutGap="10px" class="search-header">
+      <mat-form-field fxFlex>
+        <mat-label>{{ 'host.bookings.building' | translate }}</mat-label>
+        <input matInput formControlName="buildingName">
+      </mat-form-field>
+      <mat-form-field fxFlex>
+        <mat-label>{{ 'host.bookings.office-type' | translate }}</mat-label>
+        <mat-select formControlName="officeTypes" multiple>
+          <mat-option *ngFor="let officeType of officeTypes" [value]="officeType.id">{{ 'host.listing.' + officeType.code | translate }}</mat-option>
+        </mat-select>
+      </mat-form-field>
+      <mat-form-field fxFlex>
+        <mat-label>{{ 'host.bookings.office-name' | translate }}</mat-label>
+        <input matInput formControlName="officeName">
+      </mat-form-field>
+      <mat-form-field fxFlex>
+        <mat-label>{{ 'host.bookings.start-date' | translate }}</mat-label>
+        <input matInput [matDatepicker]="startDate" formControlName="startDate">
+        <mat-datepicker-toggle matSuffix [for]="startDate"></mat-datepicker-toggle>
+        <mat-datepicker #startDate></mat-datepicker>
+      </mat-form-field>
+      <mat-form-field fxFlex>
+        <mat-label>{{ 'host.bookings.end-date' | translate }}</mat-label>
+        <input matInput [matDatepicker]="endDate" formControlName="endDate">
+        <mat-datepicker-toggle matSuffix [for]="endDate"></mat-datepicker-toggle>
+        <mat-datepicker #endDate></mat-datepicker>
+      </mat-form-field>
+      <span [matTooltipDisabled]="form.value" matTooltip="{{ 'host.bookings.disabled-help' | translate }}" matTooltipPosition="below">
+        <button type="button" mat-mini-fab color="primary" [disabled]="!form.value" (click)="filterSubmit()" class="search-btn mat-elevation-z0 text-muted">
+          <mat-icon>search</mat-icon>
+        </button>
+      </span>
+    </form>
+  </mat-expansion-panel>
+
+  <mat-divider></mat-divider>
+  <div class="mat-table admin-table">
+    <div class="mat-header-row">
+      <div class="mat-header-cell">{{ 'host.bookings.reservation-no' | translate }}</div>
+      <div class="mat-header-cell">{{ 'host.bookings.building' | translate }}</div>
+      <div class="mat-header-cell">{{ 'host.bookings.office-name' | translate }}</div>
+      <div class="mat-header-cell">{{ 'host.bookings.office-type' | translate }}</div>
+      <div class="mat-header-cell">{{ 'host.bookings.period' | translate }}</div>
+      <div class="mat-header-cell">{{ 'host.bookings.rider' | translate }}</div>
+      <div class="mat-header-cell"></div>
+    </div>
+    <div *ngFor="let booking of bookings | paginate: { itemsPerPage: pageSize, currentPage: pageNumber }" class="mat-row">
+      <div class="mat-cell" data-label="{{ 'host.bookings.reservation-no' | translate }}"><span class="order">{{ booking.reservationNo }}</span></div>
+      <div class="mat-cell" data-label="{{ 'host.bookings.building' | translate }}">{{ booking.listingName }}</div>
+      <div class="mat-cell" data-label="{{ 'host.bookings.office-name' | translate }}">{{ booking.officeName }}</div>
+      <div class="mat-cell" data-label="{{ 'host.bookings.office-type' | translate }}">{{ 'host.listing.' + booking.officeTypeCode | translate }}</div>     
+      <div class="mat-cell" data-label="{{ 'host.bookings.period' | translate }}">{{ booking.checkin | date:"dd.MM.YYYY', ' HH:mm" }} - {{ booking.checkout | date:"dd.MM.YYYY', ' HH:mm" }}</div>     
+      <div class="mat-cell text-left" data-label="{{ 'host.bookings.rider' | translate }}"> - </div>     
+      <div class="mat-cell text-right">   
+        <button mat-icon-button color="primary" matTooltip="{{ 'host.bookings.contact-rider' | translate }}" (click)="openBottomSheet(booking.id)">
+          <mat-icon>chat</mat-icon>
+        </button>       
+        <button mat-icon-button color="warn" matTooltip="{{ 'host.bookings.cancel-reservation' | translate }}" [routerLink]="['/host/bookings/cancel', booking.id]">
+          <mat-icon>clear</mat-icon>
+        </button>
+      </div>      
+    </div>
+  </div>
+  <div *ngIf="bookings.length > 0" fxLayout="row wrap">
+    <div fxFlex="100"> 
+        <mat-card class="p-0 text-right mat-elevation-z0">           
+            <pagination-controls class="product-pagination" autoHide="true" maxSize="5" (pageChange)="onPageChanged($event)"></pagination-controls>
+        </mat-card>
+    </div>
+  </div>
+</div>
