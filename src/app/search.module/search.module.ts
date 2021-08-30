@@ -21,10 +21,11 @@ import { FiltersDialogComponent } from './_components/filters-dialog/filters-dia
 //import { InformationComponent } from './information/information.component';
 //import { AddressesComponent } from './addresses/addresses.component';
 //import { OrdersComponent } from './orders/orders.component';
+import { NgxStarRatingModule } from 'ngx-star-rating';
 
 const routes = [
-  { 
-      path: '', 
+  {
+      path: '',
       component: SearchComponent, children: [
           { path: '', redirectTo: 'results', pathMatch: 'full' },
           { path: 'results', component: SearchResultsComponent, data: {  breadcrumb: 'Dashboard' } },
@@ -46,7 +47,8 @@ const routes = [
     NgxMatTimepickerModule,
     NgxMatMomentModule,
     LeafletModule,
-    InfiniteScrollModule
+    InfiniteScrollModule,
+    NgxStarRatingModule
   ],
   declarations: [
     SearchComponent,
@@ -54,7 +56,7 @@ const routes = [
     SearchDetailsComponent,
     ImagesComponent,
     ImagesLoaderComponent,
-    ImagesSliderComponent, 
+    ImagesSliderComponent,
     ResultsMapComponent,
     FiltersDialogComponent
   ],
@@ -63,7 +65,7 @@ const routes = [
   ],
   exports:[]
 })
-export class SearchModule { 
+export class SearchModule {
   static routes() {
     return routes;
   }

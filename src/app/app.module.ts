@@ -6,8 +6,8 @@ import { HttpClient, HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common
 import { NgxSpinnerModule } from 'ngx-spinner';
 import { AgmCoreModule } from '@agm/core';
 import { TranslateModule, TranslateLoader } from '@ngx-translate/core';
-import { TranslateHttpLoader } from '@ngx-translate/http-loader'; 
-export function HttpLoaderFactory(httpClient: HttpClient) { 
+import { TranslateHttpLoader } from '@ngx-translate/http-loader';
+export function HttpLoaderFactory(httpClient: HttpClient) {
   return new TranslateHttpLoader(httpClient, environment.url +'/assets/i18n/', '.json');
 }
 
@@ -53,8 +53,8 @@ import { SearchHeaderComponent } from './search.module/_components/search-header
 import { ReactiveFormsModule } from '@angular/forms';
 import { NgxSkeletonLoaderModule } from 'ngx-skeleton-loader';
 import {
-  NgxMatDatetimePickerModule, 
-  NgxMatTimepickerModule 
+  NgxMatDatetimePickerModule,
+  NgxMatTimepickerModule
 } from '@angular-material-components/datetime-picker';
 import { NgxMatMomentModule, NGX_MAT_MOMENT_DATE_ADAPTER_OPTIONS } from '@angular-material-components/moment-adapter';
 import { LeafletModule } from '@asymmetrik/ngx-leaflet';
@@ -63,6 +63,8 @@ import { CalendarInterceptor } from './account.module/_helpers/calendar-sources.
 import { MatMomentDateModule } from '@angular/material-moment-adapter';
 import { InfiniteScrollModule } from 'ngx-infinite-scroll';
 import { ChatModule } from './chat.module/chat.module';
+import { MatCardModule } from '@angular/material/card';
+
 
 @NgModule({
   declarations: [
@@ -75,7 +77,10 @@ import { ChatModule } from './chat.module/chat.module';
     BreadcrumbComponent,
     OptionsComponent,
     FooterComponent,
-    SearchHeaderComponent
+    SearchHeaderComponent,
+
+
+
   ],
   imports: [
     //BrowserModule.withServerTransition({ appId: 'serverApp' }),
@@ -88,7 +93,8 @@ import { ChatModule } from './chat.module/chat.module';
     NgxSkeletonLoaderModule,
     NgxPaginationModule,
     InfiniteScrollModule,
-    
+    MatCardModule,
+
     /* AgmCoreModule.forRoot({
       apiKey: ''
     }),
@@ -120,11 +126,11 @@ import { ChatModule } from './chat.module/chat.module';
     HomeModule,
     AccountModule,
     SearchModule,
-    ChatModule
+    ChatModule,
   ],
   providers: [
     AppSettings,
-    AppService,   
+    AppService,
     { provide: OverlayContainer, useClass: CustomOverlayContainer },
     //{ provide: MAT_MENU_SCROLL_STRATEGY, useFactory: menuScrollStrategy, deps: [Overlay] },
     { provide: HTTP_INTERCEPTORS, useClass: AppInterceptor, multi: true },

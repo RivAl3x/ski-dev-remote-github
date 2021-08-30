@@ -42,7 +42,7 @@ import { PERFECT_SCROLLBAR_CONFIG } from 'ngx-perfect-scrollbar';
 import { PerfectScrollbarConfigInterface } from 'ngx-perfect-scrollbar';
 const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
   wheelPropagation: true,
-  suppressScrollX: true               
+  suppressScrollX: true
 };
 
 import { PipesModule } from '../_theme/pipes/pipes.module';
@@ -59,6 +59,7 @@ import { NgxMatMomentAdapter, NgxMatMomentModule, NGX_MAT_MOMENT_DATE_ADAPTER_OP
 import { MatMomentDateModule } from '@angular/material-moment-adapter';
 import { MatBottomSheetModule } from '@angular/material/bottom-sheet';
 import { ListingsCarouselComponent } from './components/listings-carousel/listings-carousel.component';
+
 
 @NgModule({
   imports: [
@@ -164,7 +165,7 @@ import { ListingsCarouselComponent } from './components/listings-carousel/listin
     ConfirmDialogComponent,
     LangComponent,
     ListingsCarouselComponent
-  ], 
+  ],
   providers:[
     { provide: PERFECT_SCROLLBAR_CONFIG, useValue: DEFAULT_PERFECT_SCROLLBAR_CONFIG },
     { provide: NGX_MAT_MOMENT_DATE_ADAPTER_OPTIONS, useValue: {useUtc: true} }

@@ -1,53 +1,167 @@
-<div fxLayout="row" fxLayoutAlign="space-between center" fxLayoutGap="10px" class="filter-row">
-    <button type="button" mat-flat-button color="accent" (click)="openFiltersDialog()">
-        {{ 'search.filters' | translate }}
-    </button>
-    <button type="button" mat-flat-button color="accent" (click)="sidenav.toggle()">
-        {{ 'search.toggle-map' | translate }}
-    </button>
+<!-- Filteres and Map buttons for side-navs -->
+<div
+  fxLayout="row"
+  fxLayoutAlign="space-between center"
+  fxLayoutGap="10px"
+  class="filter-row"
+>
+  <button
+    type="button"
+    mat-flat-button
+    color="accent"
+    (click)="sidenavFilters.toggle()"
+  >
+    {{ "search.filters" | translate }}
+  </button>
+  <button
+    type="button"
+    mat-flat-button
+    color="accent"
+    (click)="sidenavMap.toggle()"
+  >
+    {{ "search.toggle-map" | translate }}
+  </button>
 </div>
 
-<mat-sidenav-container class="search-container">
-    <mat-sidenav #sidenav class="sidenav-map"
-        mode="side" position="end" opened="true" 
-        [fixedInViewport]="true" [fixedTopGap]="0"
-        [fixedBottomGap]="0">
-        <div id="map">
-            <app-results-map [imagesLoaded]="imagesLoaded" [results]="results"></app-results-map>
-        </div>
-    </mat-sidenav>
-  
-    <mat-sidenav-content class="search-list mt-2" ngClass.gt-sm="p-left">
-        <!-- <div fxLayout="row" fxLayoutAlign="start center" fxLayoutGap="10px" class="filter-row">
-            <button type="button" mat-stroked-button>
-                Filters
-            </button>
-            <button type="button" mat-stroked-button (click)="sidenav.toggle()">
-                Toggle map
-            </button>
-        </div> -->
+<!-- Search Results in centered mat-cards -->
 
-        <div fxLayout="row wrap" class="products-wrapper"
-            infinite-scroll
-            [infiniteScrollDistance]="distance"
-            [infiniteScrollThrottle]="throttle"
-            (scrolled)="onScroll()"
-        >
-            <div  *ngFor="let result of results" fxFlex="100" class="col border-bottom">
-                <mat-card class="product-item mat-elevation-z0 py-2">
-                    <div fxFlex="100" fxLayout="row" fxLayout.xs="column" fxLayoutAlign="start start">
-                        <div class="py-2 image-wrapper">
-                            <a [routerLink]="['/search/results', result.id]" class="image-link">
-                                <ngx-skeleton-loader *ngIf="result.description.images[0] == undefined" count="1" appearance="circle" [theme]="{
-                                    width: '300px',
-                                    height: '200px',
-                                    'border-radius': '1px'
-                                  }">
-                                </ngx-skeleton-loader>
-                                <img *ngIf="result.description.images[0] != undefined" [src]="result.description.images[0].url">
-                            </a>
-                        </div>
-                        <div class="p-2 mb-1">                                                                     
+<div *ngFor="let result of localResults" class="col border-bottom mat-body-2">
+  <mat-card class="example-card mat-elevation-z3">
+    <mat-card-header>
+      <div mat-card-avatar class="example-header-image description-left"></div>
+      <mat-card-title class="">{{ result.description }}</mat-card-title>
+      <mat-card-subtitle
+        >Lesson type: {{ result.typeOfLessons }}</mat-card-subtitle
+      >
+    </mat-card-header>
+    <a>
+      <img
+        mat-card-image
+        *ngIf="result.image != undefined"
+        [src]="result.image"
+        class="image"
+      />
+    </a>
+    <mat-card-content>
+      <p>
+        {{ result.about }}
+      </p>
+      <div class="description-right">
+        <p class="mat-caption" style="margin-right: 10px; float: right">
+          Price from: <b>{{ result.price }}</b> per day
+        </p>
+        <div class="flags-padding">
+          <img
+            class="jss239"
+            code="en"
+            src="https://cdnjs.cloudflare.com/ajax/libs/flag-icon-css/3.4.3/flags/4x3/gb.svg"
+            style="
+              width: 1.6rem;
+              height: 1.6rem;
+              float: center;
+              position: relative;
+            "
+          />
+          <img
+            class="jss239"
+            code="ro"
+            src="https://cdnjs.cloudflare.com/ajax/libs/flag-icon-css/3.4.3/flags/4x3/ro.svg"
+            style="
+              width: 1.6rem;
+              height: 1.6rem;
+              float: center;
+              padding-left: 3px;
+            "
+          />
+        </div>
+      </div>
+      <app-rating
+        style="display: inline-block"
+        [ratingsCount]="result.ratingsCount"
+        [ratingsValue]="result.ratingStars"
+        [direction]="'column'"
+      ></app-rating>
+    </mat-card-content>
+    <div class="center">
+      <mat-card-actions class="center">
+        <button mat-button>VIEW DETAILS</button>
+        <button mat-button>
+          SHARE <span class="material-icons"> share </span>
+        </button>
+      </mat-card-actions>
+    </div>
+  </mat-card>
+  <br />
+</div>
+<div></div>
+
+<!--Side nav Map  -->
+
+<mat-sidenav-container class="search-container">
+  <mat-sidenav
+    #sidenavMap
+    class="sidenav-map"
+    mode="push"
+    position="end"
+    opened="false"
+
+    [fixedInViewport]="true"
+    [fixedTopGap]="0"
+    [fixedBottomGap]="0"
+  >
+    <div id="map">
+      <app-results-map
+        [imagesLoaded]="imagesLoaded"
+        [results]="results"
+      ></app-results-map>
+    </div>
+  </mat-sidenav>
+</mat-sidenav-container>
+
+<!-- Side nav Filters -->
+
+<mat-sidenav-container class="search-container">
+  <mat-sidenav
+    style="padding-top: 100px"
+    #sidenavFilters
+    class="sidenav-map"
+    mode="side"
+    position="start"
+    opened="false"
+    [fixedInViewport]="true"
+    [fixedTopGap]="0"
+    [fixedBottomGap]="0"
+  >
+    <mat-card class = "mat-elevation-z3" style="width: 300px; height: 76%; padding-top: 70px">
+      <h3>Lesson Type</h3>
+      <mat-slide-toggle>Group</mat-slide-toggle>
+      <mat-slide-toggle>Private</mat-slide-toggle>
+      <h3>Activity</h3>
+      <mat-slide-toggle>Skiing</mat-slide-toggle>
+      <mat-slide-toggle>Snowboarding</mat-slide-toggle>
+      <mat-slide-toggle>Off-Piste Skiing</mat-slide-toggle>
+      <h3>Ability</h3>
+      <mat-slide-toggle>Beginner</mat-slide-toggle>
+      <mat-slide-toggle>Intermediate</mat-slide-toggle>
+      <mat-slide-toggle>Advanced</mat-slide-toggle>
+      <h3>Age</h3>
+      <mat-slide-toggle>Adults</mat-slide-toggle>
+      <mat-slide-toggle>Teens</mat-slide-toggle>
+      <mat-slide-toggle>Children</mat-slide-toggle>
+      <h3>Language</h3>
+      <mat-slide-toggle>Romanian</mat-slide-toggle>
+      <mat-slide-toggle>English</mat-slide-toggle>
+      <mat-slide-toggle>French</mat-slide-toggle>
+      <br>
+      <mat-card-actions>
+        <button mat-button>Apply filters</button>
+        <button mat-button>Cancel</button>
+      </mat-card-actions>
+    </mat-card>
+  </mat-sidenav>
+</mat-sidenav-container>
+
+<!-- <div class="p-2 mb-1">
                             <a [routerLink]="['/search/results', result.id]" class="title">
                                 {{ result.location.name }}
                             </a>
@@ -58,19 +172,13 @@
                                 {{ 'search.office-types' | translate }}: <span *ngFor="let officeType of result.description.officeTypes">{{ 'host.listing.' + officeType.code | translate }}, </span>
                             </p>
                             <div fxLayout="row" fxLayoutAlign="space-between center" class="prices">
-                                <!-- <app-rating [ratingsCount]="product.ratingsCount" [ratingsValue]="product.ratingsValue" [direction]="'column'"></app-rating> -->
+
                                 <p class="new-price mb-0">
                                     {{ 'search.list-price' | translate: { listPrice: result.price.listPrice | number : '1.2-2' } }}
                                 </p>
-                            </div>                            
+                            </div>
                             <div class="divider"></div>
                             <div class="icons">
                                 <a [routerLink]="['/search/results', result.id]" mat-flat-button color="primary">Reserve</a>
                             </div>
-                        </div>
-                    </div>
-                </mat-card>
-            </div>
-        </div>
-    </mat-sidenav-content>
-</mat-sidenav-container>
+                        </div> -->
