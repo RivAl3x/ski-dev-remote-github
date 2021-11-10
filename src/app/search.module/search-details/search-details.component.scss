@@ -12,3 +12,86 @@
 ::ng-deep .mat-table .mat-form-field-infix {
     width: 120px !important;
 }
+
+
+.span-left-padding{
+   padding-left: 30px;
+   padding-right: 30px;
+   padding-top:10px;
+   align-items: center;
+   transform: scale(1.4);
+}
+
+
+mat-card {
+
+  margin: 15px;
+  color: black;
+  // box-shadow: 0px 2px 4px -1px rgb(0 0 0 / 20%),
+  //   0px 4px 5px 0px rgb(0 0 0 / 14%), 0px 1px 10px 0px rgb(0 0 0 / 12%);
+  // transition: box-shadow 300ms cubic-bezier(0.4, 0, 0.2, 1) 0ms;
+  // background: rgb(247 247 247) !important;
+  border-radius: 15px;
+}
+
+
+.sticky {
+  position: fixed;
+  top: 70;
+  overflow: visible;
+  z-index: 20;
+  right: 0;
+  margin-right:30px;
+  width:300px;
+
+}
+.flex-order-1{
+order:1 !important;
+}
+
+
+mat-input-element{
+  border-radius: 20px;
+}
+
+.right-mat-icons {
+  vertical-align:sub;
+}
+
+.mat-input-element{
+  background: none;
+ }
+h2{
+  color:rgb(77, 132, 204) ;
+}
+
+h1{
+  font-weight: bold;
+  }
+
+
+  .flags-padding {
+    text-align: center;
+    border-radius: 5px;
+    vertical-align:sub;
+
+  }
+
+
+  .blue-icon {
+    color:rgb(77, 132, 204) ;
+}
+
+.bold{
+  font-weight: bold;
+}
+#bg-image-search-details{
+  position: absolute;
+  top:0px;
+  left:0px;
+  flex-shrink: 0;
+  height: 100%;       background-size: cover;
+  background-position: center;
+  height: 55%;
+  width: 1920px;
+}

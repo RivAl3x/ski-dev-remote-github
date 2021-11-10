@@ -16,10 +16,10 @@
   <mat-hint class="mb-2 d-block">{{ 'host.listing.space-available-help' | translate }}</mat-hint>
   <ng-container formGroupName="description">
     <ng-container formArrayName="availableSpaces">
-      <mat-card 
-        class="mb-1" 
-        *ngFor="let availableSpace of availableSpacesControls; let i=index" 
-        [formGroupName]="i" 
+      <mat-card
+        class="mb-1"
+        *ngFor="let availableSpace of availableSpacesControls; let i=index"
+        [formGroupName]="i"
         fxLayout="row" fxLayoutAlign="space-between start" fxLayoutGap="20px"
         @inflate
       >
@@ -32,25 +32,25 @@
               </mat-option>
             </mat-select>
           </mat-form-field>
-  
+
           <mat-form-field>
             <input matInput placeholder="{{ 'host.listing.office-name' | translate }}" formControlName="name">
           </mat-form-field>
-  
+
           <mat-form-field>
             <input matInput placeholder="{{ 'host.listing.office-description' | translate }}" formControlName="description">
           </mat-form-field>
-  
+
           <mat-form-field>
             <input matInput type="number" placeholder="{{ 'host.listing.seats-no' | translate }}" formControlName="seatsNo">
           </mat-form-field>
-  
+
           <mat-form-field>
             <input matInput type="number" placeholder="{{ 'host.listing.units-no' | translate }}" formControlName="unitsNo">
           </mat-form-field>
         </div>
-        
-        <div class="p-1 actions">          
+
+        <div class="p-1 actions">
           <button mat-icon-button color="primary" matTooltip="Copy" (click)="onDuplicateAvailableSpace(availableSpace.controls)">
               <mat-icon>content_copy</mat-icon>
           </button>
@@ -79,21 +79,21 @@
             </button>
           </div>
         </mat-card>
-      </div>                                       
-      <mat-card> 
+      </div>
+      <mat-card>
         <div class="ripple" matRipple>
-          <input type="file" 
-          class="custom-file-input d-none" 
-          id="file" 
+          <input type="file"
+          class="custom-file-input d-none"
+          id="file"
           accept="image/*"
-          formControlName="imageFiles" 
+          formControlName="imageFiles"
           multiple="true"
           (change)="imagesChangeEvent($event)">
           <label class="" for="file">
             <mat-icon>add</mat-icon>
-          </label>  
-        </div>                     
-      </mat-card>                    
+          </label>
+        </div>
+      </mat-card>
     </div>
   </div>
 
@@ -103,9 +103,9 @@
   </div>
 
 </div>
-<ngx-image-gallery 
+<ngx-image-gallery
   id="image-gallery"
-  [images]="images" 
+  [images]="images"
   [conf]="conf"
   (onOpen)="galleryOpened($event)"
   (onClose)="galleryClosed()"

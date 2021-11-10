@@ -30,14 +30,14 @@ export class ListingsService {
   newListingId: number;
 
   apiOptionsArr = [
-    'listing_types', 
-    'office_types', 
-    'office_amenities', 
+    'listing_types',
+    'office_types',
+    'office_amenities',
     'currencies'
   ];
 
   constructor(
-    private apiClient: AppHttpClient, 
+    private apiClient: AppHttpClient,
     private baseHttp: HttpClient,
     private dexieService: DexieService,
   ) {
@@ -57,8 +57,8 @@ export class ListingsService {
 
   getLocalListings(): Observable<any> {
     return from(
-      this.getListingsFromIndexedDb().then(response => {   
-        console.info('getListingsFromIndexedDb', response);  
+      this.getListingsFromIndexedDb().then(response => {
+        console.info('getListingsFromIndexedDb', response);
           return response;
       })
    );
@@ -84,8 +84,8 @@ export class ListingsService {
     let numberId = parseFloat(id);
 
     return from(
-      this.getListingFromIndexedDb(numberId).then(response => {   
-        console.info('getListingFromIndexedDb', response);  
+      this.getListingFromIndexedDb(numberId).then(response => {
+        console.info('getListingFromIndexedDb', response);
           return response;
       })
    );
@@ -157,7 +157,7 @@ export class ListingsService {
   saveListing(listing, localId, idStatus) {
     this.sendListingToApi(listing, idStatus).subscribe((response) => {
       const apiId = response.data.id;
-      
+
       if (listing.description.images.length) {
         this.sendListingImagesToApi(apiId, listing).subscribe(() => {
           //delete revision from local db
@@ -174,7 +174,7 @@ export class ListingsService {
             console.log(`no images - Listing with local id ${localId} sent to api and deleted locally.`);
           });
         }
-        
+
       }
     }, (error) => {
       console.log('Send listing error: ', error );
@@ -214,9 +214,9 @@ export class ListingsService {
 
     const url = environment.apiUrl + 'Listing/images/save';
 
-    let payload = { 
-      'id': id, 
-      'images': listing.description.images 
+    let payload = {
+      'id': id,
+      'images': listing.description.images
     }
 
     const formData: any = new FormData();
@@ -241,8 +241,8 @@ export class ListingsService {
   private transformListingForApiPost(localListing: ListingModel, idStatus: any) {
 
     let transformedListing = {
-      'id': localListing.id,   
-      'idStatus': idStatus,   
+      'id': localListing.id,
+      'idStatus': idStatus,
       'location': {
         'name': localListing.location.name,
         'streetAddress': localListing.location.streetAddress,
@@ -264,7 +264,7 @@ export class ListingsService {
       'price': {
         'idCurrency': localListing.price.currency,
         'availableSpacesPrice': localListing.price.availableSpacesPrice,
-      },      
+      },
       'hours': {
         'availableHours': localListing.hours.availableHours,
         'fromHours': localListing.hours.fromHours,
@@ -330,7 +330,7 @@ export class ListingsService {
       ),
       new ListingPaymentModel(
         apiListing.payment.id,
-      ),    
+      ),
       new ListingDocumentsModel()
     );
 
@@ -339,7 +339,7 @@ export class ListingsService {
 
   getListingTypes(): Observable<any> {
     return from(
-      this.getOptionsFromIndexedDB('listing_types').then(response => {    
+      this.getOptionsFromIndexedDB('listing_types').then(response => {
           return response;
       })
     );
@@ -347,7 +347,7 @@ export class ListingsService {
 
   getOfficeTypes(): Observable<any> {
     return from(
-      this.getOptionsFromIndexedDB('office_types').then(response => {    
+      this.getOptionsFromIndexedDB('office_types').then(response => {
           return response;
       })
     );
@@ -355,7 +355,7 @@ export class ListingsService {
 
   getOfficeAmenities(): Observable<any> {
     return from(
-      this.getOptionsFromIndexedDB('office_amenities').then(response => {    
+      this.getOptionsFromIndexedDB('office_amenities').then(response => {
           return response;
       })
     );
@@ -363,7 +363,7 @@ export class ListingsService {
 
   getCurrencies(): Observable<any> {
     return from(
-      this.getOptionsFromIndexedDB('currencies').then(response => {    
+      this.getOptionsFromIndexedDB('currencies').then(response => {
           return response;
       })
     );

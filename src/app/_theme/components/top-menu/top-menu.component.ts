@@ -17,32 +17,32 @@ const languageKey = '__lang';
 })
 export class TopMenuComponent implements OnInit {
   public currencies = ['EUR', 'USD'];
-  public currency:any; 
-  public chatUpdates: boolean = false; 
+  public currency:any;
+  public chatUpdates: boolean = false;
 
   public settings: Settings;
   constructor(
     readonly guard: AuthGuard,
     readonly roleGuard: RoleAuthorizeGuard,
     public authService: AuthenticationService,
-    public appSettings: AppSettings, 
-    public appService: AppService, 
+    public appSettings: AppSettings,
+    public appService: AppService,
     public translateService: TranslateService,
     private signalrService: SignalrService,
     public router: Router
-  ) { 
-    this.settings = this.appSettings.settings; 
-  } 
+  ) {
+    this.settings = this.appSettings.settings;
+  }
 
   ngOnInit() {
     this.currency = this.currencies[0];
-    
+
     this.signalrService.messages.subscribe((conversationId: any) => {
-      console.info('Signalr messages subscribe from top-menu comp --- ', conversationId);
-      
+      // console.info('Signalr messages subscribe from top-menu comp --- ', conversationId);
+
       if (conversationId && this.router.url !== '/chat') {
         this.chatUpdates = true;
-      } 
+      }
     });
   }
 
@@ -52,12 +52,12 @@ export class TopMenuComponent implements OnInit {
 
   public changeCurrency(currency){
     this.currency = currency;
-  } 
+  }
 
-  public changeLang(lang:string){ 
-    this.translateService.use(lang);   
+  public changeLang(lang:string){
+    this.translateService.use(lang);
     localStorage.setItem(languageKey, lang);
-  } 
+  }
 
   public getLangText(lang){
     if(lang == 'de'){
@@ -75,11 +75,11 @@ export class TopMenuComponent implements OnInit {
     else{
       return 'English';
     }
-  } 
+  }
 
   public onSignOut() {
     console.info('onSignOut clicked');
-    this.authService.logout();  
+    this.authService.logout();
   }
 
 }

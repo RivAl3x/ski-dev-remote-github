@@ -1,22 +1,19 @@
-export class SearchData {
-  officeTypes?: any;
-  location?: any;
+export class BookingData {
   startDate?: any;
   endDate?: any;
   participants?: any;
+  locationMapped: any;
 
   public constructor(
-    officeTypes: any = '',
-    location: any = '',
     startDate: any = '',
     endDate: any = '',
-    participants: any = ''
+    participants: any = '',
+    locationMapped: any = ''
+
   ) {
-    this.officeTypes = officeTypes;
-    this.location = location;
     this.startDate = startDate;
     this.endDate = endDate;
     this.participants = participants;
+    this.locationMapped = locationMapped;
   }
 }
-

@@ -5,6 +5,7 @@ import {
   HostListener,
   Inject,
   PLATFORM_ID,
+  Input,
 } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { MatDialog } from '@angular/material/dialog';
@@ -18,6 +19,15 @@ import * as moment from 'moment';
 import { FiltersDialogComponent } from '../_components/filters-dialog/filters-dialog.component';
 import { MatCardModule } from '@angular/material/card';
 import { NgxStarRatingModule } from 'ngx-star-rating';
+import {
+  PerfectScrollbarConfigInterface,
+  PerfectScrollbarComponent,
+  PerfectScrollbarDirective,
+} from 'ngx-perfect-scrollbar';
+import { FormArray, FormBuilder, FormControl, FormGroup } from '@angular/forms';
+
+import { ListOption } from 'src/app/_shared/models/list-option.model';
+import { SkiSchoolModel } from 'src/app/host.module/_models/ski-schools.model';
 
 @Component({
   selector: 'app-search-results',
@@ -25,12 +35,101 @@ import { NgxStarRatingModule } from 'ngx-star-rating';
   styleUrls: ['./search-results.component.scss'],
 })
 export class SearchResultsComponent implements OnInit {
+  filterForm: FormGroup;
+  submittedValue: any;
+
+
+  // @Input() officeTypes: ListOption[] = [];
+  @Input() selectedSlideFiltersLessonType: Array<any>;
+  @Input() selectedFiltersActivity: Array<any>;
+  @Input() selectedFiltersAge: Array<any>;
+  @Input() selectedFiltersLanguage: Array<any>;
+  @Input() selectedFiltersAbility: Array<any>;
+
+
+  slideFiltersLessonType = [
+    {
+      id: 1,
+      name: 'Group',
+      value: 'group',
+    },
+    {
+      id: 2,
+      name: 'Private',
+      value: 'Private',
+    }];
+
+    slideFiltersActivity = [
+    {
+      id: 3,
+      name: 'Skiing',
+      value: 'skiing',
+    },
+    {
+      id: 4,
+      name: 'Snowboarding',
+      value: 'snowboarding',
+    }];
+
+    slideFiltersAge = [
+    {
+      id: 5,
+      name: 'Adults',
+      value: 'adults',
+    },
+    {
+      id: 6,
+      name: 'Teens',
+      value: 'teens',
+    },
+  ];
+
+  slideFiltersLanguage = [
+    {
+      id: 5,
+      name: 'Adults',
+      value: 'adults',
+    },
+    {
+      id: 6,
+      name: 'Teens',
+      value: 'teens',
+    },
+  ];
+
+  slideFiltersAbility = [
+    {
+      id: 7,
+      name: 'Beginner',
+      value: 'beginner',
+    },
+    {
+      id: 8,
+      name: 'Intermediate',
+      value: 'intermediate',
+    },
+    {
+      id: 9,
+      name: 'Advanced',
+      value: 'advanced',
+    },
+  ];
+
   public sortings = [
     'Sort by Default',
     'Best match',
     'Lowest first',
     'Highest first',
   ];
+  public config: PerfectScrollbarConfigInterface = {};
+
+  @ViewChild(PerfectScrollbarComponent)
+  componentRef?: PerfectScrollbarComponent;
+  @ViewChild(PerfectScrollbarDirective)
+  directiveRef?: PerfectScrollbarDirective;
+
+  public mode = 'side';
+
   public sort: any;
 
   public filters: any;
@@ -44,6 +143,9 @@ export class SearchResultsComponent implements OnInit {
   public totalRecords = 0;
 
   public results: ListingModel[] = [];
+  //start
+  public resultsSki: SkiSchoolModel[] = [];
+  //end
   public imagesLoaded: boolean = true;
 
   public settings: Settings;
@@ -52,6 +154,7 @@ export class SearchResultsComponent implements OnInit {
   ratingsValue: any;
   ratingsCount: any;
   stars: string[];
+  type: string;
 
   constructor(
     public appSettings: AppSettings,
@@ -61,7 +164,8 @@ export class SearchResultsComponent implements OnInit {
     public matCardModule: MatCardModule,
     private router: Router,
     @Inject(PLATFORM_ID) private platformId: Object,
-    private searchResultsService: SearchResultsService
+    private searchResultsService: SearchResultsService,
+    public fb: FormBuilder
   ) {
     this.settings = this.appSettings.settings;
   }
@@ -73,17 +177,161 @@ export class SearchResultsComponent implements OnInit {
 
     console.info('history.state.data: ', history.state.data);
 
+
     this.filters = history.state.data || {};
 
-    this.loadResults();
-    this.loadLocalResults();
+    // this.loadResults();
+    // this.loadLocalResults();
+    //start
+    this.loadResultsSki();
+    this.getCoffeeOrders();
+    console.info(this.resultsSki)
+
+    // this.onFetchData()
+    //end
+
+    this.filterForm = this.fb.group({
+      slideFiltersLessonType: new FormArray([]),
+      slideFiltersActivity: new FormArray([]),
+      slideFiltersAge: new FormArray([]),
+      slideFiltersLanguage: new FormArray([]),
+      slideFiltersAbility: new FormArray([]),
+
+    });
+  }
+
+  getCoffeeOrders(){
+    this.searchResultsService.getCoffeeOrders().subscribe((response) => {
+      // t
+      console.log(response);
+
+    });
+  }
+
+  onLessonTypeChange(e, filterItemId) {
+    // console.info('mat slide event -- ', e);
+    const selectedSlideFiltersLessonType: FormArray = this.filterForm.get(
+      'slideFiltersLessonType'
+    ) as FormArray;
+
+    if (e.checked) {
+      selectedSlideFiltersLessonType.push(new FormControl(filterItemId));
+    } else {
+      let i: number = 0;
+      selectedSlideFiltersLessonType.controls.forEach((item: FormControl) => {
+        if (item.value == filterItemId) {
+          selectedSlideFiltersLessonType.removeAt(i);
+          return;
+        }
+        i++;
+      });
+    }
+    console.info('selected filter const:', selectedSlideFiltersLessonType);
+    this.onFormSubmit();
+    console.info('Filter form values from first array:', this.filterForm.value);
+
+  }
+  onActivityChange(e, filterItemId) {
+    console.info('mat slide event -- ', e);
+    const selectedFiltersActivity: FormArray = this.filterForm.get(
+      'slideFiltersActivity'
+    ) as FormArray;
+
+    if (e.checked) {
+      selectedFiltersActivity.push(new FormControl(filterItemId));
+    } else {
+      let i: number = 0;
+      selectedFiltersActivity.controls.forEach((item: FormControl) => {
+        if (item.value == filterItemId) {
+          selectedFiltersActivity.removeAt(i);
+          return;
+        }
+        i++;
+      });
+    }
+    console.info('selected filter const:', selectedFiltersActivity);
+    this.onFormSubmit();
+  }
+  onAgeChange(e, filterItemId) {
+    console.info('mat slide event -- ', e);
+    const selectedFiltersAge: FormArray = this.filterForm.get(
+      'slideFiltersLanguage'
+    ) as FormArray;
+
+    if (e.checked) {
+      selectedFiltersAge.push(new FormControl(filterItemId));
+    } else {
+      let i: number = 0;
+      selectedFiltersAge.controls.forEach((item: FormControl) => {
+        if (item.value == filterItemId) {
+          selectedFiltersAge.removeAt(i);
+          return;
+        }
+        i++;
+      });
+    }
+    console.info('selected filter const:', selectedFiltersAge);
+    this.onFormSubmit();
+  }
+  onLanguageChange(e, filterItemId) {
+    console.info('mat slide event -- ', e);
+    const selectedFiltersLanguage: FormArray = this.filterForm.get(
+      'slideFiltersLanguage'
+    ) as FormArray;
+
+    if (e.checked) {
+      selectedFiltersLanguage.push(new FormControl(filterItemId));
+    } else {
+      let i: number = 0;
+      selectedFiltersLanguage.controls.forEach((item: FormControl) => {
+        if (item.value == filterItemId) {
+          selectedFiltersLanguage.removeAt(i);
+          return;
+        }
+        i++;
+      });
+    }
+    console.info('selected filter const:', selectedFiltersLanguage);
+    this.onFormSubmit();
+  }
+  onAbilityChange(e, filterItemId) {
+    console.info('mat slide event -- ', e);
+    const selectedFiltersAbility: FormArray = this.filterForm.get(
+      'slideFiltersAbility'
+    ) as FormArray;
+
+    if (e.checked) {
+      selectedFiltersAbility.push(new FormControl(filterItemId));
+    } else {
+      let i: number = 0;
+      selectedFiltersAbility.controls.forEach((item: FormControl) => {
+        if (item.value == filterItemId) {
+          selectedFiltersAbility.removeAt(i);
+          return;
+        }
+        i++;
+      });
+    }
+    console.info('selected filter const:', selectedFiltersAbility);
+    this.onFormSubmit();
+  }
+
+  onFormSubmit() {
+    this.extraFilters = this.filterForm.value;
+    // this.loadResults();
+    // this.loadLocalResults();
+    this.loadResultsSki();
+  }
+
+  ngOnDestroy() {
+
   }
 
   onScroll(): void {
     this.imagesLoaded = true;
 
     this.searchResultsService
-      .getSearchResults(
+      .getSearchResultsSki(
         this.filters,
         this.extraFilters,
         ++this.pageNumber,
@@ -91,187 +339,47 @@ export class SearchResultsComponent implements OnInit {
       )
       .subscribe((response) => {
         this.results.push(...response);
-
-        let count = this.results.length;
-
-        this.results.map((listing) => {
-          this.searchResultsService
-            .getListingImageById(listing.id)
-            .subscribe((imageResponse) => {
-              listing.description.images[0] = imageResponse;
-
-              count--;
-              this.imagesLoaded = count == 0 ? false : true;
-            });
-        });
       });
   }
+  public scrollToTop(): void {
+    if (this.type === 'directive' && this.directiveRef) {
+      this.directiveRef.scrollToTop();
+    } else if (
+      this.type === 'component' &&
+      this.componentRef &&
+      this.componentRef.directiveRef
+    ) {
+      this.componentRef.directiveRef.scrollToTop();
+    }
+  }
 
-  //dialog replaced with filters-sidenav
 
-  // public openFiltersDialog(){
-  //   const dialogRef = this.dialog.open(FiltersDialogComponent, {
-  //     data: {
-  //       filters: this.extraFilters,
-  //     },
-  //     panelClass: ['theme-dialog'],
-  //     autoFocus: false,
-  //     direction: 'ltr'
-  //   });
-
-  //   dialogRef.afterClosed().subscribe(filters => {
-  //     if(filters) {
-  //       console.info('filters afterClosed -- ', filters);
-
-  //       this.extraFilters = filters;
-  //       this.loadResults();
-  //     }
-  //   });
-  // }
-
-  loadResults() {
+  ////Start
+  loadResultsSki() {
     this.imagesLoaded = true;
-
     this.searchResultsService
-      .getSearchResults(
+      .getSearchResultsSki(
         this.filters,
         this.extraFilters,
         this.pageNumber,
         this.pageSize
       )
-      .subscribe((response) => {
-        this.results = response;
-
-        let count = this.results.length;
-
-        this.results.map((listing) => {
-          this.searchResultsService
-            .getListingImageById(listing.id)
-            .subscribe((imageResponse) => {
-              listing.description.images[0] = imageResponse;
-
-              count--;
-              this.imagesLoaded = count == 0 ? false : true;
-            });
-        });
+      .subscribe((response:any[]) => {
+        this.resultsSki = response;
+        console.log("RESPONSE SEARCH",response);
       });
   }
 
-  loadLocalResults() {
-    this.localResults = [
-      {
-        id: 1,
-        skiSchoolId: '65435634',
-        description: 'Private Ski Lesson (All Levels)',
-        skiSchoolName: 'Ski School Predeal',
-        typeOfLessons: 'private',
-        maximumParticipants: 4,
-        minimumAge: 5,
-        price: '55 €',
-        ratingStars: '200', //*20
-        ratingsCount: '3',
-        about:
-          "Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever sentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recentl",
-        image:
-          'https://www.ischgl.com/media/2015/002_winter/wintersport/ischgl/skischule/image-thumb__134725__lightbox/gruppenfoto-2016.webp',
-        particularities: {
-          lessonType: {
-            group: true,
-            private: true,
-          },
-          activity: {
-            skiing: true,
-            snowboarding: false,
-            offPisteSkiing: true,
-          },
-          ability: {
-            begginer: true,
-            intermediate: true,
-            advanced: true,
-          },
-          age: {
-            adults: true,
-            teens: true,
-            children: true,
-          },
-          language: ['romanian', 'english', 'french'],
-        },
-      },
-      {
-        id: 2,
-        skiSchoolId: '4324325',
-        description: 'Adult Group Ski Lessons (All Levels)',
-        skiSchoolName: 'Ski School Brasov',
-        typeOfLessons: 'group',
-        maximumParticipants: 2,
-        minimumAge: 18,
-        price: '35 €',
-        ratingStars: '320', //*20
-        ratingsCount: '4',
-        about:
-          "Randomised words which don't look even slightly believable. If you are going to use a passage of Lorem Ipsum, you need to be sure there isn't anything embarrassing hidden in the middle of text. All the Lorem Ipsum generators on the Internet tend to repeat predefined chunks as necessary, making this the first true generator on the Internet. It uses a dictionary of over 200 Latin words, combined with a handful of model sentence structures, to generate Lorem",
-        image: 'https://www.instructor-ski.ro/en/database/site_01.jpg',
-        particularities: {
-          lessonType: {
-            group: true,
-            private: false,
-          },
-          activity: {
-            skiing: true,
-            snowboarding: false,
-            offPisteSkiing: false,
-          },
-          ability: {
-            begginer: true,
-            intermediate: true,
-            advanced: true,
-          },
-          age: {
-            adults: true,
-            teens: false,
-            children: false,
-          },
-          language: ['romanian', 'english'],
-        },
-      },
-      {
-        id: 3,
-        skiSchoolId: '8766966',
-        description: 'Private Off Piste Guiding',
-        skiSchoolName: 'Ski School Sinaia',
-        typeOfLessons: 'private',
-        maximumParticipants: 8,
-        minimumAge: 16,
-        price: '62 €',
-        ratingStars: '1900', //*20
-        ratingsCount: '10',
-        about:
-          'Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo. Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit',
-        image:
-          'https://www.galtuer.com/media/galtuer/WINTER/FAMILIEN_KINDER/image-thumb__105539__hero-slide-small_auto_de5e1d4f98150146b7bce6c5a5a5729b/silvapark-galtuer-2016%20%2830%29.jpg',
-        particularities: {
-          lessonType: {
-            group: true,
-            private: true,
-          },
-          activity: {
-            skiing: true,
-            snowboarding: true,
-            offPisteSkiing: false,
-          },
-          ability: {
-            begginer: true,
-            intermediate: true,
-            advanced: true,
-          },
-          age: {
-            adults: true,
-            teens: true,
-            children: true,
-          },
-          language: ['romanian', 'english'],
-        },
-      },
-    ];
+
+  @HostListener('window:resize')
+  public onWindowResize(): void {
+    window.innerWidth < 575 ? (this.mode = 'over') : (this.mode = 'side');
+  }
+
+  deleteFilters() {
+    this.filterForm.reset();
+    this.extraFilters = {};
+    // this.loadResults();
+    this.loadResultsSki();
   }
 }

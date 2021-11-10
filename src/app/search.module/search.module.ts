@@ -22,6 +22,8 @@ import { FiltersDialogComponent } from './_components/filters-dialog/filters-dia
 //import { AddressesComponent } from './addresses/addresses.component';
 //import { OrdersComponent } from './orders/orders.component';
 import { NgxStarRatingModule } from 'ngx-star-rating';
+import { PerfectScrollbarComponent } from 'ngx-perfect-scrollbar';
+
 
 const routes = [
   {
@@ -58,7 +60,8 @@ const routes = [
     ImagesLoaderComponent,
     ImagesSliderComponent,
     ResultsMapComponent,
-    FiltersDialogComponent
+    FiltersDialogComponent,
+
   ],
   providers: [
     {provide: NGX_MAT_MOMENT_DATE_ADAPTER_OPTIONS, useValue: {useUtc: true}}

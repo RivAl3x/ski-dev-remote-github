@@ -29,7 +29,7 @@ export class DescriptionComponent implements OnInit {
 
   @Input() savedImages: Array<any> = [];
 
-  @ViewChild(NgxImageGalleryComponent) 
+  @ViewChild(NgxImageGalleryComponent)
   ngxImageGallery: NgxImageGalleryComponent;
 
   // gallery configuration
@@ -53,7 +53,7 @@ export class DescriptionComponent implements OnInit {
     this.mapSelectedAmenities();
     this.mapSavedAvailableSpace();
     this.mapSavedImages();
-    
+
   }
 
   mapSelectedOfficeTypes() {
@@ -64,14 +64,14 @@ export class DescriptionComponent implements OnInit {
         selectedOfficeTypes.push(new FormControl(officeType.id));
       }
     });
-    
+
   }
 
   onOfficeTypeChange(e) {
     console.info('e.source.value -- ', e.source.value);
 
     const selectedOfficeTypes: FormArray = this.listingForm.get('description').get('officeTypes') as FormArray;
-  
+
     if (e.checked) {
       console.info('e.checked -- ', e.checked);
       selectedOfficeTypes.push(new FormControl(e.source.value));
@@ -155,7 +155,7 @@ export class DescriptionComponent implements OnInit {
     console.info('e.source.value -- ', e.source.value);
 
     const selectedAmenities: FormArray = this.listingForm.get('description').get('amenities') as FormArray;
-  
+
     if (e.checked) {
       console.info('e.checked -- ', e.checked);
       selectedAmenities.push(new FormControl(e.source.value));
@@ -179,7 +179,7 @@ export class DescriptionComponent implements OnInit {
         selectedAmenities.push(new FormControl(amenity.id));
       }
     });
-    
+
   }
 
   mapSavedImages() {
@@ -204,7 +204,7 @@ export class DescriptionComponent implements OnInit {
           let image = {
             url: imgBase64Path
           }
-  
+
           this.images.push(image);
 
           this.listingForm.get('description').patchValue({

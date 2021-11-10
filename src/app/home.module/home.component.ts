@@ -39,11 +39,11 @@ export class HomeComponent implements OnInit {
     this.getProducts("featured");
     this.getBrands();
 
-    this.getListings("featured");
+    // this.getListings("featured");
   }
 
   public onLinkClick(e){
-    this.getProducts(e.tab.textLabel.toLowerCase()); 
+    this.getProducts(e.tab.textLabel.toLowerCase());
   }
 
   public onTabChange(e){
@@ -53,25 +53,25 @@ export class HomeComponent implements OnInit {
   public getProducts(type){
     if(type == "featured" && !this.featuredProducts){
       this.appService.getProducts("featured").subscribe(data=>{
-        this.featuredProducts = data;      
-      }) 
+        this.featuredProducts = data;
+      })
     }
     if(type == "on sale" && !this.onSaleProducts){
       this.appService.getProducts("on-sale").subscribe(data=>{
-        this.onSaleProducts = data;      
+        this.onSaleProducts = data;
       })
     }
     if(type == "top rated" && !this.topRatedProducts){
       this.appService.getProducts("top-rated").subscribe(data=>{
-        this.topRatedProducts = data;      
+        this.topRatedProducts = data;
       })
     }
     if(type == "new arrivals" && !this.newArrivalsProducts){
       this.appService.getProducts("new-arrivals").subscribe(data=>{
-        this.newArrivalsProducts = data;      
+        this.newArrivalsProducts = data;
       })
     }
-   
+
   }
 
   public getBanners(){

@@ -1,166 +1,321 @@
 <!-- Filteres and Map buttons for side-navs -->
 <div
   fxLayout="row"
-  fxLayoutAlign="space-between center"
+  fxLayoutAlign="center center"
   fxLayoutGap="10px"
-  class="filter-row"
+  class="filter-row sticky"
 >
   <button
+    class="mt-2 ml-2 mat-button-toggle mat-button-toggle:hover"
     type="button"
-    mat-flat-button
-    color="accent"
+    mat-raised-button
+    color="transparent"
     (click)="sidenavFilters.toggle()"
+    style="display: inline"
   >
     {{ "search.filters" | translate }}
+    <!-- <span class="material-icons"> filter_alt </span> -->
   </button>
-  <button
+
+  <!-- <button
+
     type="button"
     mat-flat-button
     color="accent"
     (click)="sidenavMap.toggle()"
   >
     {{ "search.toggle-map" | translate }}
-  </button>
+  </button> -->
 </div>
 
 <!-- Search Results in centered mat-cards -->
 
-<div *ngFor="let result of localResults" class="col border-bottom mat-body-2">
-  <mat-card class="example-card mat-elevation-z3">
-    <mat-card-header>
-      <div mat-card-avatar class="example-header-image description-left"></div>
-      <mat-card-title class="">{{ result.description }}</mat-card-title>
-      <mat-card-subtitle
-        >Lesson type: {{ result.typeOfLessons }}</mat-card-subtitle
-      >
-    </mat-card-header>
-    <a>
-      <img
-        mat-card-image
-        *ngIf="result.image != undefined"
-        [src]="result.image"
-        class="image"
-      />
-    </a>
-    <mat-card-content>
-      <p>
-        {{ result.about }}
-      </p>
-      <div class="description-right">
-        <p class="mat-caption" style="margin-right: 10px; float: right">
-          Price from: <b>{{ result.price }}</b> per day
-        </p>
-        <div class="flags-padding">
-          <img
-            class="jss239"
-            code="en"
-            src="https://cdnjs.cloudflare.com/ajax/libs/flag-icon-css/3.4.3/flags/4x3/gb.svg"
-            style="
-              width: 1.6rem;
-              height: 1.6rem;
-              float: center;
-              position: relative;
-            "
-          />
-          <img
-            class="jss239"
-            code="ro"
-            src="https://cdnjs.cloudflare.com/ajax/libs/flag-icon-css/3.4.3/flags/4x3/ro.svg"
-            style="
-              width: 1.6rem;
-              height: 1.6rem;
-              float: center;
-              padding-left: 3px;
-            "
-          />
-        </div>
-      </div>
-      <app-rating
-        style="display: inline-block"
-        [ratingsCount]="result.ratingsCount"
-        [ratingsValue]="result.ratingStars"
-        [direction]="'column'"
-      ></app-rating>
-    </mat-card-content>
-    <div class="center">
-      <mat-card-actions class="center">
-        <button mat-button>VIEW DETAILS</button>
-        <button mat-button>
-          SHARE <span class="material-icons"> share </span>
-        </button>
-      </mat-card-actions>
-    </div>
-  </mat-card>
-  <br />
-</div>
-<div></div>
-
 <!--Side nav Map  -->
 
-<mat-sidenav-container class="search-container">
-  <mat-sidenav
+<mat-sidenav-container style="padding-top: 10px">
+  <!-- <mat-sidenav
     #sidenavMap
     class="sidenav-map"
-    mode="push"
+    mode="side"
     position="end"
     opened="false"
-
     [fixedInViewport]="true"
     [fixedTopGap]="0"
     [fixedBottomGap]="0"
   >
     <div id="map">
       <app-results-map
-        [imagesLoaded]="imagesLoaded"
+        *ngIf="!imagesLoaded"
         [results]="results"
       ></app-results-map>
     </div>
-  </mat-sidenav>
-</mat-sidenav-container>
+  </mat-sidenav> -->
 
-<!-- Side nav Filters -->
+  <!-- Side nav Filters -->
 
-<mat-sidenav-container class="search-container">
   <mat-sidenav
-    style="padding-top: 100px"
+    style="padding-top: 7px; border-right: none; visibility: none"
     #sidenavFilters
-    class="sidenav-map"
-    mode="side"
+    class=""
+    mode="{{ mode }}"
     position="start"
-    opened="false"
-    [fixedInViewport]="true"
+    opened="true"
+    [fixedInViewport]="false"
     [fixedTopGap]="0"
-    [fixedBottomGap]="0"
+    [fixedBottomGap]="20"
   >
-    <mat-card class = "mat-elevation-z3" style="width: 300px; height: 76%; padding-top: 70px">
-      <h3>Lesson Type</h3>
-      <mat-slide-toggle>Group</mat-slide-toggle>
-      <mat-slide-toggle>Private</mat-slide-toggle>
-      <h3>Activity</h3>
-      <mat-slide-toggle>Skiing</mat-slide-toggle>
-      <mat-slide-toggle>Snowboarding</mat-slide-toggle>
-      <mat-slide-toggle>Off-Piste Skiing</mat-slide-toggle>
-      <h3>Ability</h3>
-      <mat-slide-toggle>Beginner</mat-slide-toggle>
-      <mat-slide-toggle>Intermediate</mat-slide-toggle>
-      <mat-slide-toggle>Advanced</mat-slide-toggle>
-      <h3>Age</h3>
-      <mat-slide-toggle>Adults</mat-slide-toggle>
-      <mat-slide-toggle>Teens</mat-slide-toggle>
-      <mat-slide-toggle>Children</mat-slide-toggle>
-      <h3>Language</h3>
-      <mat-slide-toggle>Romanian</mat-slide-toggle>
-      <mat-slide-toggle>English</mat-slide-toggle>
-      <mat-slide-toggle>French</mat-slide-toggle>
-      <br>
-      <mat-card-actions>
-        <button mat-button>Apply filters</button>
-        <button mat-button>Cancel</button>
-      </mat-card-actions>
+    <mat-card
+      style="padding-top: 28px"
+      class="mat-elevation-z4 overflow mr-2"
+      style="
+        width: 210px;
+        padding-top: 70px;
+        border-radius: 30px;
+        border-left: 1px solid rgba(61, 14, 14, 0.159);
+      "
+      fxFlex="auto"
+      wrap
+    >
+      <perfect-scrollbar
+        [config]="{ suppressScrollX: true, wheelPropagation: false }"
+        #sidebarScroll
+      >
+        <form [formGroup]="filterForm" autocomplete="off" class="ml-2">
+          <div fxLayout="column" class="filter-margin">
+            <!-- <mat-card-actions>
+              <button
+                *ngIf="filterForm.value"
+                mat-stroked-button
+                class="mat-button-toggle mat-button-toggle:hover"
+                (click)="deleteFilters()"
+              >
+                Delete filters
+              </button>
+            </mat-card-actions> -->
+            <ng-container>
+              <!-- <input type="checkbox" [formControlName]="i" />{{checkbox.name}} -->
+              <br />
+            </ng-container>
+
+            <!-- <h3 class="filter-margin">Lesson Type</h3>
+          <mat-slide-toggle formControlName="group">Group </mat-slide-toggle>
+          <mat-slide-toggle formControlName="private">Private</mat-slide-toggle>
+          <br />
+           <h3 class="filter-margin">Activity</h3>
+          <mat-slide-toggle>Skiing</mat-slide-toggle>
+          <mat-slide-toggle>Snowboarding</mat-slide-toggle>
+          <mat-slide-toggle>Off-Piste Skiing</mat-slide-toggle>
+          <br />
+          <h3 class="filter-margin">Ability</h3>
+          <mat-slide-toggle>Beginner</mat-slide-toggle>
+          <mat-slide-toggle>Intermediate</mat-slide-toggle>
+          <mat-slide-toggle>Advanced</mat-slide-toggle>
+          <br />
+          <h3 class="filter-margin">Age</h3>
+          <mat-slide-toggle>Adults</mat-slide-toggle>
+          <mat-slide-toggle>Teens</mat-slide-toggle>
+          <mat-slide-toggle>Children</mat-slide-toggle>
+          <br />
+          <h3 class="filter-margin">Language</h3>
+          <mat-slide-toggle>Romanian</mat-slide-toggle>
+          <mat-slide-toggle>English</mat-slide-toggle>
+          <mat-slide-toggle>French</mat-slide-toggle>
+          <h3 class="filter-margin">Age</h3>
+          <mat-slide-toggle>Adults</mat-slide-toggle>
+          <mat-slide-toggle>Teens</mat-slide-toggle>
+          <mat-slide-toggle>Children</mat-slide-toggle>
+          <br />
+          <h3 class="filter-margin">Language</h3>
+          <mat-slide-toggle>Romanian</mat-slide-toggle>
+          <mat-slide-toggle>English</mat-slide-toggle>
+          <mat-slide-toggle>French</mat-slide-toggle>
+          <h3 class="filter-margin">Age</h3>
+          <mat-slide-toggle>Adults</mat-slide-toggle>
+          <mat-slide-toggle>Teens</mat-slide-toggle>
+          <mat-slide-toggle>Children</mat-slide-toggle>
+          <br />
+          <h3 class="filter-margin">Language</h3>
+          <mat-slide-toggle>Romanian</mat-slide-toggle>
+          <mat-slide-toggle>English</mat-slide-toggle>
+          <mat-slide-toggle>French</mat-slide-toggle> -->
+
+            <br />
+          </div>
+
+          <h2>Lesson Type</h2>
+          <div *ngFor="let item of slideFiltersLessonType; let i = index">
+            <mat-slide-toggle
+              [value]="item.id"
+              (change)="onLessonTypeChange($event, item.id)"
+            >
+              {{ item.name }}
+            </mat-slide-toggle>
+          </div>
+
+          <br />
+          <h2>Activity</h2>
+          <div *ngFor="let item of slideFiltersActivity; let i = index">
+            <mat-slide-toggle
+              [value]="item.id"
+              (change)="onActivityChange($event, item.id)"
+            >
+              {{ item.name }}
+            </mat-slide-toggle>
+          </div>
+
+          <br />
+          <h2>Age</h2>
+          <div *ngFor="let item of slideFiltersAge; let i = index">
+            <mat-slide-toggle
+              [value]="item.id"
+              (change)="onAgeChange($event, item.id)"
+            >
+              {{ item.name }}
+            </mat-slide-toggle>
+          </div>
+
+          <br />
+          <h2>Language</h2>
+          <div *ngFor="let item of slideFiltersLanguage; let i = index">
+            <mat-slide-toggle
+              [value]="item.id"
+              (change)="onLanguageChange($event, item.id)"
+            >
+              {{ item.name }}
+            </mat-slide-toggle>
+          </div>
+
+          <br />
+          <h2>Ability</h2>
+          <div *ngFor="let item of slideFiltersAbility; let i = index">
+            <mat-slide-toggle
+              [value]="item.id"
+              (change)="onAbilityChange($event, item.id)"
+            >
+              {{ item.name }}
+            </mat-slide-toggle>
+          </div>
+        </form>
+      </perfect-scrollbar>
     </mat-card>
   </mat-sidenav>
-</mat-sidenav-container>
 
+  <mat-sidenav-content>
+    <div *ngFor="let result of resultsSki">
+      <mat-card
+        fxFlex
+        class="mat-elevation-z3 outline"
+        style="border-style: groove; border-width: thin"
+      >
+        <div
+          fxFlex="100"
+          fxLayout="column wrap"
+          fxLayout.gt-sm=""
+          fxLayoutAlign.gt-sm="space-between stretch"
+          class=""
+        >
+          <!-- First col -- image -->
+          <div
+            class="bg-img"
+            fxLayout.lt-md="column"
+            fxLayoutAlign.lt-md="space-between stretch"
+            style="background-image: url({{result.image}})"
+          >
+            <a [routerLink]="['/search/results',result.id]" class="image-link">
+              <!-- <ngx-skeleton-loader *ngIf="result.image == undefined" count="1" appearance="circle" [theme]="{
+                width: 'auto',
+                height: 'auto',
+                'border-radius': '5px'
+              }">
+            </ngx-skeleton-loader> -->
+
+              <img
+                *ngIf="result.image != undefined"
+                [src]="result.image"
+                class="cards-images"
+              />
+            </a>
+          </div>
+          <!-- Second col -- description -->
+          <div
+            fxLayout="column"
+            fxLayoutAlign="center stretch"
+            fxFlex="60"
+            class="center"
+          >
+            <div class="center">
+              <a [routerLink]="['/search/results', result.id]" class="title">
+                <div fxFlex class="mat-h2">{{ result.description }}</div>
+              </a>
+            </div>
+            <span class="mat-h4">{{ result.skiSchoolName }}</span>
+            <span class="mat-small"
+              >Minimum participans:{{ result.maximumParticipants }}</span
+            >
+            <span class="mat-small">Minimum age:{{ result.minimumAge }}</span>
+            <!-- <span style="margin-top: 12px">{{ result.about }}</span> -->
+          </div>
+          <!-- Third col -- price and flags -->
+          <div
+            fxLayout="column"
+            style="padding: 10px"
+            fxLayoutAlign="centercenter"
+            fxLayoutAlign.gt-sm="space-between stretch"
+            fxLayout.lt-md="row"
+            fxLayoutAlign.lt-md="space-between  start"
+            fxFlex="30"
+            class=""
+          >
+            <div>
+              <span
+                fxLayout="column"
+                fxLayoutAlign="center center"
+                fxLayoutAlign.xs=""
+                class=""
+              >
+                Price from: <b>{{ result.price }}</b> per day
+              </span>
+            </div>
+            <div fxLayout="row" fxLayoutAlign="center center" class="">
+              <img
+                class="flags-padding"
+                code="en"
+                src="https://cdnjs.cloudflare.com/ajax/libs/flag-icon-css/3.4.3/flags/4x3/gb.svg"
+                style="
+                  width: 1.6rem;
+                  height: 1.6rem;
+                  float: center;
+                  position: relative;
+                "
+              />
+              <img
+                class="flags-padding"
+                code="ro"
+                src="https://cdnjs.cloudflare.com/ajax/libs/flag-icon-css/3.4.3/flags/4x3/ro.svg"
+                style="
+                  width: 1.6rem;
+                  height: 1.6rem;
+                  float: center;
+                  padding-left: 3px;
+                "
+              />
+            </div>
+            <div fxLayout="row" fxLayoutAlign="center center" class="">
+              <app-rating
+                fxLayout="column"
+                fxLayoutAlign="start center"
+                [ratingsCount]="result.ratingsCount"
+                [ratingsValue]="result.ratingStars"
+                [direction]="'column'"
+              ></app-rating>
+            </div>
+          </div>
+        </div>
+      </mat-card>
+      <br />
+    </div>
+  </mat-sidenav-content>
+</mat-sidenav-container>
 <!-- <div class="p-2 mb-1">
                             <a [routerLink]="['/search/results', result.id]" class="title">
                                 {{ result.location.name }}

@@ -27,9 +27,9 @@ export class BookingService {
 
     constructor(
         private dexieService: DexieService,
-        private apiClient: AppHttpClient, 
+        private apiClient: AppHttpClient,
         public snackBar: MatSnackBar
-    ) { 
+    ) {
         this.bookingsTable = this.dexieService.table('bookings');
 
         this.loadLocalBookings();
@@ -37,7 +37,7 @@ export class BookingService {
 
     loadLocalBookings() {
         this.getLocalBookings().subscribe((response) => {
-            console.info('getLocalBookings response -- ', response);
+            // console.info('getLocalBookings response -- ', response);
             this.bookingList = response;
 
             this.bookingList.forEach( listing => {
@@ -62,8 +62,8 @@ export class BookingService {
 
     getLocalBookings(): Observable<any> {
         return from(
-          this.getBookingsFromIndexedDb().then(response => {   
-            console.info('getBookingsFromIndexedDb', response);  
+          this.getBookingsFromIndexedDb().then(response => {
+            // console.info('getBookingsFromIndexedDb', response);
               return response;
           })
        );
@@ -71,7 +71,7 @@ export class BookingService {
 
     async getBookingsFromIndexedDb() {
         const localBookings = await this.bookingsTable.toArray();
-    
+
         return localBookings;
     }
 
@@ -83,8 +83,8 @@ export class BookingService {
     }
 
     public addToBookingList(listing: ListingModel, bookedSpace: ISpaceAvailablePriceModel){
-        let message, status;        
-    
+        let message, status;
+
         this.totalPrice = null;
         this.totalBookingCount = null;
 
@@ -92,14 +92,14 @@ export class BookingService {
 
         bookedSpace.bookedGuid = Guid.raw();
 
-        if(this.bookingList.filter(item=>item.id == listing.id)[0]) { 
+        if(this.bookingList.filter(item=>item.id == listing.id)[0]) {
             let item = this.bookingList.filter(item=>item.id == listing.id)[0];
-            item.bookedSpaces.push(bookedSpace); 
+            item.bookedSpaces.push(bookedSpace);
         } else {
-            listing.bookedSpaces.push(bookedSpace);           
+            listing.bookedSpaces.push(bookedSpace);
             this.bookingList.push(listing);
         }
-                 
+
         this.bookingList.forEach( listing => {
             listing.bookedSpaces.map((bookedSpace) => {
                 this.totalPrice = this.totalPrice + bookedSpace.bookedPrice;
@@ -110,14 +110,14 @@ export class BookingService {
             this.addBookingToIndexedDb(listing);
         });
 
-        message = 'Your booking has been added to the booking list!'; 
-        status = 'success';          
+        message = 'Your booking has been added to the booking list!';
+        status = 'success';
         this.snackBar.open(message, '×', { panelClass: [status], verticalPosition: 'bottom', duration: 5000 });
     }
 
     public removeBookedSpace(listingId, bookedSpace: ISpaceAvailablePriceModel) {
-        let message, status;        
-    
+        let message, status;
+
         this.totalPrice = null;
         this.totalBookingCount = null;
 
@@ -138,14 +138,14 @@ export class BookingService {
 
         setTimeout(() => this.loadLocalBookings(), 300);
 
-        message = 'Your booking has been deleted!'; 
-        status = 'success';          
+        message = 'Your booking has been deleted!';
+        status = 'success';
         this.snackBar.open(message, '×', { panelClass: [status], verticalPosition: 'bottom', duration: 5000 });
-    
+
     }
 
     public clearBookingList(showFlash: boolean = true) {
-        let message, status; 
+        let message, status;
 
         this.totalPrice = null;
         this.totalBookingCount = null;
@@ -154,8 +154,8 @@ export class BookingService {
         setTimeout(() => this.loadLocalBookings(), 300);
 
         if (showFlash) {
-            message = 'Your booking list has been cleared!'; 
-            status = 'success';          
+            message = 'Your booking list has been cleared!';
+            status = 'success';
             this.snackBar.open(message, '×', { panelClass: [status], verticalPosition: 'bottom', duration: 5000 });
         }
     }
@@ -165,15 +165,15 @@ export class BookingService {
         const url = environment.apiUrl + 'Search/listing/availablity';
 
         let payload = {
-            listingId: listing.id, 
+            listingId: listing.id,
             availableSpaceId: bookedSpace.idAvailableSpace,
-            bookedUnitsNo: bookedSpace.bookedUnitsNo, 
-            checkin: bookedSpace.checkin, 
+            bookedUnitsNo: bookedSpace.bookedUnitsNo,
+            checkin: bookedSpace.checkin,
             checkout: bookedSpace.checkout
         }
 
         console.info('payload -- ', payload);
-        
+
         return this.apiClient.post(url, payload).pipe(
             catchError(this.handleError),
             map((response: any)  => {
@@ -187,12 +187,12 @@ export class BookingService {
         console.info(bookings);
 
         const url = environment.apiUrl + 'book';
-    
+
         const formData: any = new FormData();
-    
+
         formData.append('billingAddressId', billingAddressId);
         formData.append('bookings', JSON.stringify(bookings));
-    
+
         return this.apiClient.post(url, formData, {}, true)
             .pipe(
                 catchError(this.handleBookError),

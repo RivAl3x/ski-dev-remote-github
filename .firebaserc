@@ -1,5 +1,14 @@
 {
   "projects": {
     "default": "ski-hub"
+  },
+  "targets": {
+    "proiect1-a4726": {
+      "hosting": {
+        "skihub": [
+          "proiect1-a4726"
+        ]
+      }
+    }
   }
 }

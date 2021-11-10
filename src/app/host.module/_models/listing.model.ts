@@ -34,9 +34,9 @@ export class ListingModel {
         description: ListingDescriptionModel = new ListingDescriptionModel,
         price: ListingPriceModel = new ListingPriceModel,
         hours: ListingHoursModel = new ListingHoursModel,
-        payment: ListingPaymentModel= new ListingPaymentModel,    
-        documents: ListingDocumentsModel = new ListingDocumentsModel,    
-        bookedSpaces: ISpaceAvailablePriceModel[] = []   
+        payment: ListingPaymentModel= new ListingPaymentModel,
+        documents: ListingDocumentsModel = new ListingDocumentsModel,
+        bookedSpaces: ISpaceAvailablePriceModel[] = []
     ) {
         this.id = id;
         this.localId = localId;

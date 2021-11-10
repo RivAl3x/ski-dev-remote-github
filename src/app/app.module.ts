@@ -9,8 +9,9 @@ import { TranslateModule, TranslateLoader } from '@ngx-translate/core';
 import { TranslateHttpLoader } from '@ngx-translate/http-loader';
 export function HttpLoaderFactory(httpClient: HttpClient) {
   return new TranslateHttpLoader(httpClient, environment.url +'/assets/i18n/', '.json');
-}
-
+  //firestore
+}import { AngularFireModule } from '@angular/fire';
+import { AngularFirestoreModule } from "@angular/fire/firestore";
 import { OverlayContainer, Overlay } from '@angular/cdk/overlay';
 import { MAT_MENU_SCROLL_STRATEGY } from '@angular/material/menu';
 
@@ -66,6 +67,7 @@ import { ChatModule } from './chat.module/chat.module';
 import { MatCardModule } from '@angular/material/card';
 
 
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -94,6 +96,9 @@ import { MatCardModule } from '@angular/material/card';
     NgxPaginationModule,
     InfiniteScrollModule,
     MatCardModule,
+    //firestore
+    AngularFireModule.initializeApp(environment.firebaseConfig),
+    AngularFirestoreModule,
 
     /* AgmCoreModule.forRoot({
       apiKey: ''

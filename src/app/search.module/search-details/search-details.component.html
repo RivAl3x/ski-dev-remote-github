@@ -1,143 +1,308 @@
-<div *ngIf="listing" fxLayout="row wrap">
-    <div fxFlex="100" ngClass="mt-1">
-        <h2>{{listing.location.name}}</h2>
-        <div fxLayout="row" fxLayoutAlign="space-between center">
-            <p>{{ 'host.listing.' + listing.location.listingTypeName | translate}} - {{ listing.location.countryName }}, {{ listing.location.locality }}</p>
-            <button class="text-muted" mat-icon-button><mat-icon>favorite</mat-icon></button>
+<div
+  fxLayout="row "
+  fxLayout.lt-md="column"
+  fxLayoutAlign="space-between center"
+  fxLayoutAlign.lt-md="center stretch"
+  fxFlex="100"
+  fxFlexFill
+
+>
+  <!-- <img
+      title="Kids Group Ski Lessons (Ages 4-15 All Levels)"
+      alt="Kids Group Ski Lessons (Ages 4-15 All Levels)"
+      src="https://www.slovenija.eu.com/wp-content/uploads/2018/12/Ski-school-slovenia.jpg"
+    /> -->
+
+  <!-- First col -->
+  <img src="/assets/images/search-details-1.jpg"
+    id="bg-image-search-details"
+    fxFlex="100"
+    fxLayoutAlign ="center stretch"
+  >
+  <div
+    fxLayout="column wrap"
+    fxLayoutAlign="space-around center"
+    fxFlex="65"
+    fxLayoutGap="10px"
+    fxFlexOrder.lt-md="2"
+    style="padding-top: 35px"
+  >
+    <mat-card
+      class="mat-elevation-z3 overflow filter-card shadow"
+      style="width: 100%;  margin-right: 10px"
+      fxFlex="auto"
+      wrap
+    >
+      <h1>{{listing.description}}</h1>
+      <!-- <h2>TEST ID : {{listing.id}}</h2> -->
+    </mat-card>
+    <mat-card
+      class="mat-elevation-z3 overflow filter-card shadow"
+      style="width: 100%;  margin-right: 10px"
+      fxFlex="auto"
+      wrap
+    >
+      <div fxLayout="column wrap" fxLayoutAlign="center start" fxFlex="100">
+        <div
+          fxLayout="column wrap"
+          fxLayoutAlign="space-between none"
+          fxFlex=""
+        >
+          <!-- <h1>{{listing.skiSchoolName}}</h1> -->
+          <h1>About this activity</h1>
+          <p>
+            About this activity In our group lessons, children gain confidence
+            in their skiing and get familiar with their environment. For
+            instance beginners may find their first steps quite overwhelming. We
+            will be here to help them to overcome this fear of the unknown.
+            Experts skiers will appreciate our tailored lessons to improve and
+            refine their technique to reach excellence. Every instructor at
+            Evolution 2 is a qualified professional who will always pass on
+            their best knowledge.
+          </p>
+          <hr />
         </div>
-    </div>
-
-    <div fxFlex="100" fxShow="false" fxShow.gt-sm>
-        <app-images [images]="images"></app-images>
-        <app-images-loader *ngIf="loadingImages" ></app-images-loader>
-    </div>
-
-    <div fxFlex="100" fxShow="true" fxHide.gt-sm>
-        <app-images-slider *ngIf="!loadingImages" [slides]="images"></app-images-slider>
-        <ngx-skeleton-loader *ngIf="loadingImages" count="1" appearance="circle" [theme]="{
-            width: '100%',
-            height: '480px',
-            'border-radius': '5px'
-          }">
-        </ngx-skeleton-loader> 
-        <!-- <app-images-loader *ngIf="loadingImages" ></app-images-loader> -->
-    </div>
-
-    <div fxFlex="100">
-        <div fxLayoutAlign="space-between center">
-            <div>{{ 'search.office-types' | translate }}</div>
+        <br />
+        <!-- Mat card with icons -->
+        <div
+          fxLayout="row wrap"
+          fxLayout.lt-sm="column wrap"
+          fxLayoutAlign="space-around start"
+          fxFlex=""
+          style="
+            width: 100%;
+            display: flex;
+            flex-wrap: wrap;
+            box-sizing: border-box;
+          "
+        >
+          <!-- Col 1 -->
+          <div
+            fxLayout="column wrap"
+            fxLayoutAlign="start start"
+            fxFlex=""
+            fxFlexOrder.lt-xs="1"
+          >
             <div>
-                <a mat-flat-button [matMenuTriggerFor]="workingHours" #workingHoursTrigger="matMenuTrigger">
-                    <mat-icon class="mat-icon-sm account-icon">info</mat-icon>
-                    <span>{{ 'search.working-hours' | translate }}</span> 
-                </a>
-                <mat-menu #workingHours="matMenu" [overlapTrigger]="false" xPosition="before" class="top-menu-dropdown cart-dropdown">
-                    <span (mouseleave)="workingHoursTrigger.closeMenu()">
-                        <mat-list role="list">
-                            <mat-list-item role="listitem"*ngFor="let hours of listing.hours.availableHours">{{ 'host.listing.' + hours.weekday | translate }}: {{ hours.fromHours }} - {{ hours.toHours }}</mat-list-item>
-                        </mat-list>
-                    </span>
-                </mat-menu>  
+              <span class="material-icons span-left-padding blue-icon">
+                groups </span
+              ><span style="font-weight: bold">{{listing.typeOfLessons | titlecase }}</span>
             </div>
-        </div>
-        <div class="divider"></div>
-        <form class="mat-table admin-table high-row" [formGroup]="spacesForm">
-            <div class="mat-header-row">
-                <div class="mat-header-cell">{{ 'search.office-type' | translate }}</div>
-                <div class="mat-header-cell">{{ 'search.office-name' | translate }}</div> 
-                <div class="mat-header-cell">{{ 'search.seats-no' | translate }}</div>
-                <div class="mat-header-cell">{{ 'search.hourly-price' | translate }}</div>
-                <div class="mat-header-cell">{{ 'search.daily-price' | translate }}</div>
-                <div class="mat-header-cell"></div>
-                <div class="mat-header-cell"></div>
-                <div class="mat-header-cell"></div>
-                <div class="mat-header-cell">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</div>
+            <div>
+              <span class="material-icons span-left-padding blue-icon">
+                psychology </span
+              ><span style="font-weight: bold">All ability levels</span>
             </div>
-            <ng-container formArrayName="availableSpacesPrice">
-                <div *ngFor="let spacePrice of availableSpacesPriceControls; let i=index" [formGroupName]="i" class="mat-row">
-                    <div class="mat-cell" data-label="{{ 'search.office-type' | translate }}">{{ 'host.listing.' + spacePrice.controls.officeTypeCode.value | translate }}</div>
-                    <div class="mat-cell" data-label="{{ 'search.office-name' | translate }}">{{ spacePrice.controls.availableSpaceName.value }}</div>
-                    <div class="mat-cell" data-label="{{ 'search.seats-no' | translate }}">{{ ( listing.description.availableSpaces | filterById : spacePrice.controls.idAvailableSpace.value )?.seatsNo }} seats</div>
-                    <div class="mat-cell" data-label="{{ 'search.hourly-price' | translate }}">{{ spacePrice.controls.hourlyPrice.value }} €/hour</div>    
-                    <div class="mat-cell" data-label="{{ 'search.daily-price' | translate }}">{{ spacePrice.controls.dayPrice.value }} €/day</div>         
-                    <div class="mat-cell">
-                        <mat-form-field>
-                            <input matInput type="number" placeholder="{{ 'search.units' | translate }}" formControlName="bookedUnitsNo">
-                        </mat-form-field>
-                    </div> 
-                    <div class="mat-cell">
-                        <mat-form-field>
-                            <input matInput [ngxMatDatetimePicker]="pickerCheckin" placeholder="{{ 'search.checkin' | translate }}" formControlName="checkin"
-                              [min]="minDateCheckin" [max]="maxDate" readonly>
-                            <mat-datepicker-toggle matSuffix [for]="pickerCheckin"></mat-datepicker-toggle>
-                            <ngx-mat-datetime-picker #pickerCheckin [defaultTime]="defaultTimeCheckin" [min]="minDateCheckin" [showSpinners]="true" [showSeconds]="false" [stepHour]="1"
-                              [stepMinute]="30" [stepSecond]="stepSecond" [touchUi]="true" [color]="primary"
-                              [enableMeridian]="false" [disableMinute]="false" [hideTime]="false">
-                              <!-- Custom icon or text of Apply icon -->
-                              <ng-template>
-                                <!-- <mat-icon>star</mat-icon> -->
-                                <span>OK</span>
-                              </ng-template>
-                            </ngx-mat-datetime-picker>
-                        </mat-form-field>
-                    </div>
-                    <div class="mat-cell">
-                        <mat-form-field>
-                            <input matInput [ngxMatDatetimePicker]="pickerCheckout" placeholder="{{ 'search.checkout' | translate }}" formControlName="checkout"
-                              [min]="minDateCheckout" [max]="maxDate" readonly>
-                            <mat-datepicker-toggle matSuffix [for]="pickerCheckout"></mat-datepicker-toggle>
-                            <ngx-mat-datetime-picker #pickerCheckout [defaultTime]="defaultTimeCheckout" [min]="minDateCheckout" [showSpinners]="true" [showSeconds]="false" [stepHour]="1"
-                            [stepMinute]="30" [stepSecond]="stepSecond" [touchUi]="true" [color]="primary"
-                            [enableMeridian]="false" [disableMinute]="false" [hideTime]="false">
-                              <!-- Custom icon or text of Apply icon -->
-                              <ng-template>
-                                <!-- <mat-icon>star</mat-icon> -->
-                                <span>OK</span>
-                              </ng-template>
-                            </ngx-mat-datetime-picker>
-                        </mat-form-field>
-                    </div>
-                    <div class="mat-cell text-right">
-                        <!-- <button *ngIf="!spacePrice.controls.isAvailable.value" mat-flat-button color="primary" [disabled]="!spacePrice.valid" type="button" (click)="checkAvailability(spacePrice.value)">Check Availability</button> -->
-                        <span class="ml-1 mr-1 fw-500" *ngIf="spacePrice.controls.isAvailable.value == true && spacePrice.controls.bookedPrice.value > 0">{{ spacePrice.controls.bookedPrice.value }}€</span>
-                        <span matTooltip="{{ 'search.unavailable' | translate }}" class="ml-1" *ngIf="spacePrice.controls.isAvailable.value == false && spacePrice.controls.bookedPrice.value == 0"><mat-icon class="mat-icon-lg" color="warn">warning</mat-icon></span>
-                        <button mat-icon-button color="primary" type="button" 
-                            matTooltip="{{ 'search.add-booking' | translate }}"
-                            [disabled]="!spacePrice.valid || !spacePrice.controls.isAvailable.value" 
-                            (click)="addToBookingList(spacePrice.value)">
-                            <mat-icon class="mat-icon-lg">list_alt</mat-icon>
-                        </button>
-                        <button *ngIf="guard.authenticated" mat-icon-button type="button"
-                            matTooltip="{{ 'search.direct-booking' | translate }}"
-                            [disabled]="!spacePrice.valid || !spacePrice.controls.isAvailable.value" 
-                            (click)="directBooking(spacePrice.value)">
-                            <mat-icon class="mat-icon-lg">check</mat-icon>
-                        </button>
-                    </div>     
-                </div>
-            </ng-container>
-        <!-- </div> -->
-        </form>
-    </div>
-    
-    <div fxLayout="column" fxLayout.gt-sm="row" fxFlex="100" fxLayoutAlign="space-between start" class="mt-3">
-        <div fxFlex="100" fxFlex.gt-sm="40">
-            <p>{{ 'search.description' | translate }}</p>
-            <div class="divider mb-1"></div>
-            <p class="py-1 text-muted lh">{{listing.description.description}}</p>
+            <div>
+              <span class="material-icons span-left-padding blue-icon">
+                cake </span
+              ><span style="font-weight: bold">For ages {{listing.minimumAge}} to 99</span>
+            </div>
+          </div>
+          <!-- Col 2 -->
+          <div
+            fxLayout="column wrap"
+            fxLayoutAlign="start start"
+            fxFlex=""
+            fxFlexOrder.lt-xs="2"
+          >
+            <div>
+              <span class="material-icons span-left-padding blue-icon">
+                group_add </span
+              ><span style="font-weight: bold">Max {{listing.maximumParticipants}} people per group</span>
+            </div>
+            <div>
+              <span class="material-icons span-left-padding blue-icon">
+                place </span
+              ><span style="font-weight: bold">Predeal</span>
+            </div>
+            <div>
+              <span class="material-icons span-left-padding blue-icon">
+                language </span
+              ><span style="font-weight: bold">Spoken Languages:</span>
+              <span class="flags-padding">
+
+
+                <img *ngFor="let doc of listing.spokenLanguages"
+                  class="flags-padding"
+                  code={{doc.code}}
+                  src={{doc.src}}
+                  style="
+                    width: 1.6rem;
+                    height: 1.6rem;
+                    float: center;
+                    position: relative;
+                  "
+                />
+
+                <!-- <img
+                  class="flags-padding"
+                  code="ro"
+                  src="https://cdnjs.cloudflare.com/ajax/libs/flag-icon-css/3.4.3/flags/4x3/ro.svg"
+                  style="
+                    width: 1.6rem;
+                    height: 1.6rem;
+                    float: center;
+                    padding-left: 3px;
+                  "
+                /> -->
+              </span>
+            </div>
+          </div>
         </div>
-        <div fxFlex="100" fxFlex.gt-sm="40">
-            <p>{{ 'search.amenities' | translate }}</p>
-            <div class="divider mb-1"></div>
-            <mat-list role="list">
-                <mat-list-item *ngFor="let amenity of listing.description.amenities" role="listitem" class="text-muted">{{ 'host.listing.' + amenity.code | translate }}</mat-list-item>
-            </mat-list>
+      </div>
+    </mat-card>
+    <mat-card
+      class="mat-elevation-z3 overflow filter-card shadow"
+      style="width: 100%;  margin-right: 10px"
+      fxFlex="auto"
+      wrap
+    >
+      <h1>About {{listing.skiSchoolName}}</h1>
+      <p>
+     {{listing.about}}
+      </p>
+    </mat-card>
+  </div>
+
+  <!-- Second col -->
+  <div
+    fxLayout="column wrap"
+    fxLayoutAlign="space-around center"
+    fxFlex="30"
+    fxLayoutGap="10px"
+    fxFlexOrder.lt-md="1"
+    fxFlexOrder.gt-md="2"
+    class="{{ stickyClass }} {{ order1 }}"
+  >
+    <mat-card
+      class="mat-elevation-z3 overflow filter-card shadow"
+      style="width: 100%; background-color: rgb(246, 251, 252)"
+      fxFlex="auto"
+      wrap
+    >
+      <div fxLayout="row wrap" fxLayoutAlign="space-between start">
+        <div fxAlign="start start">
+          <h1 style="color: rgb(77, 132, 204)">Book your activity</h1>
         </div>
-    </div>
+        <div fxAlign="end end">
+          <h5>
+            <b
+              >From {{listing.price}}<br /><span class="material-icons right-mat-icons">
+                euro_symbol
+              </span>
+              <br />per day</b
+            >
+          </h5>
+        </div>
+      </div>
+
+      <form
+        [formGroup]="formForBooking"
+        fxLayout="column"
+        fxLayoutAlign="space-around start"
+        fxLayoutGap="10px"
+        class=""
+      >
+        <mat-form-field fxFlexFill>
+          <mat-label>Activity date</mat-label>
+          <mat-date-range-input
+            formGroupName="range"
+            [rangePicker]="picker"
+            (click)="picker.open()"
+          >
+            <input
+              matStartDate
+              formControlName="startDate"
+              placeholder=""
+              readonly
+            />
+            <input
+              matEndDate
+              formControlName="endDate"
+              placeholder=""
+              readonly
+            />
+          </mat-date-range-input>
+          <mat-datepicker-toggle
+            matSuffix
+            [for]="picker"
+          ></mat-datepicker-toggle>
+          <mat-date-range-picker touchUi #picker></mat-date-range-picker>
+        </mat-form-field>
+
+        <mat-form-field
+          fxFlexFill
+          appearance=""
+          fxFlex="100"
+
+        >
+          <mat-label>Participants</mat-label>
+          <input matInput type="number" formControlName="participants">
+        </mat-form-field>
+
+        <mat-form-field fxFlexFill appearance="" fxFlex="100">
+          <mat-label>Location</mat-label>
+          <input matInput formControlName="location">
+          <mat-icon matSuffix></mat-icon>
+          <mat-hint>Hint</mat-hint>
+        </mat-form-field>
+        <span [matTooltipDisabled]="formForBooking.valid" matTooltip="{{ 'search.disabled-help' | translate }}" matTooltipPosition="below">
+          <button type="button" mat-mini-fab [disabled]="!formForBooking.valid" (click)="searchSubmit()" color="primary" class="search-btn">
+            <mat-icon>bookmark_added</mat-icon>
+          </button>
+        </span>
+      </form>
+    </mat-card>
+    <mat-card
+      class="mat-elevation-z4 overflow filter-card shadow"
+      style="width: 100%"
+      fxFlex="auto"
+      wrap
+      fxLayout="column wrap"
+      fxLayoutGap="2px"
+    >
+      <div
+        fxLayout="column wrap"
+        fxLayoutAlign.lt-md="column wrap"
+        fxLayoutAlign="space-around start"
+        fxFlex=""
+        style="
+          width: 100%;
+          display: flex;
+          flex-wrap: wrap;
+          box-sizing: border-box;
+        "
+      >
+        <div fxLayout="row wrap" fxLayoutAlign="" fxFlex="" fxFlexOffset="2px">
+          <span
+            class="material-icons right-mat-icons title"
+            style="padding: 10px"
+          >
+            price_check
+          </span>
+          <h2>Best Price</h2>
+        </div>
+
+        <div fxLayout="row wrap" fxLayoutAlign="" fxFlex="" fxFlexOffset="2px">
+          <span
+            class="material-icons right-mat-icons title"
+            style="padding: 10px"
+          >
+            free_cancellation
+          </span>
+          <h2>Easy Cancellation</h2>
+        </div>
+        <div fxLayout="row wrap" fxLayoutAlign="" fxFlex="" fxFlexOffset="2px">
+          <span
+            class="material-icons right-mat-icons title"
+            style="padding: 10px"
+          >
+            collections_bookmark
+          </span>
+          <h2>Easy Booking</h2>
+        </div>
+      </div>
+    </mat-card>
+  </div>
 </div>
-
-
-
-
-
-
