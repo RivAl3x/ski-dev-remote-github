@@ -184,7 +184,7 @@ export class SearchResultsComponent implements OnInit {
     // this.loadLocalResults();
     //start
     this.loadResultsSki();
-    this.getCoffeeOrders();
+
     console.info(this.resultsSki)
 
     // this.onFetchData()
@@ -200,13 +200,7 @@ export class SearchResultsComponent implements OnInit {
     });
   }
 
-  getCoffeeOrders(){
-    this.searchResultsService.getCoffeeOrders().subscribe((response) => {
-      // t
-      console.log(response);
 
-    });
-  }
 
   onLessonTypeChange(e, filterItemId) {
     // console.info('mat slide event -- ', e);

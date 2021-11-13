@@ -8,12 +8,12 @@ export const environment = {
   // apiUrl:'https://proiect1-a4726-default-rtdb.europe-west1.firebasedatabase.app/ski-schools.json',
   apiUrl: "https://proiect1-a4726-default-rtdb.europe-west1.firebasedatabase.app/ski-schools.json",
   url: '',
-
+  // userEmulators:true,
    firebaseConfig : {
     apiKey: "AIzaSyDfCvLgyotrgmbERFv-LKr-vhbxYZLbTtM",
     authDomain: "proiect1-a4726.firebaseapp.com",
-    // databaseURL: "https://proiect1-a4726-default-rtdb.europe-west1.firebasedatabase.app",
-    apiUrl: "https://proiect1-a4726-default-rtdb.europe-west1.firebasedatabase.app/ski-schools.json",
+    databaseURL: "https://proiect1-a4726-default-rtdb.europe-west1.firebasedatabase.app/ski-schools.json",
+    // apiUrl: "https://proiect1-a4726-default-rtdb.europe-west1.firebasedatabase.app/ski-schools.json",
     projectId: "proiect1-a4726",
     storageBucket: "proiect1-a4726.appspot.com",
     messagingSenderId: "178973351107",

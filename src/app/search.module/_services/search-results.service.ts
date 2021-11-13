@@ -25,7 +25,7 @@ export class SearchResultsService {
     private firestore: AngularFirestore ) {}
 
   // getSearchResults(filters, extraFilters, pageNumber, pageSize) {
-  //   const url = environment.apiUrl + 'Search/listing/-1';
+  //   const url = environment.databaseURL + 'Search/listing/-1';
 
   //   console.info('service getSearchResults filters: ', filters);
   //   console.info('service getSearchResults extraFilters: ', extraFilters);
@@ -61,7 +61,7 @@ export class SearchResultsService {
 
   ////////START
   getSearchResultsSki(filters, extraFilters, pageNumber, pageSize) {
-    const url = environment.firebaseConfig.apiUrl;
+    const url = environment.firebaseConfig.databaseURL;
 
 
     console.info('service getSearchResults FILTERS: ', filters);
@@ -90,7 +90,7 @@ export class SearchResultsService {
   }
 
   getListingByIdSki(id: any ) {
-    const url = environment.firebaseConfig.apiUrl ;
+    const url = environment.firebaseConfig.databaseURL ;
     console.log(url);
 
     return this.apiClient.get(url).pipe(
@@ -111,15 +111,11 @@ export class SearchResultsService {
 
 
 
-  getCoffeeOrders() {
 
-    return  this.firestore.collection("ski-schools").snapshotChanges();
-
-  }
   ///END
 
   getListingById(id: any = 1) {
-    const url = environment.firebaseConfig.apiUrl + 'Search/listing/' + id;
+    const url = environment.firebaseConfig.databaseURL + 'Search/listing/' + id;
 
     return this.apiClient.get(url).pipe(
       map((response: any) => {
@@ -132,7 +128,7 @@ export class SearchResultsService {
   }
 
   getListingsByType(type) {
-    const url = environment.firebaseConfig.apiUrl + 'Search/listing/-1';
+    const url = environment.firebaseConfig.databaseURL + 'Search/listing/-1';
 
     let params = new HttpParams();
     //params = params.append('type', type + '');
@@ -157,7 +153,7 @@ export class SearchResultsService {
   }
 
   getListingImageById(id: any = 1) {
-    const url = environment.firebaseConfig.apiUrl + 'Search/image/' + id;
+    const url = environment.firebaseConfig.databaseURL + 'Search/image/' + id;
 
     return this.apiClient.get(url).pipe(
       map((response: any) => {
@@ -247,7 +243,7 @@ export class SearchResultsService {
   // }
 
   getOptionsFromApi(apiOption) {
-    const url = environment.firebaseConfig.apiUrl + 'SP/comm.ctrl_' + apiOption;
+    const url = environment.firebaseConfig.databaseURL + 'SP/comm.ctrl_' + apiOption;
 
     return this.apiClient.get(url).pipe(
       map((response: any) => {
