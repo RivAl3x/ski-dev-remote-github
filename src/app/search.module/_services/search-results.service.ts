@@ -17,12 +17,12 @@ import { ListingHoursModel } from 'src/app/host.module/_models/listing-hours.mod
 import { ListingPaymentModel } from 'src/app/host.module/_models/listing-payment.model';
 import { ListingDocumentsModel } from 'src/app/host.module/_models/listing-documents.model';
 import { SkiSchoolModel } from 'src/app/host.module/_models/ski-schools.model';
-import { AngularFirestore } from '@angular/fire/firestore';
+
 
 @Injectable({ providedIn: 'root' })
 export class SearchResultsService {
   constructor(private apiClient: AppHttpClient,
-    private firestore: AngularFirestore ) {}
+     ) {}
 
   // getSearchResults(filters, extraFilters, pageNumber, pageSize) {
   //   const url = environment.databaseURL + 'Search/listing/-1';
@@ -61,7 +61,7 @@ export class SearchResultsService {
 
   ////////START
   getSearchResultsSki(filters, extraFilters, pageNumber, pageSize) {
-    const url = environment.firebaseConfig.databaseURL;
+    const url = environment.apiUrl + 'Search/listing/-1';
 
 
     console.info('service getSearchResults FILTERS: ', filters);
@@ -90,22 +90,27 @@ export class SearchResultsService {
   }
 
   getListingByIdSki(id: any ) {
-    const url = environment.firebaseConfig.databaseURL ;
-    console.log(url);
+    // const url = environment.apiUrl + 'Search/listing/' + id;
+    // console.log(url);
+    let arr = this.getSki();
+    console.log(arr);
+    var found = arr.find(doc=>doc.id == id);
+    console.log(found);
+    return found;
 
-    return this.apiClient.get(url).pipe(
-      map((response: any) => {
-        console.warn("getListingByIdSky api-response ----  ", response)
-      const found = response.find(doc=>doc.id == id)
-        console.info("getListingByIdSki din SERVICIU- FULL ARRAY:",response)
-        console.warn("getListingByIdSki din SERVICIU- OBJ FOUND:",found);
 
-        return found;
-      }),
-      catchError((errorRes) => {
-        return throwError(errorRes);
-      })
-    );
+      // map((response: any) => {
+      //   console.warn("getListingByIdSky api-response ----  ", response)
+      // const found = response.find(doc=>doc.id == id)
+      //   console.info("getListingByIdSki din SERVICIU- FULL ARRAY:",response)
+      //   console.warn("getListingByIdSki din SERVICIU- OBJ FOUND:",found);
+
+      //   return found;
+      // }),
+      // catchError((errorRes) => {
+      //   return throwError(errorRes);
+      // })
+
   }
 
 
@@ -115,7 +120,7 @@ export class SearchResultsService {
   ///END
 
   getListingById(id: any = 1) {
-    const url = environment.firebaseConfig.databaseURL + 'Search/listing/' + id;
+    const url = environment.apiUrl + 'Search/image/' + id;
 
     return this.apiClient.get(url).pipe(
       map((response: any) => {
@@ -128,17 +133,10 @@ export class SearchResultsService {
   }
 
   getListingsByType(type) {
-    const url = environment.firebaseConfig.databaseURL + 'Search/listing/-1';
+    const url = environment.apiUrl + 'Search/images/' ;
 
     let params = new HttpParams();
-    //params = params.append('type', type + '');
-    // params = params.append('pageNumber', pageNumber + '');
-    // params = params.append('pageSize', pageSize + '');
 
-    /* params = params.append('location', filters.location + '');
-        params = params.append('officeTypes', filters.officeTypes + '');
-        params = params.append('startDate', filters.startDate + '');
-        params = params.append('seatsNo', filters.seatsNo + ''); */
 
     return this.apiClient.get(url, { params }).pipe(
       map((response: any) => {
@@ -153,7 +151,7 @@ export class SearchResultsService {
   }
 
   getListingImageById(id: any = 1) {
-    const url = environment.firebaseConfig.databaseURL + 'Search/image/' + id;
+    const url = environment.apiUrl + 'Search/image/' + id;
 
     return this.apiClient.get(url).pipe(
       map((response: any) => {
@@ -169,9 +167,7 @@ export class SearchResultsService {
 
   //start
   getListingImageByIdSki(id: any = 1) {
-    const url =
-      'https://proiect1-a4726-default-rtdb.europe-west1.firebasedatabase.app/ski-schools.json' +
-      id;
+    const url = environment.apiUrl + 'Search/images/' + id;
 
     return this.apiClient.get(url).pipe(
       map((response: any) => {
@@ -243,7 +239,7 @@ export class SearchResultsService {
   // }
 
   getOptionsFromApi(apiOption) {
-    const url = environment.firebaseConfig.databaseURL + 'SP/comm.ctrl_' + apiOption;
+    const url = environment.apiUrl + 'SP/comm.ctrl_' + apiOption;
 
     return this.apiClient.get(url).pipe(
       map((response: any) => {
@@ -274,4 +270,75 @@ export class SearchResultsService {
 
   //   return listing;
   // }
+
+
+
+      public getSki(){
+        return [
+
+              {
+                "id": "1",
+                "skiSchoolId": "65435634",
+                "description": "Private Ski Lesson (All Levels)",
+                "skiSchoolName": "Ski School Predeal",
+                "typeOfLessons": "private",
+                "maximumParticipants": 4,
+                "minimumAge": 5,
+                "price": 55,
+                "ratingStars": "200",
+                "ratingsCount": "3",
+                "about": "Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum ha",
+                "image": "https://www.slovenija.eu.com/wp-content/uploads/2018/12/Ski-school-slovenia.jpg",
+                "spokenLanguages":[{"code":"en", "src":"https://cdnjs.cloudflare.com/ajax/libs/flag-icon-css/3.4.3/flags/4x3/ro.svg"},
+                  {"code":"ro", "src":"https://cdnjs.cloudflare.com/ajax/libs/flag-icon-css/3.4.3/flags/4x3/gb.svg"}]
+              },
+              {
+                "id": "2",
+                "skiSchoolId": "4324325",
+                "description": "Adult Group Ski Lessons (All Levels)",
+                "skiSchoolName": "Ski School Brasov",
+                "typeOfLessons": "group",
+                "maximumParticipants": 2,
+                "minimumAge": 18,
+                "price": 35,
+                "ratingStars": "320",
+                "ratingsCount": "4",
+                "about": " Lorem Ipsum, you need to be sure ther eerror sit voluptatem accusantium   of text. ",
+                "image": "https://media.istockphoto.com/photos/powder-skiing-picture-id623101316?k=20&m=623101316&s=612x612&w=0&h=dUdFM4jtoQyxTmgsg--m6bIvtBiocaR9Qn6avNzDBBw=",
+                "spokenLanguages":[{"code":"en", "src":"https://cdnjs.cloudflare.com/ajax/libs/flag-icon-css/3.4.3/flags/4x3/ro.svg"}]
+              },
+              {
+                "id": "3",
+                "skiSchoolId": "8766966",
+                "description": "Private Off Piste Guiding",
+                "skiSchoolName": "Ski School Sinaia",
+                "typeOfLessons": "private",
+                "maximumParticipants": 8,
+                "minimumAge": 16,
+                "price": 62,
+                "ratingStars": "1900",
+                "ratingsCount": "10",
+                "about": "Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium dolomnis iste natus error sit voluptatem accusantium doloremque lamnis iste natus error sit voluptatem accusantium doloremque laremque laudantium",
+                "image": "https://images.unsplash.com/photo-1551698618-1dfe5d97d256?ixid=MnwxMjA3fDB8MHxzZWFyY2h8Mnx8c2tpfGVufDB8fDB8fA%3D%3D&ixlib=rb-1.2.1&w=1000&q=80",
+                "spokenLanguages":[{"code":"en", "src":"https://cdnjs.cloudflare.com/ajax/libs/flag-icon-css/3.4.3/flags/4x3/ro.svg"},
+                  {"code":"ro", "src":"https://cdnjs.cloudflare.com/ajax/libs/flag-icon-css/3.4.3/flags/4x3/gb.svg"}]
+              },
+              {
+                "id": 4,
+                "skiSchoolId": "543543543",
+                "description": "Ski School Bușteni",
+                "skiSchoolName": "Ski School Bușteni",
+                "typeOfLessons": "private",
+                "maximumParticipants": 4,
+                "minimumAge": 18,
+                "price": 45,
+                "ratingStars": "1900",
+                "ratingsCount": "10",
+                "about": "Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium",
+                "image": "https://res.cloudinary.com/whistler/image/upload/w_500,c_scale,dpr_3.0,q_auto/v1/s3/images/header/kids-ski-lessons-whistler.jpg",
+                "spokenLanguages":[
+                  {"code":"ro", "src":"https://cdnjs.cloudflare.com/ajax/libs/flag-icon-css/3.4.3/flags/4x3/gb.svg"}]
+              }
+            ]
+          }
 }

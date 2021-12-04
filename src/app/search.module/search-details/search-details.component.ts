@@ -131,13 +131,16 @@ export class SearchDetailsComponent implements OnInit {
 
   public getListingByIdSki(id) {
     console.info(id)
-    this.searchResultsService
-      .getListingByIdSki(id)
-      .subscribe((listingResponse) => {
-        this.listing = listingResponse;
-        console.info("getListingByIdSki din COMPONENTA",listingResponse)
+    var doc = this.searchResultsService
+      .getListingByIdSki(id);
 
-      });
+      this.listing = doc;
+      console.log(doc);
+
+      // .subscribe((listingResponse) => {
+      //   this.listing = listingResponse;
+      //   console.info("getListingByIdSki din COMPONENTA",listingResponse)
+      // });
   }
 
   get availableSpacesPriceControls() {

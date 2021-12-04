@@ -15,7 +15,7 @@ export class SkiSchoolModel {
   minimumAge?:any;
   typeOfLessons?:any;
   price?:number;
-  spokenLanguages?: SpokenLanguagesModel;
+  // spokenLanguages?: SpokenLanguagesModel;
 
 
 
@@ -33,7 +33,7 @@ export class SkiSchoolModel {
     minimumAge:any=null,
     typeOfLessons:any=null,
     price:number=null,
-    spokenLanguages:SpokenLanguagesModel= new SpokenLanguagesModel
+    // spokenLanguages:SpokenLanguagesModel= new SpokenLanguagesModel
 
     ){
       this.id = id;
@@ -49,7 +49,7 @@ export class SkiSchoolModel {
       this.minimumAge=minimumAge;
       this.typeOfLessons=typeOfLessons;
       this.price=price;
-      this.spokenLanguages=spokenLanguages;
+      // this.spokenLanguages=spokenLanguages;
 
     }
 }

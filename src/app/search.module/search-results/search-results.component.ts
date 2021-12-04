@@ -155,6 +155,7 @@ export class SearchResultsComponent implements OnInit {
   ratingsCount: any;
   stars: string[];
   type: string;
+  public documente: any[];;
 
   constructor(
     public appSettings: AppSettings,
@@ -183,7 +184,7 @@ export class SearchResultsComponent implements OnInit {
     // this.loadResults();
     // this.loadLocalResults();
     //start
-    this.loadResultsSki();
+    this.loadResultsDocumente();
 
     console.info(this.resultsSki)
 
@@ -314,7 +315,7 @@ export class SearchResultsComponent implements OnInit {
     this.extraFilters = this.filterForm.value;
     // this.loadResults();
     // this.loadLocalResults();
-    this.loadResultsSki();
+    this.loadResultsDocumente();
   }
 
   ngOnDestroy() {
@@ -325,15 +326,15 @@ export class SearchResultsComponent implements OnInit {
     this.imagesLoaded = true;
 
     this.searchResultsService
-      .getSearchResultsSki(
-        this.filters,
-        this.extraFilters,
-        ++this.pageNumber,
-        this.pageSize
+      .getSki(
+        // this.filters,
+        // this.extraFilters,
+        // ++this.pageNumber,
+        // this.pageSize
       )
-      .subscribe((response) => {
-        this.results.push(...response);
-      });
+      // .subscribe((response) => {
+      //   this.results.push(...response);
+      // });
   }
   public scrollToTop(): void {
     if (this.type === 'directive' && this.directiveRef) {
@@ -349,20 +350,24 @@ export class SearchResultsComponent implements OnInit {
 
 
   ////Start
-  loadResultsSki() {
-    this.imagesLoaded = true;
-    this.searchResultsService
-      .getSearchResultsSki(
-        this.filters,
-        this.extraFilters,
-        this.pageNumber,
-        this.pageSize
-      )
-      .subscribe((response:any[]) => {
-        this.resultsSki = response;
-        console.log("RESPONSE SEARCH",response);
-      });
-  }
+  // loadResultsSki() {
+  //   this.imagesLoaded = true;
+  //   this.searchResultsService
+  //     .getSearchResultsSki(
+  //       this.filters,
+  //       this.extraFilters,
+  //       this.pageNumber,
+  //       this.pageSize
+  //     )
+  //     .subscribe((response:any[]) => {
+  //       this.resultsSki = response;
+  //       console.log("RESPONSE SEARCH",response);
+  //     });
+  // }
+    loadResultsDocumente(){
+     this.documente= this.searchResultsService
+      .getSki();
+    }
 
 
   @HostListener('window:resize')
@@ -374,6 +379,11 @@ export class SearchResultsComponent implements OnInit {
     this.filterForm.reset();
     this.extraFilters = {};
     // this.loadResults();
-    this.loadResultsSki();
+    this.loadResultsDocumente();
+  }
+  //start decembrie
+  public getSki(){
+    this.documente = this.searchResultsService.getSki();
+    console.info(this.documente, "documentele")
   }
 }
