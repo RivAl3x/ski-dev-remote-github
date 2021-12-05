@@ -9,7 +9,6 @@ import {
 } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { MatDialog } from '@angular/material/dialog';
-import { AppService } from '../../app.service';
 import { Product, Category } from '../../app.models';
 import { Settings, AppSettings } from 'src/app/app.settings';
 import { isPlatformBrowser } from '@angular/common';
@@ -25,7 +24,6 @@ import {
   PerfectScrollbarDirective,
 } from 'ngx-perfect-scrollbar';
 import { FormArray, FormBuilder, FormControl, FormGroup } from '@angular/forms';
-
 import { ListOption } from 'src/app/_shared/models/list-option.model';
 import { SkiSchoolModel } from 'src/app/host.module/_models/ski-schools.model';
 
@@ -155,12 +153,11 @@ export class SearchResultsComponent implements OnInit {
   ratingsCount: any;
   stars: string[];
   type: string;
-  public documente: any[];;
+  public documente: SkiSchoolModel[];;
 
   constructor(
     public appSettings: AppSettings,
     private activatedRoute: ActivatedRoute,
-    public appService: AppService,
     public dialog: MatDialog,
     public matCardModule: MatCardModule,
     private router: Router,
@@ -174,22 +171,16 @@ export class SearchResultsComponent implements OnInit {
   ngOnInit() {
     this.extraFilters = {};
 
+
     this.imagesLoaded = true;
 
-    console.info('history.state.data: ', history.state.data);
+
+    console.log("Extra-filters=>",this.extraFilters);
 
 
-    this.filters = history.state.data || {};
+    this.getSkiSchools();
 
-    // this.loadResults();
-    // this.loadLocalResults();
-    //start
-    this.loadResultsDocumente();
 
-    console.info(this.resultsSki)
-
-    // this.onFetchData()
-    //end
 
     this.filterForm = this.fb.group({
       slideFiltersLessonType: new FormArray([]),
@@ -199,6 +190,8 @@ export class SearchResultsComponent implements OnInit {
       slideFiltersAbility: new FormArray([]),
 
     });
+    //this.filters = history.state.data || {};
+    // console.info('history.state.data: ', history.state.data);
   }
 
 
@@ -315,7 +308,7 @@ export class SearchResultsComponent implements OnInit {
     this.extraFilters = this.filterForm.value;
     // this.loadResults();
     // this.loadLocalResults();
-    this.loadResultsDocumente();
+    this.getSkiSchools();
   }
 
   ngOnDestroy() {
@@ -326,16 +319,17 @@ export class SearchResultsComponent implements OnInit {
     this.imagesLoaded = true;
 
     this.searchResultsService
-      .getSki(
-        // this.filters,
-        // this.extraFilters,
-        // ++this.pageNumber,
-        // this.pageSize
-      )
-      // .subscribe((response) => {
-      //   this.results.push(...response);
-      // });
+      .getSkiSchools(
+       this.filters,
+       this.extraFilters,
+       ++this.pageNumber,
+       this.pageSize
+     )
+      .subscribe((response) => {
+        this.resultsSki.push(...response);
+      });
   }
+
   public scrollToTop(): void {
     if (this.type === 'directive' && this.directiveRef) {
       this.directiveRef.scrollToTop();
@@ -347,7 +341,6 @@ export class SearchResultsComponent implements OnInit {
       this.componentRef.directiveRef.scrollToTop();
     }
   }
-
 
   ////Start
   // loadResultsSki() {
@@ -364,10 +357,6 @@ export class SearchResultsComponent implements OnInit {
   //       console.log("RESPONSE SEARCH",response);
   //     });
   // }
-    loadResultsDocumente(){
-     this.documente= this.searchResultsService
-      .getSki();
-    }
 
 
   @HostListener('window:resize')
@@ -379,11 +368,18 @@ export class SearchResultsComponent implements OnInit {
     this.filterForm.reset();
     this.extraFilters = {};
     // this.loadResults();
-    this.loadResultsDocumente();
+    this.getSkiSchools();
   }
   //start decembrie
-  public getSki(){
-    this.documente = this.searchResultsService.getSki();
-    console.info(this.documente, "documentele")
+  public getSkiSchools(){
+    this.searchResultsService.getSkiSchools(
+      this.filters,
+      this.extraFilters,
+      ++this.pageNumber,
+      this.pageSize)
+      .subscribe(data => {
+      this.documente = data;
+      console.log("getSkiSchools =>",this.documente);
+    })
   }
 }

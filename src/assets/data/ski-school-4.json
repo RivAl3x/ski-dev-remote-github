@@ -1,0 +1,16 @@
+{
+  "id": 4,
+  "skiSchoolId": "543543543",
+  "description": "Ski School Bușteni",
+  "skiSchoolName": "Ski School Bușteni",
+  "typeOfLessons": "private",
+  "maximumParticipants": 4,
+  "minimumAge": 18,
+  "price": 45,
+  "ratingStars": "1900",
+  "ratingsCount": "10",
+  "about": "Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium",
+  "image": "https://res.cloudinary.com/whistler/image/upload/w_500,c_scale,dpr_3.0,q_auto/v1/s3/images/header/kids-ski-lessons-whistler.jpg",
+  "spokenLanguages":[
+    {"code":"ro", "src":"https://cdnjs.cloudflare.com/ajax/libs/flag-icon-css/3.4.3/flags/4x3/gb.svg"}]
+}

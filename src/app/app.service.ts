@@ -1,22 +1,28 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { Observable } from 'rxjs';
+import { Observable, throwError } from 'rxjs';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { Category, Product } from './app.models';
 import { environment } from 'src/environments/environment';
+import { SkiSchoolModel } from './host.module/_models/ski-schools.model';
+import { catchError, map } from 'rxjs/operators';
 
 export class Data {
-    constructor(public categories: Category[],
+    constructor(
+                public skiSchools: SkiSchoolModel[],
+                public categories: Category[],
                 public compareList: Product[],
                 public wishList: Product[],
                 public bookingList: Product[],
                 public totalPrice: number,
                 public totalBookingCount: number) { }
+
 }
 
 @Injectable()
 export class AppService {
     public Data = new Data(
+        [],   // ski schools
         [], // categories
         [], // compareList
         [],  // wishList
@@ -28,7 +34,22 @@ export class AppService {
     public url = environment.url + '/assets/data/';
 
     constructor(public http:HttpClient, public snackBar: MatSnackBar) { }
+      /////////////////////
+    public getSkiSchools(): Observable<SkiSchoolModel[]>{
+      return this.http.get<SkiSchoolModel[]>(this.url + 'ski-schools.json')
+      .pipe(
+        map(response => response ),
+        catchError(errorRes => {
+          return throwError(errorRes);
+        })
+      );
+  }
 
+    public getSkiSchoolById(id): Observable<SkiSchoolModel>{
+      return this.http.get<SkiSchoolModel>(this.url + 'ski-school-' + id + '.json');
+  }
+
+    //////////////////////////
     public getCategories(): Observable<Category[]>{
         return this.http.get<Category[]>(this.url + 'categories.json');
     }

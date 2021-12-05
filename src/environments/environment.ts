@@ -5,7 +5,8 @@
 export const environment = {
   production: false,
   apiUrl: 'https://deskhub-back.logic-s.ro/api/',
-  url: ''
+  url: '',
+  urlLocal:'/assets/data/'
 
 };
 

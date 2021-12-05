@@ -63,6 +63,11 @@
     [fixedInViewport]="false"
     [fixedTopGap]="0"
     [fixedBottomGap]="20"
+
+    infinite-scroll
+    [infiniteScrollDistance]="distance"
+    [infiniteScrollThrottle]="throttle"
+    (scrolled)="onScroll()"
   >
     <mat-card
       style="padding-top: 28px"

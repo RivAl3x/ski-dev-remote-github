@@ -1,0 +1,16 @@
+{
+  "id": "1",
+  "skiSchoolId": "65435634",
+  "description": "Private Ski Lesson (All Levels)",
+  "skiSchoolName": "Ski School Predeal",
+  "typeOfLessons": "private",
+  "maximumParticipants": 4,
+  "minimumAge": 5,
+  "price": 55,
+  "ratingStars": "200",
+  "ratingsCount": "3",
+  "about": "Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum ha",
+  "image": "https://www.slovenija.eu.com/wp-content/uploads/2018/12/Ski-school-slovenia.jpg",
+  "spokenLanguages":[{"code":"en", "src":"https://cdnjs.cloudflare.com/ajax/libs/flag-icon-css/3.4.3/flags/4x3/ro.svg"},
+    {"code":"ro", "src":"https://cdnjs.cloudflare.com/ajax/libs/flag-icon-css/3.4.3/flags/4x3/gb.svg"}]
+}
