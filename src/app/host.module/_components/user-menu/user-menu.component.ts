@@ -10,7 +10,7 @@ import { SignalrService } from 'src/app/_shared/services/signalR.service';
 })
 export class UserMenuComponent implements OnInit {
   public userImage = 'assets/images/others/admin.jpg';
-  public chatUpdates: boolean = false; 
+  public chatUpdates: boolean = false;
 
   constructor(
     public authService: AuthenticationService,
@@ -20,11 +20,11 @@ export class UserMenuComponent implements OnInit {
 
   ngOnInit(): void {
     this.signalrService.messages.subscribe((conversationId: any) => {
-      console.info('Signalr messages subscribe from top-menu comp --- ', conversationId);
-      
+      // console.info('Signalr messages subscribe from top-menu comp --- ', conversationId);
+
       if (conversationId && this.router.url !== '/host/chat') {
         this.chatUpdates = true;
-      } 
+      }
     });
   }
 
@@ -34,7 +34,7 @@ export class UserMenuComponent implements OnInit {
 
   public onSignOut() {
     console.info('onSignOut clicked');
-    this.authService.logout();  
+    this.authService.logout();
   }
 
 }

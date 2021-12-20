@@ -1,4 +1,6 @@
 import { SpokenLanguagesModel } from "./listing-spoken-languages.model";
+import { ListingSkiLocationModel } from "./listing-ski-location.model";
+import { ListingSkiPriceModel } from "./listing-ski-price.model";
 
 export class SkiSchoolModel {
 
@@ -14,8 +16,10 @@ export class SkiSchoolModel {
   maximumParticipants?:any;
   minimumAge?:any;
   typeOfLessons?:any;
-  price?:number;
-  // spokenLanguages?: SpokenLanguagesModel;
+
+  spokenLanguages?: SpokenLanguagesModel;
+  location?: ListingSkiLocationModel;
+  price?: ListingSkiPriceModel;
 
 
 
@@ -32,8 +36,10 @@ export class SkiSchoolModel {
     maximumParticipants:any=null,
     minimumAge:any=null,
     typeOfLessons:any=null,
-    price:number=null,
-    // spokenLanguages:SpokenLanguagesModel= new SpokenLanguagesModel
+
+    spokenLanguages:SpokenLanguagesModel= new SpokenLanguagesModel,
+    location: ListingSkiLocationModel= new ListingSkiLocationModel,
+    price:ListingSkiPriceModel = new ListingSkiPriceModel
 
     ){
       this.id = id;
@@ -49,7 +55,9 @@ export class SkiSchoolModel {
       this.minimumAge=minimumAge;
       this.typeOfLessons=typeOfLessons;
       this.price=price;
-      // this.spokenLanguages=spokenLanguages;
+      this.spokenLanguages=spokenLanguages;
+      this.location=location;
+      this.price=price;
 
     }
 }

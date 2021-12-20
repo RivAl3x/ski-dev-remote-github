@@ -24,14 +24,14 @@ export class AppComponent {
     public localDBService: LocalDBService,
     public signalR: SignalrService,
     public currentUser: CurrentUser,
-    public appSettings: AppSettings, 
+    public appSettings: AppSettings,
     public router: Router,
     @Inject(PLATFORM_ID) private platformId: Object,
     public translate: TranslateService
   ){
     this.settings = this.appSettings.settings;
     translate.addLangs(['en','fr']);
-    translate.setDefaultLang(this.defaultLanguage); 
+    translate.setDefaultLang(this.defaultLanguage);
     translate.use(this.defaultLanguage);
 
     localStorage.setItem(languageKey, this.defaultLanguage);
@@ -40,14 +40,14 @@ export class AppComponent {
   }
 
   ngOnInit() {
-    //this.localDBService.syncListOptions();   
+    //this.localDBService.syncListOptions();
     if (this.currentUser.isAuthenticated) this.subscribeToChatUpdates();
   }
 
   private subscribeToChatUpdates() {
     this.signalR.initiateSignalrConnection();
     this.signalR.messages.subscribe((conversationId: any) => {
-        console.info('Signalr messages subscribe from auth service --- ', conversationId); 
+        // console.info('Signalr messages subscribe from auth service --- ', conversationId);
     });
   }
 
@@ -56,8 +56,8 @@ export class AppComponent {
       if (event instanceof NavigationEnd) {
         if (isPlatformBrowser(this.platformId)) {
           window.scrollTo(0,0);
-        } 
+        }
       }
-    })  
+    })
   }
 }

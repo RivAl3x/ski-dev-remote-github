@@ -18,6 +18,8 @@ import { ListingPriceModel } from '../_models/listing-price.model';
 import { ListingHoursModel } from '../_models/listing-hours.model';
 import { ListingPaymentModel } from '../_models/listing-payment.model';
 import { ListingDocumentsModel } from '../_models/listing-documents.model';
+//16.12.2021
+import { SkiSchoolModel } from '../_models/ski-schools.model';
 
 @Injectable({ providedIn: 'root' })
 export class ListingsService {
@@ -40,6 +42,8 @@ export class ListingsService {
     private apiClient: AppHttpClient,
     private baseHttp: HttpClient,
     private dexieService: DexieService,
+    //16.12.2021
+    public http:HttpClient
   ) {
     this.listingsTable = this.dexieService.table('listings');
 
@@ -64,6 +68,19 @@ export class ListingsService {
    );
   }
 
+  //16.12.2021
+public getHardCodedListings(): Observable<SkiSchoolModel[]>{
+  const url = environment.urlLocal + 'ski-schools.json';
+  return this.http.get<SkiSchoolModel[]>(url)
+  .pipe(
+    map(response => response ),
+    catchError(errorRes => {
+      return throwError(errorRes);
+    })
+  );
+}
+//
+
   getApiListings() {
     const url = environment.apiUrl + 'Listing/-1';
 
@@ -71,7 +88,7 @@ export class ListingsService {
       .pipe(
         map((response: any) => {
           return response.data.map((apiListing) => {
-            return this.listingApiResponseToModel(apiListing)
+            return apiListing
           });
         }),
         catchError(errorRes => {

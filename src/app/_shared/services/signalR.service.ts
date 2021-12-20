@@ -10,7 +10,7 @@ export class SignalrService {
   public connection: signalR.HubConnection;
   public messages: BehaviorSubject<any>;
 
-  constructor( 
+  constructor(
     private user: CurrentUser
   ) {
     this.messages = new BehaviorSubject<any>(null);
@@ -20,19 +20,19 @@ export class SignalrService {
     return new Promise((resolve, reject) => {
 
       let token = this.user.token;
-      
-      console.info("user token -- ", token);
+
+      // console.info("user token -- ", token);
 
       this.connection = new signalR.HubConnectionBuilder()
-        .withUrl('https://deskhub-back.logic-s.ro/hubs/chat', { 
-          accessTokenFactory: () => token, transport: signalR.HttpTransportType.WebSockets | signalR.HttpTransportType.LongPolling 
+        .withUrl('https://deskhub-back.logic-s.ro/hubs/chat', {
+          accessTokenFactory: () => token, transport: signalR.HttpTransportType.WebSockets | signalR.HttpTransportType.LongPolling
         })
         .withAutomaticReconnect([0, 0, 10000])
         .configureLogging(signalR.LogLevel.Information)
         .build();
 
       this.setSignalrClientMethods();
-  
+
       this.connection
         .start()
         .then(() => {

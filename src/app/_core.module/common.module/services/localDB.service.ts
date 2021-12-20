@@ -28,9 +28,9 @@ export class LocalDBService {
   newListingId: number;
 
   apiOptionsArr = [
-    'listing_types', 
-    'office_types', 
-    'office_amenities', 
+    'listing_types',
+    'office_types',
+    'office_amenities',
     'currencies',
     'countries',
     'government_id_types',
@@ -40,12 +40,14 @@ export class LocalDBService {
   ];
 
   constructor(
-    private apiClient: AppHttpClient, 
+    private apiClient: AppHttpClient,
     private baseHttp: HttpClient,
     private dexieService: DexieService,
   ) {
     this.listingTypesTable = this.dexieService.table('listing_types');
+    //5
     this.officeTypesTable = this.dexieService.table('office_types');
+
     this.officeAmenitiesTable = this.dexieService.table('office_amenities');
     this.currenciesTable = this.dexieService.table('currencies');
     this.countriesTable = this.dexieService.table('countries');
@@ -57,15 +59,15 @@ export class LocalDBService {
 
   getListingTypes(): Observable<any> {
     return from(
-      this.getOptionsFromIndexedDB('listing_types').then(response => {    
+      this.getOptionsFromIndexedDB('listing_types').then(response => {
           return response;
       })
     );
   }
-
+  //3
   getOfficeTypes(): Observable<any> {
     return from(
-      this.getOptionsFromIndexedDB('office_types').then(response => {    
+      this.getOptionsFromIndexedDB('office_types').then(response => {
           return response;
       })
     );
@@ -73,7 +75,7 @@ export class LocalDBService {
 
   getOfficeAmenities(): Observable<any> {
     return from(
-      this.getOptionsFromIndexedDB('office_amenities').then(response => {    
+      this.getOptionsFromIndexedDB('office_amenities').then(response => {
           return response;
       })
     );
@@ -81,7 +83,7 @@ export class LocalDBService {
 
   getCurrencies(): Observable<any> {
     return from(
-      this.getOptionsFromIndexedDB('currencies').then(response => {    
+      this.getOptionsFromIndexedDB('currencies').then(response => {
           return response;
       })
     );
@@ -89,7 +91,7 @@ export class LocalDBService {
 
   getCountries(): Observable<any> {
     return from(
-      this.getOptionsFromIndexedDB('countries').then(response => {    
+      this.getOptionsFromIndexedDB('countries').then(response => {
           return response;
       })
     );
@@ -97,7 +99,7 @@ export class LocalDBService {
 
   getGovernmentIdTypes(): Observable<any> {
     return from(
-      this.getOptionsFromIndexedDB('government_id_types').then(response => {    
+      this.getOptionsFromIndexedDB('government_id_types').then(response => {
           return response;
       })
     );
@@ -105,7 +107,7 @@ export class LocalDBService {
 
   getGenders(): Observable<any> {
     return from(
-      this.getOptionsFromIndexedDB('genders').then(response => {    
+      this.getOptionsFromIndexedDB('genders').then(response => {
           return response;
       })
     );
@@ -113,7 +115,7 @@ export class LocalDBService {
 
   getBookingFilters(): Observable<any> {
     return from(
-      this.getOptionsFromIndexedDB('booking_filter_options').then(response => {    
+      this.getOptionsFromIndexedDB('booking_filter_options').then(response => {
           return response;
       })
     );
@@ -121,7 +123,7 @@ export class LocalDBService {
 
   getCancelReasons(): Observable<any> {
     return from(
-      this.getOptionsFromIndexedDB('cancel_reasons').then(response => {    
+      this.getOptionsFromIndexedDB('cancel_reasons').then(response => {
           return response;
       })
     );
@@ -133,6 +135,7 @@ export class LocalDBService {
         const listingTypes: ListOption[] = await this.listingTypesTable.toArray();
         return listingTypes;
         break;
+        //4
       case 'office_types':
         const officeTypes: ListOption[] = await this.officeTypesTable.toArray();
         return officeTypes;

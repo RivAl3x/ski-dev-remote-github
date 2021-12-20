@@ -59,14 +59,28 @@ export class SearchResultsService {
 
   //start decembrie
   public getSkiSchools(filters, extraFilters, pageNumber, pageSize): Observable<SkiSchoolModel[]>{
-    return this.http.get<SkiSchoolModel[]>(environment.urlLocal + 'ski-schools.json')
+    const url = environment.urlLocal + 'ski-schools.json';
+    let params = new HttpParams();
+    console.log("params =>", params);
+
+    params = params.append('pageNumber', pageNumber + '');
+    params = params.append('pageSize', pageSize + '');
+    Object.keys(extraFilters).forEach((k) => {
+      params = params.append(k, extraFilters[k]);
+    });
+
+
+    return this.http.get<SkiSchoolModel[]>(url, {params})
     .pipe(
       map(response => response ),
+      // map(response => response.filter(doc => doc.typeOfLessons == "private") ),
       catchError(errorRes => {
         return throwError(errorRes);
       })
     );
 }
+
+
 
 public getListingByIdSki(id): Observable<SkiSchoolModel>{
 

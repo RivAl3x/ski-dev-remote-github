@@ -9,6 +9,7 @@ import { LocalDBService } from 'src/app/_core.module/common.module/services/loca
 import { ListOption } from 'src/app/_shared/models/list-option.model';
 import { MatSelectChange } from '@angular/material/select';
 
+import { SkiSchoolModel } from '../_models/ski-schools.model';
 
 @Component({
   selector: 'app-listings',
@@ -16,155 +17,237 @@ import { MatSelectChange } from '@angular/material/select';
   styleUrls: ['./listings.component.scss'],
 })
 export class ListingsComponent implements OnInit {
-
-  localListings: ListingModel[] = [];
-  localListingsApiIds = [];
-  apiListings: ListingModel[] = [];
-  listings: ListingModel[] = [];
-  filteredListings: ListingModel[] = [];
-
-  listing: ListingModel;
-
+  // localListings: ListingModel[] = [];
+  // localListingsApiIds = [];
+  // apiListings: ListingModel[] = [];
+  // listings: ListingModel[] = [];
+  // filteredListings: ListingModel[] = [];
+  // listing: ListingModel;
+  //1
   officeTypes: ListOption[] = [];
   statuses: ListOption[] = [];
+
+  //16.12.2021
+  localListingsSki: SkiSchoolModel[] = [];
+  localListingsApiIdsSki = [];
+  apiListingsSki: SkiSchoolModel[] = [];
+  listingsSki: SkiSchoolModel[]= [];
+  listingSki: SkiSchoolModel[]= [];
+  filteredListingsSki: SkiSchoolModel[] = [];
+
+  //
 
   constructor(
     private router: Router,
     private route: ActivatedRoute,
     private location: Location,
     private listingService: ListingsService,
-    public dialog: MatDialog, 
+    public dialog: MatDialog,
     private localDBService: LocalDBService
-  ) { }
+  ) {}
 
   ngOnInit() {
     this.getStatuses();
-    setTimeout(() => this.loadOfficeTypes(), 500);
+    // setTimeout(() => this.loadOfficeTypes(), 500);
 
-    this.loadAllListings();
+    // this.loadAllListings();
+    // this.getSkiSchools2();
+    this.loadAllListingsSki();
+
   }
 
-  loadOfficeTypes() {
-    return this.localDBService.getOfficeTypes().subscribe((response) => {
-      this.officeTypes = response;
-    });
-  }
+  ////16.12.2021 start
+  // public getSkiSchools2() {
+  //   this.listingService.getSkiSchools2().subscribe((response) => {
+  //     this.listingsSki = response;
+  //     console.log('getSkiSchools2 =>', this.listingsSki);
+  //   });
+  // }
+  loadAllListingsSki() {
+    console.log("apelare metoda loadAllListingsSki (#1)");
 
-  loadAllListings() {
-    this.localListings = [];
-    this.apiListings = [];
-    this.localListingsApiIds = [];
+    this.localListingsSki = [];
+    this.localListingsApiIdsSki = [];
 
-    this.listingService.getLocalListings().subscribe((response) => {
+    // this.apiListingsSki = [];
+
+    this.listingService.getHardCodedListings().subscribe((response) => {
       console.info('loadLocalListings response -- ', response);
-      this.localListings = response;
-      this.listings = response;
-      this.localListingsApiIds = response.map(a => a.id);
+      this.localListingsSki = response;
+      this.listingsSki = response;
 
-      this.loadApiListings();
+      this.localListingsApiIdsSki = response.map((a) => a.id);
+
+      this.loadApiListingsSki();
     });
   }
 
-  loadApiListings() {
-    console.info('this.localListingsApiIds -- ', this.localListingsApiIds);
+  loadApiListingsSki() {
+    console.log("apelare metoda loadApiListingsSki (#2)");
+    console.info('this.localListingsApiIds -- ', this.localListingsApiIdsSki);
 
-    this.listingService.getApiListings().subscribe((response) => {
+    this.listingService.getHardCodedListings().subscribe((response) => {
       console.info('loadApiListings response -- ', response);
       response.map((apiListing) => {
-        if (!this.localListingsApiIds.includes(apiListing.id)) {
-          this.apiListings.push(apiListing);
-          this.listings.push(apiListing);
+
+
+        if (!this.localListingsApiIdsSki.includes(apiListing.id)) {
+          // this.apiListingsSki.push(apiListing);
+          this.listingsSki.push(apiListing);
+          console.log(this.listingSki, "LISTINGS SKI");
+
         }
-        this.filteredListings = this.listings;
-      })
+        this.filteredListingsSki = this.listingsSki;
+      });
     });
   }
 
-  applyKeywordFilter(event: Event) {
+  applyKeywordFilterSki(event: Event) {
+    console.log("apelare metoda applyKeywordFilterSki (#3)");
     const filterValue = (event.target as HTMLInputElement).value;
-
-    console.info('filterValue', filterValue);
-    
-    this.filteredListings = this.listings.filter(listing => {
-      if (listing.location.name) {
-        return listing.location.name.toLowerCase().search(filterValue.trim().toLowerCase()) !== -1;
+    // console.info('filterValue', filterValue);
+    this.filteredListingsSki = this.listingsSki.filter((listing) => {
+      if (listing.description) {
+        return listing.description.toLowerCase().search(filterValue.trim().toLowerCase()) !== -1;
       }
     });
+    console.log("filteredListingsSki",this.filteredListingsSki);
+    // this.getFilteredListingsSki()
+
   }
+  // getFilteredListingsSki(){
+  //   return this.listingsSki =this.filteredListingsSki;
+  // }
 
-  applyOfficeTypeFilter(event: MatSelectChange) {
-    const filterValues = event.value;
 
-    console.info('filterValues', filterValues);
-    
-    this.filteredListings = this.listings.filter(listing => {
-      if (listing.description.officeTypes) {
-        return listing.description.officeTypes.some(v => filterValues.includes(v));
-      }
-    });
-  }
 
-  applyStatusFilter(event: MatSelectChange) {
-    const filterValues = event.value;
+  //end 16.12.2021
 
-    console.info('filterValues', filterValues);
-    console.info('filterValues.length', filterValues.length);
-    
-    this.filteredListings = this.listings.filter(listing => {
-      if (listing.idStatus) {
-        return filterValues.includes(listing.idStatus);
-      }
-    });
-  }
+  //2
+  // loadOfficeTypes() {
+  //   return this.localDBService.getOfficeTypes().subscribe((response) => {
+  //     this.officeTypes = response;
+  //   });
+  // }
+
+  // loadAllListings() {
+  //   this.localListings = [];
+  //   this.apiListings = [];
+  //   this.localListingsApiIds = [];
+
+  //   this.listingService.getLocalListings().subscribe((response) => {
+  //     console.info('loadLocalListings response -- ', response);
+  //     this.localListings = response;
+  //     this.listings = response;
+
+  //     this.localListingsApiIds = response.map((a) => a.id);
+
+  //     this.loadApiListings();
+  //   });
+  // }
+
+  // loadApiListings() {
+  //   console.info('this.localListingsApiIds -- ', this.localListingsApiIds);
+
+  //   this.listingService.getApiListings().subscribe((response) => {
+  //     console.info('loadApiListings response -- ', response);
+  //     response.map((apiListing) => {
+  //       if (!this.localListingsApiIds.includes(apiListing.id)) {
+  //         this.apiListings.push(apiListing);
+  //         this.listings.push(apiListing);
+  //       }
+  //       this.filteredListings = this.listings;
+  //     });
+  //   });
+  // }
+
+  // applyKeywordFilter(event: Event) {
+  //   const filterValue = (event.target as HTMLInputElement).value;
+
+  //   console.info('filterValue', filterValue);
+
+  //   this.filteredListings = this.listings.filter((listing) => {
+  //     if (listing.location.name) {
+  //       return (
+  //         listing.location.name
+  //           .toLowerCase()
+  //           .search(filterValue.trim().toLowerCase()) !== -1
+  //       );
+  //     }
+  //   });
+  // }
+
+  // applyOfficeTypeFilter(event: MatSelectChange) {
+  //   const filterValues = event.value;
+
+  //   console.info('filterValues', filterValues);
+
+  //   this.filteredListings = this.listings.filter((listing) => {
+  //     if (listing.description.officeTypes) {
+  //       return listing.description.officeTypes.some((v) =>
+  //         filterValues.includes(v)
+  //       );
+  //     }
+  //   });
+  // }
+
+  // applyStatusFilter(event: MatSelectChange) {
+  //   const filterValues = event.value;
+
+  //   console.info('filterValues', filterValues);
+  //   console.info('filterValues.length', filterValues.length);
+
+  //   this.filteredListings = this.listings.filter((listing) => {
+  //     if (listing.idStatus) {
+  //       return filterValues.includes(listing.idStatus);
+  //     }
+  //   });
+  // }
 
   saveDraft(localId) {
-    this.listingService.getListingByLocalId(localId).subscribe(async response => {
-      console.info('indexedDb listing response -- ', response);
+    this.listingService
+      .getListingByLocalId(localId)
+      .subscribe(async (response) => {
+        console.info('indexedDb listing response -- ', response);
 
-      this.listing = response;
+        this.listingSki = response;
 
-      this.listingService.saveListing(this.listing, localId, 5);
+        this.listingService.saveListing(this.listingSki, localId, 5);
 
-      this.loadAllListings();
-    });
-
+        // this.loadAllListingsSki();
+      });
   }
 
-  public removeListing(id: any, idStatus: any){  
+  public removeListing(id: any, idStatus: any) {
     const dialogRef = this.dialog.open(ConfirmDialogComponent, {
-      maxWidth: "400px",
+      maxWidth: '400px',
       data: {
-        title: "Confirm Action",
-        message: "Are you sure you want remove this listing?"
-      }
-    }); 
-    dialogRef.afterClosed().subscribe(dialogResult => { 
-      if(dialogResult){
-
+        title: 'Confirm Action',
+        message: 'Are you sure you want remove this listing?',
+      },
+    });
+    dialogRef.afterClosed().subscribe((dialogResult) => {
+      if (dialogResult) {
         if (idStatus == 1) {
           //delete local listing
           this.listingService.deleteLocalListing(id);
-          setTimeout(() => this.loadAllListings(), 300);
-
+          // setTimeout(() => this.loadAllListingsSki(), 300);
         } else {
           //delete api listing
           this.listingService.deleteApiListing(id);
-          setTimeout(() => this.loadAllListings(), 300);
+          // setTimeout(() => this.loadAllListingsSki(), 300);
         }
-      } 
-    }); 
+      }
+    });
   }
 
   getStatuses() {
     this.statuses = [
-      {id: 1, code: 'loc-local'},
-      {id: 4, code: 'loc-publish'},
-      {id: 5, code: 'loc-draft'}
+      { id: 1, code: 'loc-local' },
+      { id: 4, code: 'loc-publish' },
+      { id: 5, code: 'loc-draft' },
     ];
   }
 
-  ngOnDestroy() {
-    
-  }
-
+  ngOnDestroy() {}
 }

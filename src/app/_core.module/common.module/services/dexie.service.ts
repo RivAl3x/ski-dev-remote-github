@@ -10,6 +10,7 @@ export class DexieService extends Dexie {
       listings: '++localId',
       bookings: 'id',
       listing_types: 'id',
+      //6
       office_types: 'id',
       office_amenities: 'id',
       currencies: 'id',

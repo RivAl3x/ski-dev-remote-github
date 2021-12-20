@@ -7,7 +7,7 @@
       {{ 'host.listing.list' | translate }}
     </h2></mat-card-title>
   </mat-card-header>
-
+<!-- filtre start -->
   <mat-expansion-panel class="mb-2">
     <mat-expansion-panel-header>
       <mat-panel-title>
@@ -21,53 +21,55 @@
 
     <mat-form-field>
       <mat-label>{{ 'host.listing.listing-name' | translate }}</mat-label>
-      <input matInput (keyup)="applyKeywordFilter($event)" #input>
+      <input matInput (keyup)="applyKeywordFilterSki($event)" #input>
     </mat-form-field>
-  
-    <mat-form-field>
+
+    <!-- <mat-form-field>
       <mat-label>{{ 'host.listing.office-type' | translate }}</mat-label>
       <mat-select (selectionChange)="applyOfficeTypeFilter($event)" multiple>
         <mat-option *ngFor="let officeType of officeTypes" [value]="officeType.id">{{ 'host.listing.' + officeType.code | translate }}</mat-option>
       </mat-select>
     </mat-form-field>
-  
+
     <mat-form-field>
       <mat-label>{{ 'host.listing.status' | translate }}</mat-label>
       <mat-select (selectionChange)="applyStatusFilter($event)" multiple>
         <mat-option *ngFor="let status of statuses" [value]="status.id">{{ 'host.listing.statuses.' + status.code | translate }}</mat-option>
       </mat-select>
-    </mat-form-field>
+    </mat-form-field> -->
   </mat-expansion-panel>
-
+<!-- filtre end -->
   <mat-divider></mat-divider>
   <div class="mat-table admin-table">
     <div class="mat-header-row">
       <div class="mat-header-cell">{{ 'host.listing.listing-name' | translate }}</div>
       <div class="mat-header-cell">{{ 'host.listing.location' | translate }}</div>
-      <ng-container *ngIf="officeTypes">
+      <!-- <ng-container *ngIf="officeTypes">
         <div *ngFor="let officeType of officeTypes" class="mat-header-cell">{{ 'host.listing.' + officeType.code | translate }}</div>
-      </ng-container> 
+      </ng-container> -->
       <div class="mat-header-cell">{{ 'host.listing.status' | translate }}</div>
       <div class="mat-header-cell">{{ 'host.listing.last-update' | translate }}</div>
       <div class="mat-header-cell"></div>
     </div>
-  
-    <div *ngFor="let listing of filteredListings" class="mat-row">
-      <div class="mat-cell" data-label="{{ 'host.listing.listing-name' | translate }} Name">{{ listing.location.name }}</div>
-      <div class="mat-cell" data-label="{{ 'host.listing.location' | translate }}">{{ listing.location.countryName }}, {{ listing.location.locality }}</div>
-      <ng-container *ngIf="officeTypes">
+
+    <div *ngFor="let listing of listingsSki" class="mat-row">
+      <!-- <div class="mat-cell" data-label="{{ 'host.listing.listing-name' | translate }} Name">{{ listing.location.name }}</div>
+      <div class="mat-cell" data-label="{{ 'host.listing.location' | translate }}">{{ listing.location.countryName }}, {{ listing.location.locality }}</div> -->
+      <div class="mat-cell" data-label="{{ 'host.listing.listing-name' | translate }} Name">{{listing.description}}</div>
+      <div class="mat-cell" data-label="{{ 'host.listing.location' | translate }}">{{listing.location.countryName}}, {{listing.location.stateName}}</div>
+      <!-- <ng-container *ngIf="officeTypes">
         <div *ngFor="let officeType of officeTypes" class="mat-cell" [attr.data-label]="'host.listing.' + officeType.code | translate">{{ listing.description.availableSpacesCount ? ( listing.description.availableSpacesCount | filterByIdOffice : officeType.id )?.unitsNo : '-' }}</div>
-      </ng-container>
+      </ng-container> -->
       <div class="mat-cell" data-label="{{ 'host.listing.status' | translate }}">
         {{ 'host.listing.statuses.' + listing.statusCode | translate }}
         <mat-icon *ngIf="listing.idStatus == 1" class="mat-icon-sm" matTooltip="{{ 'host.listing.local-status-help' | translate }}">info</mat-icon>
-      </div>     
-      <div class="mat-cell" data-label="{{ 'host.listing.last-update' | translate }}">{{ listing.modifiedDate | date:"dd.MM.yyyy" }}</div>     
+      </div>
+      <div class="mat-cell" data-label="{{ 'host.listing.last-update' | translate }}">{{ listing.modifiedDate | date:"dd.MM.yyyy" }}</div>
       <div class="mat-cell text-right">
-        <div *ngIf="listing.idStatus == 1">   
+        <div *ngIf="listing.idStatus == 1">
           <a mat-icon-button color="primary" matTooltip="{{ 'save-draft' | translate }}" (click)="saveDraft(listing.localId)">
             <mat-icon>save</mat-icon>
-          </a>       
+          </a>
           <a mat-icon-button color="primary" matTooltip="{{ 'edit' | translate }}" [routerLink]="listing.id ? ['/host/add-listing', listing.id] : ['/host/add-listing']" [queryParams]="{local_id: listing.localId}">
             <mat-icon>edit</mat-icon>
           </a>
@@ -75,7 +77,7 @@
             <mat-icon>delete</mat-icon>
           </button>
         </div>
-        <div *ngIf="listing.idStatus == 5">          
+        <div *ngIf="listing.idStatus == 5">
           <a mat-icon-button color="primary" matTooltip="{{ 'edit' | translate }}" [routerLink]="listing.id ? ['/host/add-listing', listing.id] : ['/host/add-listing']" [queryParams]="{local_id: listing.localId}">
             <mat-icon>edit</mat-icon>
           </a>
@@ -83,12 +85,12 @@
             <mat-icon>delete</mat-icon>
           </button>
         </div>
-        <div *ngIf="listing.idStatus == 4">          
+        <div *ngIf="listing.idStatus == 4">
           <button mat-icon-button color="warn" matTooltip="{{ 'unpublish' | translate }}" class="mx-1" (click)="saveDraft(listing.localId)">
             <mat-icon>unpublished</mat-icon>
           </button>
         </div>
-      </div>      
+      </div>
     </div>
   </div>
 </div>

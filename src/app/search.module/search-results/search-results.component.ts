@@ -153,7 +153,9 @@ export class SearchResultsComponent implements OnInit {
   ratingsCount: any;
   stars: string[];
   type: string;
-  public documente: SkiSchoolModel[];;
+  public documente: SkiSchoolModel[];
+  filteredListings: SkiSchoolModel[];
+;
 
   constructor(
     public appSettings: AppSettings,
@@ -169,7 +171,7 @@ export class SearchResultsComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.extraFilters = {};
+    this.extraFilters = {typeOfLessons:"private"};
 
 
     this.imagesLoaded = true;
@@ -190,7 +192,7 @@ export class SearchResultsComponent implements OnInit {
       slideFiltersAbility: new FormArray([]),
 
     });
-    //this.filters = history.state.data || {};
+    this.filters = history.state.data || {};
     // console.info('history.state.data: ', history.state.data);
   }
 
@@ -380,6 +382,21 @@ export class SearchResultsComponent implements OnInit {
       .subscribe(data => {
       this.documente = data;
       console.log("getSkiSchools =>",this.documente);
+      console.log("Extra-filters=>",this.extraFilters);
+
     })
+  }
+
+
+  applyKeywordFilter(event: Event) {
+    const filterValue = (event.target as HTMLInputElement).value;
+
+    console.info('filterValue', filterValue);
+
+    this.filteredListings = this.documente.filter(listing => {
+
+        return listing.skiSchoolName.toLowerCase().search(filterValue.trim().toLowerCase()) !== -1;
+
+    });
   }
 }

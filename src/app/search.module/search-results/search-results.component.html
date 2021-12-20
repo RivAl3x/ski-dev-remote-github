@@ -17,6 +17,11 @@
     <!-- <span class="material-icons"> filter_alt </span> -->
   </button>
 
+  <mat-form-field>
+    <mat-label>FILTRU KEYWORD</mat-label>
+    <input matInput (keyup)="applyKeywordFilter($event)" #input>
+  </mat-form-field>
+
   <!-- <button
 
     type="button"
@@ -60,9 +65,9 @@
     mode="{{ mode }}"
     position="start"
     opened="true"
-    [fixedInViewport]="false"
-    [fixedTopGap]="0"
-    [fixedBottomGap]="20"
+    [fixedInViewport]="true"
+    [fixedTopGap]="100"
+    [fixedBottomGap]="100"
 
     infinite-scroll
     [infiniteScrollDistance]="distance"
@@ -257,6 +262,7 @@
               </a>
             </div>
             <span class="mat-h4">{{ result.skiSchoolName }}</span>
+
             <span class="mat-small"
               >Minimum participans:{{ result.maximumParticipants }}</span
             >
@@ -322,6 +328,9 @@
       </mat-card>
       <br />
     </div>
+
+
+
   </mat-sidenav-content>
 </mat-sidenav-container>
 <!-- <div class="p-2 mb-1">
