@@ -1,7 +1,7 @@
 [
 
   {
-    "id": "1",
+    "id": 1,
     "idStatus": "1",
     "statusCode":"loc-local",
     "skiSchoolId": "65435634",
@@ -34,12 +34,18 @@
       "name": "Ski School Predeal",
       "stateName": "Prahova",
       "streetAddress": "strada Bradului",
-      "zipCode": "123456"}
+      "zipCode": "123456"},
+
+      "reviews": [
+        { "id":432,"idRef": "1", "content": "1AAAAA This ski was a game changer for me when I first got on it in spring of 2017. Transitioning from the Atomic Century 102 in a 156 (2012?) to the Backland FR W 102 was the perfect step in progression." },
+        { "id":543,"idRef": "1", "content": "1BBBBB" },
+        { "id":234,"idRef": "1", "content": "1CCCCC" }
+      ]
 
 
   },
   {
-    "id": "2",
+    "id":2,
     "idStatus": "1",
     "statusCode":"loc-local",
     "skiSchoolId": "4324325",
@@ -70,10 +76,16 @@
       "name": "Brasov ski school",
       "stateName": "Brasov",
       "streetAddress": "strada Soarelui",
-      "zipCode": "123456"}
+      "zipCode": "123456"},
+      "reviews": [
+        { "id":234,"idRef": "2", "content": "2AAAAA I got this ski used in spring of 2020 and my this skiing has given me a lot of mixed feelings. Note that this review is coming from a female riding a men’s ski so my experience is going to be drastically different from most." },
+        {"id":123, "idRef": "2", "content": "2BBBBB" },
+        { "id":422,"idRef": "2", "content": "2CCCCC" },
+        { "id":796,"idRef": "2", "content": "2DDDDD" }
+      ]
   },
   {
-    "id": "3",
+    "id": 3,
     "idStatus": "4",
     "statusCode":"loc-local",
     "skiSchoolId": "8766966",
@@ -105,7 +117,13 @@
         "name": "Brasov ski school",
         "stateName": "Brasov",
         "streetAddress": "strada Bujorilor",
-        "zipCode": "123456"}
+        "zipCode": "123456"},
+        "reviews": [
+          { "id":987,"idRef": "3", "content": "3AAAAA" },
+          { "id":789,"idRef": "3", "content": "3BBBBB" },
+          { "id":897,"idRef": "3", "content": "3CCCCC" },
+          { "id":675,"idRef": "3", "content": "3DDDDD" }
+        ]
   },
   {
     "id": 4,
@@ -140,7 +158,13 @@
         "name": "Brasov ski school",
         "stateName": "Brasov",
         "streetAddress": "strada X",
-        "zipCode": "123456"}
+        "zipCode": "123456"},
+        "reviews": [
+          { "id":534,"idRef": "4", "content": "4AAAAA" },
+          { "id":645,"idRef": "4", "content": "4BBBBB" },
+          { "id":453,"idRef": "4", "content": "4CCCCC" },
+          { "id":999,"idRef": "4", "content": "4DDDDD" }
+        ]
   }
 
 

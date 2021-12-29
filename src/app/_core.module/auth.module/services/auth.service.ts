@@ -60,7 +60,7 @@ export class AuthenticationService {
     private subscribeToChatUpdates() {
         this.signalR.initiateSignalrConnection();
         this.signalR.messages.subscribe((conversationId: any) => {
-            console.info('Signalr messages subscribe from auth service --- ', conversationId); 
+            console.info('Signalr messages subscribe from auth service --- ', conversationId);
         });
     }
 
@@ -94,7 +94,7 @@ export class AuthenticationService {
 
     registerUser(userType: string, email: string, password: string, fullName: string, phone: string) {
         const url = environment.apiUrl + 'Auth/create';
-        
+
 
         return this.apiClient.anonymousPost(url, { userType, email, password, fullName, phone })
             .pipe(
@@ -107,7 +107,7 @@ export class AuthenticationService {
 
     confirmAccount(code: string) {
         const url = environment.apiUrl + 'Auth/confirm';
-        
+
 
         return this.apiClient.anonymousPost(url, { code })
             .pipe(
@@ -204,7 +204,7 @@ export class AuthenticationService {
 
         // Create the encryption object and set the key.
         let crypt = new JSEncrypt();
-        crypt.setKey(pKey); 
+        crypt.setKey(pKey);
 
         //Encrypt the data with the public key.
         let encrypted = crypt.encrypt(text);

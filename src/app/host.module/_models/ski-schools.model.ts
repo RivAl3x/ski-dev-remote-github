@@ -16,7 +16,7 @@ export class SkiSchoolModel {
   maximumParticipants?:any;
   minimumAge?:any;
   typeOfLessons?:any;
-
+  reviews?:any;
   spokenLanguages?: SpokenLanguagesModel;
   location?: ListingSkiLocationModel;
   price?: ListingSkiPriceModel;
@@ -36,7 +36,7 @@ export class SkiSchoolModel {
     maximumParticipants:any=null,
     minimumAge:any=null,
     typeOfLessons:any=null,
-
+    reviews:Array<any>[]=[],
     spokenLanguages:SpokenLanguagesModel= new SpokenLanguagesModel,
     location: ListingSkiLocationModel= new ListingSkiLocationModel,
     price:ListingSkiPriceModel = new ListingSkiPriceModel
@@ -55,6 +55,7 @@ export class SkiSchoolModel {
       this.minimumAge=minimumAge;
       this.typeOfLessons=typeOfLessons;
       this.price=price;
+      this.reviews=reviews;
       this.spokenLanguages=spokenLanguages;
       this.location=location;
       this.price=price;

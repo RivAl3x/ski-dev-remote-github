@@ -36,7 +36,7 @@ export class AppComponent {
 
     localStorage.setItem(languageKey, this.defaultLanguage);
 
-    localDBService.syncListOptions();
+    // localDBService.syncListOptions();
   }
 
   ngOnInit() {

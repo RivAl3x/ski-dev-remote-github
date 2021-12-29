@@ -1,27 +1,27 @@
-<div class="top-menu">    
+<div class="top-menu">
 
     <button *ngIf="roleGuard.host" routerLink="/host" fxShow="false" fxShow.gt-sm mat-flat-button color="primary">{{ 'switch-to-instructor' | translate }}</button>
-    <button *ngIf="!roleGuard.host" routerLink="/host/add-listing" [queryParams]="{authMode: 'registerHost'}" fxShow="false" fxShow.gt-sm mat-flat-button color="primary">{{ 'work-with-us' | translate }}</button>
-    
+    <button  routerLink="host/instructor-registration" [queryParams]="{authMode: 'registerHost'}" fxShow="false" fxShow.gt-sm mat-flat-button color="primary">{{ 'work-with-us' | translate }}</button>
+    <!--  <button *ngIf="!roleGuard.host" routerLink="host/add-listing" [queryParams]="{authMode: 'registerHost'}" fxShow="false" fxShow.gt-sm mat-flat-button color="primary">{{ 'work-with-us' | translate }}fdsa</button> -->
     <a mat-button fxShow="false" fxShow.gt-sm [matMenuTriggerFor]="localeMenu" #localeMenuTrigger="matMenuTrigger">
-        <mat-icon class="mat-icon-lg">language</mat-icon> 
+        <mat-icon class="mat-icon-lg">language</mat-icon>
     </a>
     <mat-menu #localeMenu="matMenu" [overlapTrigger]="false" xPosition="before" class="app-dropdown account">
         <span (mouseleave)="localeMenuTrigger.closeMenu()">
-            <button *ngFor="let lang of translateService.getLangs()" mat-menu-item (click)="changeLang(lang)">  
-                <img [src]="'assets/images/flags/'+lang+'.svg'" width="18" [alt]="lang" class="mat-elevation-z1"> 
-                <span class="px-1" [ngClass]="{'primary-text fw-500': translateService.currentLang == lang}">{{getLangText(lang)}}</span>   
+            <button *ngFor="let lang of translateService.getLangs()" mat-menu-item (click)="changeLang(lang)">
+                <img [src]="'assets/images/flags/'+lang+'.svg'" width="18" [alt]="lang" class="mat-elevation-z1">
+                <span class="px-1" [ngClass]="{'primary-text fw-500': translateService.currentLang == lang}">{{getLangText(lang)}}</span>
             </button>
             <div class="divider"></div>
             <button mat-menu-item *ngFor="let cur of currencies" (click)="changeCurrency(cur)">
                 <span [ngClass]="{'primary-text fw-500': currency == cur}">{{cur}}</span>
             </button>
         </span>
-    </mat-menu>  
+    </mat-menu>
 
     <a mat-button [matMenuTriggerFor]="accountMenu" #accountMenuTrigger="matMenuTrigger">
-        <mat-icon class="mat-icon-lg">person_outline</mat-icon> 
-        <mat-icon *ngIf="chatUpdates" class="mat-icon-lg has-chat-updates">chat</mat-icon> 
+        <mat-icon class="mat-icon-lg">person_outline</mat-icon>
+        <mat-icon *ngIf="chatUpdates" class="mat-icon-lg has-chat-updates">chat</mat-icon>
         <!-- <span fxShow="false" fxShow.gt-sm>{{ 'ACCOUNT' | translate }}</span>  -->
     </a>
     <mat-menu #accountMenu="matMenu" [overlapTrigger]="false" xPosition="before" class="app-dropdown account">
@@ -34,13 +34,13 @@
                 <mat-icon class="mat-icon-sm">login</mat-icon>
                 <span>{{ 'user.login' | translate }}</span>
             </a>
-            <a *ngIf="guard.authenticated" mat-menu-item routerLink="/account"> 
+            <a *ngIf="guard.authenticated" mat-menu-item routerLink="/account">
                 <mat-icon class="mat-icon-sm">settings</mat-icon>
-                <span>{{ 'user.account' | translate }}</span> 
+                <span>{{ 'user.account' | translate }}</span>
             </a>
-            <a *ngIf="guard.authenticated" mat-menu-item routerLink="/chat" (click)="resetChatUpdates()"> 
+            <a *ngIf="guard.authenticated" mat-menu-item routerLink="/chat" (click)="resetChatUpdates()">
                 <mat-icon [color]="chatUpdates ? 'warn' : ''" class="mat-icon-sm">chat</mat-icon>
-                <span>{{ 'user.chat' | translate }}</span> 
+                <span>{{ 'user.chat' | translate }}</span>
             </a>
             <div class="divider"></div>
             <a *ngIf="roleGuard.host" mat-menu-item routerLink="/host" fxShow="true" fxHide.gt-sm>
@@ -53,26 +53,26 @@
             </a>
             <!-- <a mat-menu-item routerLink="/compare" fxHide="false" fxHide.gt-sm>
                 <mat-icon class="mat-icon-sm">compare</mat-icon>
-                <span>Compare <span *ngIf="settings.rtl">&rlm;</span>({{appService.Data.compareList.length}})</span> 
+                <span>Compare <span *ngIf="settings.rtl">&rlm;</span>({{appService.Data.compareList.length}})</span>
             </a>
             <a mat-menu-item routerLink="/wishlist" fxHide="false" fxHide.gt-sm>
                 <mat-icon class="mat-icon-sm">favorite</mat-icon>
                 <span>Wishlist <span *ngIf="settings.rtl">&rlm;</span>({{appService.Data.wishList.length}})</span>
             </a>
-            <a mat-menu-item routerLink="/"> 
+            <a mat-menu-item routerLink="/">
                 <mat-icon class="mat-icon-sm">lock</mat-icon>
-                <span>Lock screen</span> 
+                <span>Lock screen</span>
             </a> -->
             <div class="divider"></div>
-            <a mat-menu-item routerLink="/"> 
+            <a mat-menu-item routerLink="/">
                 <mat-icon class="mat-icon-sm">help</mat-icon>
-                <span>{{ 'user.help' | translate }}</span> 
+                <span>{{ 'user.help' | translate }}</span>
             </a>
-            <a *ngIf="guard.authenticated" mat-menu-item (click)="onSignOut()"> 
+            <a *ngIf="guard.authenticated" mat-menu-item (click)="onSignOut()">
                 <mat-icon class="mat-icon-sm">power_settings_new</mat-icon>
-                <span>{{ 'user.logout' | translate }}</span> 
+                <span>{{ 'user.logout' | translate }}</span>
             </a>
         </span>
-    </mat-menu>    
+    </mat-menu>
 
-</div>  
+</div>

@@ -1,12 +1,13 @@
 import { Injectable } from '@angular/core';
 import Dexie from 'dexie';
 
-
 @Injectable({ providedIn: 'root' })
 export class DexieService extends Dexie {
+
+
   constructor() {
     super('deskhubLocalDB');
-    this.version(1).stores({
+    this.version(2).stores({
       listings: '++localId',
       bookings: 'id',
       listing_types: 'id',
@@ -18,7 +19,9 @@ export class DexieService extends Dexie {
       government_id_types: 'id',
       genders: 'id',
       booking_filter_options: 'id',
-      cancel_reasons: 'id'
+      cancel_reasons: 'id',
+      //27.12.2021
+      lesson_types: 'id',
     });
   }
 }

@@ -16,11 +16,11 @@ export class HostTermsComponent implements OnInit {
 
   termsForm: FormGroup;
   loading: boolean = false;
-  
+
   constructor(
     private router: Router,
     private authService: AuthenticationService,
-    public appSettings: AppSettings, 
+    public appSettings: AppSettings,
   ) {
     this.settings = this.appSettings.settings;
   }

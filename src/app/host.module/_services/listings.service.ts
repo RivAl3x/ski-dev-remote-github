@@ -28,14 +28,18 @@ export class ListingsService {
   officeTypesTable: Dexie.Table<ListOption>;
   officeAmenitiesTable: Dexie.Table<ListOption>;
   currenciesTable: Dexie.Table<ListOption>;
-
   newListingId: number;
-
+  //27.12.2021
+  lessonTypesTable: Dexie.Table<ListOption>;
+  //28.12.2021
+  public url = environment.url + '/assets/data/';
   apiOptionsArr = [
     'listing_types',
     'office_types',
     'office_amenities',
-    'currencies'
+    'currencies',
+    //27.12.2021
+    'lesson_types'
   ];
 
   constructor(
@@ -51,6 +55,8 @@ export class ListingsService {
     this.officeTypesTable = this.dexieService.table('office_types');
     this.officeAmenitiesTable = this.dexieService.table('office_amenities');
     this.currenciesTable = this.dexieService.table('currencies');
+    //27.12.2021
+    this.lessonTypesTable = this.dexieService.table('lesson_types');
   }
 
   async addListingToIndexedDb(listing: ListingModel) {
@@ -150,13 +156,13 @@ public getHardCodedListings(): Observable<SkiSchoolModel[]>{
     return listing;
   }
 
-  saveListingToIndexedDb(localId: string, listing: ListingModel) {
+  saveListingToIndexedDb(localId: string, listing: ListingModel) { //primeste localId si obiectul {listing} cu toate valorile din  listingForm trimise din add-listing.ts la onStepChange
     console.info('id for idexedDb: ', localId);
-    this.listingsTable
-      .update(parseFloat(localId), listing)
-      .then(async (response) => {
+    this.listingsTable      // proprietatea listingTable de tip Dexie.Table<ListingModel, number>, cu id si {obj}
+      .update(parseFloat(localId), listing) //obiectul identificat in colectie cu localId si updatat cu noul obiect mai complet la fiecare pas  :)
+      .then(async (response) => { //then, cu succes si error  /  async  returneaza un Promise
         console.info('add to listingTable response', response);
-        const allItems: ListingModel[] = await this.listingsTable.toArray();
+        const allItems: ListingModel[] = await this.listingsTable.toArray(); //The await operator is used to wait for a Promise.  ---- toArray()->A function that returns an Observable that emits an array of items
         console.log('saved in listingTable, listingTable is now', allItems);
       })
       .catch(e => {
@@ -385,6 +391,14 @@ public getHardCodedListings(): Observable<SkiSchoolModel[]>{
       })
     );
   }
+  //27.12.2021
+  getLessonTypes(): Observable<any> {
+    return from(
+      this.getOptionsFromIndexedDB('lesson_types').then(response => {
+          return response;
+      })
+    );
+  }
 
   private async getOptionsFromIndexedDB(option) {
     switch (option) {
@@ -404,28 +418,69 @@ public getHardCodedListings(): Observable<SkiSchoolModel[]>{
         const currencies: ListOption[] = await this.currenciesTable.toArray();
         return currencies;
         break;
+        //27.12.2021
+
+        case 'lesson_types':
+          const lessonTypes: ListOption[] = await this.lessonTypesTable.toArray();
+          return lessonTypes;
+          break;
+
       default:
         break;
     }
   }
 
-  syncListOptions() {
+  syncListOptions() { //nu e chemata nicaieri
     this.listingTypesTable.clear();
     this.officeTypesTable.clear();
     this.officeAmenitiesTable.clear();
     this.currenciesTable.clear();
+    //27.12.2021
+    // this.lessonTypesTable.clear();
 
     this.apiOptionsArr.map((apiOption) => {
-      this.getOptionsFromApi(apiOption).subscribe(
+      this.getOptionsFromApi2(apiOption).subscribe(  //schimbat provizoriu cu 2
         options => {
           options.map((option: ListOption) => {
             this.addOptionToIndexedDb(option, apiOption);
+            console.log(option, "OPTION");
+
           });
         }
       );
     })
 
   }
+//   public getSkiSchools(): Observable<SkiSchoolModel[]>{
+//     return this.http.get<SkiSchoolModel[]>(this.url + 'ski-schools.json')
+//     .pipe(
+//       map(response => response ),
+//       catchError(errorRes => {
+//         return throwError(errorRes);
+//       })
+//     );
+// }
+
+getOptionsFromApi2(apiOption) {
+  const url = environment.urlLocal + 'lesssons-type.json' ;
+  console.log(url);
+
+
+  return this.http.get(url)
+    .pipe(
+      map((response: any) => {
+        console.log(response, "RESPONSE");
+
+        return response.data.map(option => {
+          return {
+            ...option
+          };
+        });
+      })
+    );
+}
+
+
 
   getOptionsFromApi(apiOption) {
     const url = environment.apiUrl + 'SP/comm.ctrl_' + apiOption;
@@ -443,6 +498,8 @@ public getHardCodedListings(): Observable<SkiSchoolModel[]>{
   }
 
   addOptionToIndexedDb(option: ListOption, apiOption: string) {
+    console.log(option, "OPTION");
+
     switch (apiOption) {
       case 'listing_types':
         this.listingTypesTable
@@ -472,10 +529,36 @@ public getHardCodedListings(): Observable<SkiSchoolModel[]>{
             alert('Error: ' + (e.stack || e));
           });
         break;
+        //27.12.2021
+        case 'lesson_types':
+          this.lessonTypesTable
+            .add(option)
+            .catch(e => {
+              alert('Error: ' + (e.stack || e));
+            });
+          break;
+
       default:
         break;
     }
   }
+  //start 27.12.2021
+  public getListingsForCards(): Observable<SkiSchoolModel[]>{
+    const url = environment.urlLocal + 'ski-schools.json';
+    return this.http.get<SkiSchoolModel[]>(url)
+    .pipe(
+      map((response: any) => {
+        console.info("getListingsForCards din listing.service.ts",response)
+        return response;
+      }),
+
+      catchError(errorRes => {
+        return throwError(errorRes);
+      })
+    );
+  }
+//
+
 
 }
 

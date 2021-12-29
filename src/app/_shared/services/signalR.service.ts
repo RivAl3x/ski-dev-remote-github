@@ -36,7 +36,7 @@ export class SignalrService {
       this.connection
         .start()
         .then(() => {
-          console.log(`SignalR connection success! connectionId: ${this.connection.connectionId} `);
+          // console.log(`SignalR connection success! connectionId: ${this.connection.connectionId} `);
           resolve();
         })
         .catch((error) => {

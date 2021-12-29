@@ -1,15 +1,15 @@
 <div class="main-slider full-width">
   <div class="swiper-container h-100" [swiper]="config">
-    <div class="swiper-wrapper h-100">      
+    <div class="swiper-wrapper h-100">
       <div *ngFor="let slide of slides" class="swiper-slide">
         <div [attr.data-background]="slide.image" class="slide-item swiper-lazy">
             <div class="swiper-lazy-preloader swiper-lazy-preloader-white"></div>
-            <div class="mask"></div>  
+            <div class="mask"></div>
             <div fxLayout="column" fxLayoutAlign="center center" class="content">
               <h1>{{slide.title}}</h1>
               <h3>{{slide.subtitle}}</h3>
               <button [routerLink]="['search/results']" mat-raised-button color="primary">Discover</button>
-            </div> 
+            </div>
         </div>
       </div>
     </div>

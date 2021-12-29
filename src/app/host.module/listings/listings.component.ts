@@ -90,7 +90,7 @@ export class ListingsComponent implements OnInit {
       console.info('loadApiListings response -- ', response);
       response.map((apiListing) => {
 
-
+   //verificare sa nu afiseze si din db local si din db api mai multe documente la fel
         if (!this.localListingsApiIdsSki.includes(apiListing.id)) {
           // this.apiListingsSki.push(apiListing);
           this.listingsSki.push(apiListing);

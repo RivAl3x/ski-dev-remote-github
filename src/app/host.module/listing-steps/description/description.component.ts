@@ -5,7 +5,7 @@ import { GALLERY_CONF, GALLERY_IMAGE, NgxImageGalleryComponent } from 'ngx-image
 import { ListOption } from 'src/app/_shared/models/list-option.model';
 import { ISpaceAvailableModel } from '../../_models/space-available.model';
 import { $animations } from 'src/app/_theme/utils/app-animations';
-
+import { LocalDBService } from 'src/app/_core.module/common.module/services/localDb.service';
 @Component({
   selector: 'app-description',
   templateUrl: './description.component.html',
@@ -14,11 +14,15 @@ import { $animations } from 'src/app/_theme/utils/app-animations';
 })
 export class DescriptionComponent implements OnInit {
 
-  constructor() { }
+  constructor(
+    public localDBService: LocalDBService
+  ) { }
 
   @Input() listingForm: FormGroup;
 
   @Input() officeTypes: ListOption[] = [];
+  //28.12.2021
+  @Input() lessonTypes: ListOption[] = [];
   @Input() selectedOfficeTypes: Array<any>;
 
   @Input() amenities: ListOption[] = [];
@@ -31,6 +35,8 @@ export class DescriptionComponent implements OnInit {
 
   @ViewChild(NgxImageGalleryComponent)
   ngxImageGallery: NgxImageGalleryComponent;
+
+
 
   // gallery configuration
   conf: GALLERY_CONF = {
@@ -55,6 +61,9 @@ export class DescriptionComponent implements OnInit {
     this.mapSavedImages();
 
   }
+  // forceAddLessonTypes(){
+  //   this.localDBService.forceAddLessonTypes()
+  // }
 
   mapSelectedOfficeTypes() {
     const selectedOfficeTypes: FormArray = this.listingForm.get('description').get('officeTypes') as FormArray;

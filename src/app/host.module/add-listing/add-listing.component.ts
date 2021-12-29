@@ -37,6 +37,8 @@ export class AddListingComponent implements OnInit {
   amenities: ListOption[] = [];
   currencies: ListOption[] = [];
   countries: ListOption[] = [];
+  //27.12.2021
+  lessonTypes: ListOption[]=[];
 
   constructor(
     private router: Router,
@@ -53,9 +55,15 @@ export class AddListingComponent implements OnInit {
     this.loadAmenities();
     this.loadCurrencies();
     this.loadCountries();
+    //27.12.2021
+    this.loadLessonTypes();
+    // this.getLessonTypes();
 
-    this.listingLocalId = this.route.snapshot.queryParamMap.get('local_id');
-    this.listingId = this.route.snapshot.paramMap.get('id');
+
+
+
+    this.listingLocalId = this.route.snapshot.queryParamMap.get('local_id'); // QueryParamMap is for eg. user/:id?tab=edit. Tab is a global query param, it can be read from the ActivatedRoute in the user route's component as well as any of its ancestors.
+    this.listingId = this.route.snapshot.paramMap.get('id'); // ParamMap for routes like user/:id. Id param belongs only to this route.
 
     if(this.listingLocalId) {
       console.info('found local_id in url: ', this.listingLocalId);
@@ -99,11 +107,45 @@ export class AddListingComponent implements OnInit {
     });
   }
 
+
   loadOfficeTypes() {
     return this.localDBService.getOfficeTypes().subscribe((response) => {
       this.officeTypes = response;
+      console.log(this.officeTypes, "officetypes");
+
     });
   }
+  //27.12.2021
+
+  // loadLessonTypes() {
+  //   return this.localDBService.getLessonTypes().subscribe((response) => {
+  //     this.lessonTypes = response;
+  //     console.log(this.lessonTypes, "lessonTypes");
+  //   });
+  // }
+
+    loadLessonTypes() {
+      var source = of([{ 'id': '1', 'code': 'skiing', 'name':'Skiing' },
+      { 'id': '2', 'code': 'snowboarding','name':'Snowboarding' },
+      { 'id': '3', 'code': 'off-piste-skiing','name':'Off-piste-skiing' },
+      { 'id': '4', 'code': 'off-piste-snowboarding','name':'Off-piste-snowboarding' },
+      { 'id': '5', 'code': 'ski-touring','name':'Ski-touring'}
+    ]);
+      var subscribe = source.subscribe((val => this.lessonTypes=val));
+      console.log(subscribe,  "SUBSCRIBE");
+      console.log(this.lessonTypes,  "LESSONTYPES");
+
+    };
+
+    // loadLessonTypes() {
+    //   var source = of([{ 'id': '1', 'code': 'ski' }, { 'id': '2', 'code': 'snowboard' }]);
+    //   var subscribe = source.subscribe((val => this.listingTypes=val));
+    //   console.log(subscribe,  "SUBSCRIBE");
+    //   console.log(this.lessonTypes,  "LESSONTYPES");
+
+    // };
+
+
 
   loadAmenities() {
     return this.localDBService.getOfficeAmenities().subscribe((response) => {
@@ -125,7 +167,7 @@ export class AddListingComponent implements OnInit {
 
   getListingTypes() {
     this.listingTypes = [
-      {id: '1', code: 'shared-office'},
+      {id: '1', code: 'shared-office2'},
       {id: '2', code: 'private-house'},
       {id: '3', code: 'apartment'},
       {id: '4', code: 'coffee-place'},
@@ -135,11 +177,13 @@ export class AddListingComponent implements OnInit {
 
   getOfficeTypes() {
     this.officeTypes = [
-      {id: '1', code: 'hot-desk'},
+      {id: '1', code: 'hot-desk2'},
       {id: '2', code: 'private-office'},
       {id: '3', code: 'team-room'},
       {id: '4', code: 'meeting-room'},
+      {id: '5', code: 'test'}
     ];
+    console.log(this.officeTypes, "getOfficeTypes")
   }
 
   getAmenities() {
@@ -161,6 +205,17 @@ export class AddListingComponent implements OnInit {
       {id: '3', code: 'RON'}
     ];
   }
+
+  //27.12.2021
+
+  // getLessonTypes(){
+  //   this.lessonTypes = [
+  //     {id: '1', code: 'ski'},
+  //     {id: '2', code: 'snowboard'}
+  //   ]
+  //   console.log(this.lessonTypes);
+
+  // }
 
   onStepChange(step) {
     this.listingForm.get('modifiedDate').patchValue(Date.now());
@@ -291,7 +346,7 @@ export class AddListingComponent implements OnInit {
         differentHours: new FormControl(differentHoursMapped),
         satOpen: new FormControl(satOpenMapped),
         sunOpen: new FormControl(sunOpenMapped),
-  
+
       }),
 
       payment: new FormGroup({
@@ -299,7 +354,7 @@ export class AddListingComponent implements OnInit {
       }),
 
       documents: new FormGroup({
-        
+
       })
     });
   }

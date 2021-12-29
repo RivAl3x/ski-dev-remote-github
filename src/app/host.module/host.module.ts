@@ -49,6 +49,7 @@ import { NgxMatDatetimePickerModule } from '@angular-material-components/datetim
 import { NgxMatMomentModule } from '@angular-material-components/moment-adapter';
 import { CancelBookingComponent } from './bookings/cancel-booking/cancel-booking.component';
 import { BookingMessageComponent } from '../host.module/bookings/booking-message/booking-message.component';
+import { HostInstructorRegistrationLangingPageComponent } from './host-instructor-registration-langing-page/host-instructor-registration-langing-page.component';
 
 FullCalendarModule.registerPlugins([ // register FullCalendar plugins
   dayGridPlugin,
@@ -67,9 +68,10 @@ const routes = [
             roles: ['deskhub-host']
         },
         children: [
-            { path: '', pathMatch: 'full', redirectTo: 'dashboard' }, 
-            { path: 'dashboard', component: DashboardComponent },           
-            { path: 'add-listing', component: AddListingComponent },           
+            { path: '', pathMatch: 'full', redirectTo: 'dashboard' },
+            { path: 'instructor-registration', component: HostInstructorRegistrationLangingPageComponent },
+            { path: 'dashboard', component: DashboardComponent },
+            { path: 'add-listing', component: AddListingComponent },
             { path: 'add-listing/:id', component: AddListingComponent },
             { path: 'listings', component: ListingsComponent },
             { path: 'bookings', component: BookingsComponent },
@@ -102,7 +104,7 @@ const routes = [
         FullCalendarModule,
         NgxSkeletonLoaderModule
     ],
-    declarations: [ HostComponent, 
+    declarations: [ HostComponent,
         MenuComponent,
         UserMenuComponent,
         MessagesComponent,
@@ -113,7 +115,7 @@ const routes = [
         DashboardComponent,
         PaymentOptionsComponent,
         PaymentDialogComponent,
-        AddListingComponent, 
+        AddListingComponent,
         ListingsComponent,
         LocationComponent, DescriptionComponent, PriceComponent, HoursComponent, PaymentComponent, DocumentsComponent,
         BookingsComponent,
@@ -121,13 +123,14 @@ const routes = [
         CancelBookingComponent,
         BookingMessageComponent,
         InhouseBookingComponent,
-        BookingDialogComponent
-        
+        BookingDialogComponent,
+        HostInstructorRegistrationLangingPageComponent
+
     ],
     exports:[ HostComponent ],
     providers: []
 })
-export class HostModule { 
+export class HostModule {
     static routes() {
         return routes;
     }

@@ -7,12 +7,12 @@
     </mat-error> -->
   </mat-form-field>
 
-  <h2 class="mt-3">{{ 'host.listing.office-type-info' | translate }}</h2>
-  <div *ngFor="let officeType of officeTypes; let i=index;">
-    <mat-checkbox color="primary" [value]="officeType.id" (change)="onOfficeTypeChange($event)" [checked]="selectedOfficeTypes.includes(officeType.id)">{{ 'host.listing.' + officeType.code | translate }}</mat-checkbox>
+  <h2 class="mt-3">What type of lessons do you teach?</h2>
+  <div *ngFor="let lessonType of lessonTypes; let i=index;">
+    <mat-checkbox color="primary" [value]="lessonType.id" (change)="onOfficeTypeChange($event)" [checked]="selectedOfficeTypes.includes(lessonType.id)">{{ 'host.listing.' + lessonType.code | translate }}</mat-checkbox>
   </div>
 
-  <h2 class="mt-3">{{ 'host.listing.space-available-info' | translate }}</h2>
+  <h2 class="mt-3">Add types of lessons</h2>
   <mat-hint class="mb-2 d-block">{{ 'host.listing.space-available-help' | translate }}</mat-hint>
   <ng-container formGroupName="description">
     <ng-container formArrayName="availableSpaces">
@@ -25,10 +25,10 @@
       >
         <div fxLayout="row wrap" fxLayoutAlign="start start" fxLayoutGap="20px">
           <mat-form-field>
-            <mat-label>{{ 'host.listing.listing-type' | translate }}</mat-label>
+            <mat-label>Lesson type</mat-label>
             <mat-select formControlName="idOfficeType">
-              <mat-option *ngFor="let officeType of officeTypes" [value]="officeType.id">
-                {{ 'host.listing.' + officeType.code | translate }}
+              <mat-option *ngFor="let lessonType of lessonTypes" [value]="lessonType.id">
+                {{ 'host.listing.' + lessonType.code | translate }}
               </mat-option>
             </mat-select>
           </mat-form-field>

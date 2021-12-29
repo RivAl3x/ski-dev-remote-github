@@ -72,13 +72,18 @@ export class SearchResultsService {
 
     return this.http.get<SkiSchoolModel[]>(url, {params})
     .pipe(
-      map(response => response ),
+      map((response: any) => {
+        console.info("getSearchResultsSki din SERVICIU",response)
+        return response;
+      }),
       // map(response => response.filter(doc => doc.typeOfLessons == "private") ),
+
       catchError(errorRes => {
         return throwError(errorRes);
       })
     );
 }
+
 
 
 

@@ -1,0 +1,271 @@
+<div
+  fxLayout="column "
+  fxLayout.lt-md="column"
+  fxLayoutAlign="space-between center"
+  fxLayoutAlign.lt-md="center stretch"
+  fxFlex="100"
+  fxFlexFill
+>
+  <div
+    fxLayout="column wrap"
+    fxLayoutAlign="space-around center"
+    fxFlex="75"
+    fxLayoutGap="10px"
+    fxFlexOrder.lt-md="2"
+    style="padding-top: 35px"
+  >
+    <!-- Card #1 -->
+    <mat-card
+      class="mat-elevation-z3 overflow filter-card shadow"
+      style="width: 100%; margin-right: 10px"
+      fxFlex="auto"
+      wrap
+    >
+      <div fxLayout="column wrap" fxLayoutAlign="center start" fxFlex="100">
+        <div
+          fxLayout="column wrap"
+          fxLayoutAlign="space-between none"
+          fxFlex=""
+        >
+          <h1>What is SkiHub</h1>
+          <h2>Who we are</h2>
+          <p>
+            <b
+              >SkiHub is the leading booking platform for mountain-based
+              activities </b
+            >🏔️
+            <br />
+            <br />
+            We’re on a mission to share our passion for outdoor sports by
+            reinventing how customers book activities.
+            <br />
+            <br />
+            SkiHub connects activity professionals to new clients searching for
+            ski experiences by providing a simple, easy to manage, booking
+            platform.
+            <br />
+            <br />
+            To date, we’ve partnered with over 1,000 professionals to deliver
+            125,000+ hours of ski lessons boosting bookings and filling calendar
+            slots 🗓️
+          </p>
+        </div>
+        <br />
+      </div>
+    </mat-card>
+    <!-- Card #2 -->
+    <mat-card
+      class="mat-elevation-z3 overflow filter-card shadow"
+      style="width: 100%; margin-right: 10px"
+      fxFlex="auto"
+      wrap
+    >
+      <div fxLayout="column wrap" fxLayoutAlign="center start" fxFlex="100">
+        <div
+          fxLayout="column wrap"
+          fxLayoutAlign="space-between none"
+          fxFlex=""
+        >
+          <h1>Reviews by SkiHub Partners</h1>
+          <h2>What we do</h2>
+
+          <!-- slider start -->
+          <div class="row">
+            <!-- <div class="container">
+              <div class="brands-carousel">
+                <div class="swiper-container h-100" [swiper]="config">
+                  <a mat-button routerLink="/brands">Show All Brands</a>
+                  <div class="swiper-wrapper h-100"> -->
+            <mat-card
+              *ngFor="let listing of listings | slice: 0:2"
+              class="mat-elevation-z3 overflow shadow"
+              style="width: 100%; margin: 20px; background-color: rgb(250, 250, 250);"
+              fxFlex="auto"
+              wrap
+
+            >
+              <div fxLayout="column" fxLayoutAlign="space-evenly stretch">
+                <div fxLayout="column" fxLayoutAlign="center stretch">
+                  <img [src]="listing.image" alt="" class="img" />
+                </div>
+                <div
+                  fxLayout="column"
+                  fxLayoutAlign="center stretch"
+                  style="margin-top: 50px"
+                >
+                  <h1>{{ listing.skiSchoolName }}</h1>
+                  <p>{{listing.reviews[0]?.content}}</p>
+                </div>
+
+
+                <div fxLayout="column" fxLayoutAlign="center stretch">
+                  <app-rating
+                    style="margin-top: 80px "
+                    fxLayout="column"
+                    fxLayoutAlign="start center"
+                    [ratingsCount]="listing.ratingsCount"
+                    [ratingsValue]="listing.ratingStars"
+                    [direction]="'column'"
+                  ></app-rating>
+                </div>
+              </div>
+            </mat-card>
+            <!-- </div>
+                </div>
+              </div>
+            </div> -->
+          </div>
+
+          <!-- slider end -->
+        </div>
+        <br />
+      </div>
+    </mat-card>
+    <!-- Card #3 -->
+    <mat-card
+      class="mat-elevation-z3 overflow filter-card shadow"
+      style="width: 100%; margin-right: 10px"
+      fxFlex="auto"
+      wrap
+    >
+      <div fxLayout="column wrap" fxLayoutAlign="center start" fxFlex="100">
+        <div
+          fxLayout="column wrap"
+          fxLayoutAlign="space-between none"
+          fxFlex=""
+        >
+          <h1 class="">Benefits of working with SkiHub</h1>
+          <h2>How we help</h2>
+          <img
+            src="assets/images/instructor-registration/1-planet.png"
+            alt=""
+            class=""
+          />
+          <h1 class="blue-color">Access new customers</h1>
+          <p>
+            Available in 5 languages and operating across 8 countries, we're
+            inspiring skiers to book new experiences with local guides
+          </p>
+          <img
+            src="assets/images/instructor-registration/2-gain_full_control.png"
+            alt=""
+            class=""
+          />
+          <h1 class="blue-color">Gain full control</h1>
+          <p>
+            Have complete control over your profile, bookings and prices. SkiHub
+            provides free management software with all the tools you need to
+            succeed
+          </p>
+          <img
+            src="assets/images/instructor-registration/3-fast_payouts.png"
+            alt=""
+            class=""
+          />
+          <h1 class="blue-color">Fast payouts</h1>
+          <p>
+            Payment straight to bank account once the experience is finished
+          </p>
+          <img
+            src="assets/images/instructor-registration/4-brand_awareness.png"
+            alt=""
+            class=""
+          />
+          <h1 class="blue-color">Brand awareness</h1>
+          <p>
+            Make the most out of SkiBro’s marketing expertise and top search
+            rankings.
+          </p>
+        </div>
+        <br />
+      </div>
+    </mat-card>
+    <!-- Card #4 -->
+    <mat-card class="" style="width: 100%; margin-right: 10px" fxFlex="" wrap>
+      <mat-card-content>
+        <div fxLayout="column wrap" fxLayoutAlign="center start" fxFlex="100">
+          <div
+            fxLayout="column wrap"
+            fxLayoutAlign="space-between none"
+            fxFlex=""
+          >
+            <h1>How it works</h1>
+            <h2>How it works</h2>
+
+            <h1 class="blue-color">Step 1: Sign up 💻</h1>
+            <img
+              src="assets/images/instructor-registration/step-1.png"
+              alt=""
+              class=""
+            />
+            <p>
+              Take 30 seconds to sign up to SkiHub. We'll then contact you to
+              learn more about your business.
+            </p>
+            <h1 class="blue-color">Step 2: Create your perfect profile</h1>
+            <img
+              src="assets/images/instructor-registration/step-2.png"
+              alt=""
+              class=""
+            />
+            <p>
+              We will create a fully personalised profile dedicated to your
+              school for free
+            </p>
+            <h1 class="blue-color">Step 3: Add your availability</h1>
+            <img
+              src="assets/images/instructor-registration/step-3.png"
+              alt=""
+              class=""
+            />
+            <p>
+              On SkiHub you can add as many products as you like to your
+              profile.
+            </p>
+            <h1 class="blue-color">
+              Step 4: Receive bookings and new customers
+            </h1>
+            <img
+              src="assets/images/instructor-registration/step-4.png"
+              alt=""
+              class=""
+            />
+            <p>
+              You'll be notified as soon as a customer makes a request. You can
+              manage the booking and message the customer all from SkiHub.
+            </p>
+            <h1 class="blue-color">Step 5: Fast and easy payments</h1>
+            <img
+              src="assets/images/instructor-registration/step-5.png"
+              alt=""
+              class=""
+            />
+            <p>
+              SkiHub runs weekly payouts straight to your bank account less a
+              12% bookings fee Follow the link below to take your first step
+            </p>
+          </div>
+          <br />
+        </div>
+      </mat-card-content>
+      <mat-card-actions
+        class="become-host-button"
+        fxLayout="column"
+        fxLayoutAlign="center center"
+      >
+        <button
+          mat-flat-button
+          (click)="onClickConsoleLog()"
+          routerLink="/host/add-listing"
+          [queryParams]="{ authMode: 'registerHost' }"
+          fxShow="true"
+          fxShow.gt-sm
+          color="primary"
+          style="align-self: center"
+        >
+          {{ "user.become-host" | translate }}
+        </button>
+      </mat-card-actions>
+    </mat-card>
+  </div>
+</div>
