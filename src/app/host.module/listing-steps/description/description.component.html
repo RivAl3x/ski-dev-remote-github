@@ -34,20 +34,20 @@
           </mat-form-field>
 
           <mat-form-field>
-            <input matInput placeholder="{{ 'host.listing.office-name' | translate }}" formControlName="name">
+            <input matInput placeholder="Name" formControlName="name">
           </mat-form-field>
 
           <mat-form-field>
-            <input matInput placeholder="{{ 'host.listing.office-description' | translate }}" formControlName="description">
+            <input matInput placeholder="Describe your lesson" formControlName="description">
           </mat-form-field>
 
           <mat-form-field>
-            <input matInput type="number" placeholder="{{ 'host.listing.seats-no' | translate }}" formControlName="seatsNo">
+            <input matInput type="number" placeholder="Maximum perticipants" formControlName="seatsNo">
           </mat-form-field>
 
-          <mat-form-field>
+          <!-- <mat-form-field>
             <input matInput type="number" placeholder="{{ 'host.listing.units-no' | translate }}" formControlName="unitsNo">
-          </mat-form-field>
+          </mat-form-field> -->
         </div>
 
         <div class="p-1 actions">
@@ -62,7 +62,7 @@
       </mat-card>
     </ng-container>
   </ng-container>
-  <button type="button" mat-stroked-button (click)="onAddAvailableSpace()">{{ 'host.listing.add-space' | translate }}</button>
+  <button type="button" mat-stroked-button (click)="onAddAvailableSpace()">Add lesson</button>
 
   <h2 class="mt-3 mb-0">{{ 'host.listing.pictures-info' | translate }}</h2>
   <div formGroupName="description">
@@ -98,8 +98,8 @@
   </div>
 
   <h2 class="mt-3 mb-0">{{ 'host.listing.amenities-info' | translate }}</h2>
-  <div *ngFor="let amenity of amenities; let i=index;">
-    <mat-checkbox color="primary" [value]="amenity.id" (change)="onAmenitiesChange($event)" [checked]="selectedAmenities.includes(amenity.id)">{{ 'host.listing.' + amenity.code | translate }}</mat-checkbox>
+  <div *ngFor="let skiAmenity of skiAmenities; let i=index;">
+    <mat-checkbox color="primary" [value]="skiAmenity.id" (change)="onAmenitiesChange($event)" [checked]="selectedAmenities.includes(skiAmenity.id)">{{ skiAmenity.name }}</mat-checkbox>
   </div>
 
 </div>

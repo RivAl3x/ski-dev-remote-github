@@ -55,7 +55,7 @@
     <div *ngFor="let listing of listingsSki" class="mat-row">
       <!-- <div class="mat-cell" data-label="{{ 'host.listing.listing-name' | translate }} Name">{{ listing.location.name }}</div>
       <div class="mat-cell" data-label="{{ 'host.listing.location' | translate }}">{{ listing.location.countryName }}, {{ listing.location.locality }}</div> -->
-      <div class="mat-cell" data-label="{{ 'host.listing.listing-name' | translate }} Name">{{listing.description}}</div>
+      <div class="mat-cell" data-label="{{ 'host.listing.listing-name' | translate }} Name">{{listing.description.description}}</div>
       <div class="mat-cell" data-label="{{ 'host.listing.location' | translate }}">{{listing.location.countryName}}, {{listing.location.stateName}}</div>
       <!-- <ng-container *ngIf="officeTypes">
         <div *ngFor="let officeType of officeTypes" class="mat-cell" [attr.data-label]="'host.listing.' + officeType.code | translate">{{ listing.description.availableSpacesCount ? ( listing.description.availableSpacesCount | filterByIdOffice : officeType.id )?.unitsNo : '-' }}</div>

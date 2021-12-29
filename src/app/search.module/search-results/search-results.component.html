@@ -17,10 +17,6 @@
     <!-- <span class="material-icons"> filter_alt </span> -->
   </button>
 
-  <mat-form-field>
-    <mat-label>FILTRU KEYWORD</mat-label>
-    <input matInput (keyup)="applyKeywordFilter($event)" #input>
-  </mat-form-field>
 
   <!-- <button
 
@@ -152,8 +148,8 @@
             <br />
           </div>
 
-          <h2>Lesson Type</h2>
-          <div *ngFor="let item of slideFiltersLessonType; let i = index">
+          <h2>Group Type</h2>
+          <div *ngFor="let item of groupType; let i = index">
             <mat-slide-toggle
               [value]="item.id"
               (change)="onLessonTypeChange($event, item.id)"
@@ -163,8 +159,8 @@
           </div>
 
           <br />
-          <h2>Activity</h2>
-          <div *ngFor="let item of slideFiltersActivity; let i = index">
+          <h2>Participant's Age</h2>
+          <div *ngFor="let item of participantsAge; let i = index">
             <mat-slide-toggle
               [value]="item.id"
               (change)="onActivityChange($event, item.id)"
@@ -173,20 +169,11 @@
             </mat-slide-toggle>
           </div>
 
-          <br />
-          <h2>Age</h2>
-          <div *ngFor="let item of slideFiltersAge; let i = index">
-            <mat-slide-toggle
-              [value]="item.id"
-              (change)="onAgeChange($event, item.id)"
-            >
-              {{ item.name }}
-            </mat-slide-toggle>
-          </div>
+
 
           <br />
           <h2>Language</h2>
-          <div *ngFor="let item of slideFiltersLanguage; let i = index">
+          <div *ngFor="let item of spokenLanguage; let i = index">
             <mat-slide-toggle
               [value]="item.id"
               (change)="onLanguageChange($event, item.id)"
@@ -197,7 +184,7 @@
 
           <br />
           <h2>Ability</h2>
-          <div *ngFor="let item of slideFiltersAbility; let i = index">
+          <div *ngFor="let item of ability; let i = index">
             <mat-slide-toggle
               [value]="item.id"
               (change)="onAbilityChange($event, item.id)"
@@ -258,7 +245,7 @@
           >
             <div class="center">
               <a [routerLink]="['/search/results', result.id]" class="title">
-                <div fxFlex class="mat-h2">{{ result.description }}</div>
+                <div fxFlex class="mat-h2">{{ result.description.description }}</div>
               </a>
             </div>
             <span class="mat-h4">{{ result.skiSchoolName }}</span>

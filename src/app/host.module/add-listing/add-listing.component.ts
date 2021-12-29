@@ -39,6 +39,20 @@ export class AddListingComponent implements OnInit {
   countries: ListOption[] = [];
   //27.12.2021
   lessonTypes: ListOption[]=[];
+  //29.12.2021
+  skiAmenities: ListOption[]=[];
+  groupType = [
+    {
+      id: 1,
+      name: 'Group',
+      code: 'group',
+    },
+    {
+      id: 2,
+      name: 'Private',
+      code: 'private',
+    },
+  ];
 
   constructor(
     private router: Router,
@@ -57,7 +71,7 @@ export class AddListingComponent implements OnInit {
     this.loadCountries();
     //27.12.2021
     this.loadLessonTypes();
-    // this.getLessonTypes();
+    this.loadSkiAmenities();
 
 
 
@@ -66,37 +80,37 @@ export class AddListingComponent implements OnInit {
     this.listingId = this.route.snapshot.paramMap.get('id'); // ParamMap for routes like user/:id. Id param belongs only to this route.
 
     if(this.listingLocalId) {
-      console.info('found local_id in url: ', this.listingLocalId);
+      console.info('found local_id in url: ', this.listingLocalId);             // #1 daca fieldul "localId" exista, ia listarea din indexDB
 
       this.getListingFromLocalDB();
     } else if(this.listingId) {
-      console.info('found id in url: ', this.listingId);
+      console.info('found id in url: ', this.listingId);                        // #2 daca id ul documentului exista in url, ia listarea din API
 
       this.getListingFromApi();
     } else {
-      this.initForm();
+      this.initForm();                                                          // daca niciuna din contidiile de mai sus nu sunt valabile, creaza formul apeland initForm()
     }
 
   }
 
-  getListingFromLocalDB() {
+  getListingFromLocalDB() {                                                     // #1 daca fieldul "localId" exista, ia listarea din indexDB
     this.listingService.getListingByLocalId(this.listingLocalId).subscribe((response) => {
       console.info('indexedDb listing response -- ', response);
 
       this.listing = response;
-      this.initForm(this.listing);
+      this.initForm(this.listing);                                              // si afisaza formul cu valorile respective la care subscrii dupa ce primesti raspunsul
     });
   }
 
-  getListingFromApi() {
+  getListingFromApi() {                                                         // #2 daca id ul documentului exista in url, ia listarea din API
     this.listingService.getListingById(this.listingId).subscribe((listingResponse) => {
       this.listing = listingResponse;
       //this.initForm(this.listing);
 
-      this.listingService.getListingImagesById(this.listingId).subscribe((imagesResponse) => {
+      this.listingService.getListingImagesById(this.listingId).subscribe((imagesResponse) => {   //  atasaza la this.listing si obiectul this.listing.description.images
         this.listing.description.images = imagesResponse;
 
-        this.initForm(this.listing);
+        this.initForm(this.listing);                                             // si afisaza formul cu valorile respective la care subscrii dupa ce primesti raspunsul
       })
     });
   }
@@ -111,7 +125,7 @@ export class AddListingComponent implements OnInit {
   loadOfficeTypes() {
     return this.localDBService.getOfficeTypes().subscribe((response) => {
       this.officeTypes = response;
-      console.log(this.officeTypes, "officetypes");
+      // console.log(this.officeTypes, "officetypes");
 
     });
   }
@@ -125,25 +139,32 @@ export class AddListingComponent implements OnInit {
   // }
 
     loadLessonTypes() {
-      var source = of([{ 'id': '1', 'code': 'skiing', 'name':'Skiing' },
+      var source = of([
+      { 'id': '1', 'code': 'skiing', 'name':'Skiing' },
       { 'id': '2', 'code': 'snowboarding','name':'Snowboarding' },
       { 'id': '3', 'code': 'off-piste-skiing','name':'Off-piste-skiing' },
       { 'id': '4', 'code': 'off-piste-snowboarding','name':'Off-piste-snowboarding' },
       { 'id': '5', 'code': 'ski-touring','name':'Ski-touring'}
     ]);
-      var subscribe = source.subscribe((val => this.lessonTypes=val));
-      console.log(subscribe,  "SUBSCRIBE");
-      console.log(this.lessonTypes,  "LESSONTYPES");
+      source.subscribe((val => this.lessonTypes=val));
+      // console.log("LESSON TYPE:",this.lessonTypes);
 
     };
 
-    // loadLessonTypes() {
-    //   var source = of([{ 'id': '1', 'code': 'ski' }, { 'id': '2', 'code': 'snowboard' }]);
-    //   var subscribe = source.subscribe((val => this.listingTypes=val));
-    //   console.log(subscribe,  "SUBSCRIBE");
-    //   console.log(this.lessonTypes,  "LESSONTYPES");
+    loadSkiAmenities() {
+      var source = of([
+        {id: '1', 'code': 'amenities-skis-rental', 'name':'Skis rental'},
+        {id: '2', 'code': 'amenities-snowboards-rental', 'name':'Snowboards rental'},
+        {id: '3', 'code': 'amenities-sleds-rental', 'name':'Sleds rental'},
+        {id: '4', 'code': 'amenities-mountain-access', 'name':'Mountain access'},
+        {id: '5', 'code': 'amenities-parking', 'name':'Parking'},
+        {id: '6', 'code': 'amenities-skis-sharpening', 'name':'Skis sharpening'},
+        {id: '7', 'code': 'amenities-skis-waxing', 'name':'Skis waxing'}
+      ]);
+      source.subscribe((val => this.skiAmenities=val));
+      // console.log("SKI AMENETIES:", this.skiAmenities);
 
-    // };
+    };
 
 
 
@@ -217,29 +238,29 @@ export class AddListingComponent implements OnInit {
 
   // }
 
-  onStepChange(step) {
-    this.listingForm.get('modifiedDate').patchValue(Date.now());
+  onStepChange(step) { //la schimbarea stepului
+    this.listingForm.get('modifiedDate').patchValue(Date.now()); // se aplica Date.now() in campul modifiedDate
 
     //map country id and name from automcomplete obj value
-    let countryObj = this.listingForm.get('location').get('country').value;
-    if (countryObj) {
-      this.listingForm.get('location').get('idCountry').patchValue(countryObj.id);
-      this.listingForm.get('location').get('countryName').patchValue(countryObj.name);
+    let countryObj = this.listingForm.get('location').get('country').value;//se defineste fieldul location.country
+    if (countryObj) { //daca acesta exista,
+      this.listingForm.get('location').get('idCountry').patchValue(countryObj.id); // pune valoare location.idCountry cu id ul aferent
+      this.listingForm.get('location').get('countryName').patchValue(countryObj.name); // pune valoare location.countryName cu val  aferenta
     }
 
-    this.listing = this.listingForm.value;
+    this.listing = this.listingForm.value; //this.listing inializat sus, de forma ListingModel, are acum valoarea formularului actual, in functie de step-ul la care am dat next
 
     console.info('this.listing', this.listing);
 
-    if (!this.listingLocalId) {
-      this.listingService.addListingToIndexedDb(this.listing).then((localId) => {
+    if (!this.listingLocalId) { //daca fieldul "localId" (logat si in consola), incrementalul stabilit in dexie.service.ts nu exista,
+      this.listingService.addListingToIndexedDb(this.listing).then((localId) => { //mergi in metoda din serviciu si probabil trimiti tot obiectul si intorci localId generat acolo
         console.info('indexedDb listing id = ', localId);
         this.listingLocalId = localId.toLocaleString();
         const url = this.router.createUrlTree([], {relativeTo: this.route, queryParams: {local_id: this.listingLocalId}}).toString()
         this.location.go(url);
       });
     } else {
-      this.listingService.saveListingToIndexedDb(this.listingLocalId, this.listing);
+      this.listingService.saveListingToIndexedDb(this.listingLocalId, this.listing);//altfel, acum ca avem listingLocalId si obiectul listing, salveaza listarea in indexDB
     }
 
   }
@@ -316,7 +337,7 @@ export class AddListingComponent implements OnInit {
         apartmentSuite: new FormControl(apartmentSuiteMapped),
         locality: new FormControl(localityMapped, Validators.required),
         state: new FormControl(stateMapped, Validators.required),
-        zipCode: new FormControl(zipCodeMapped, Validators.required),
+        // zipCode: new FormControl(zipCodeMapped, Validators.required),
         idCountry: new FormControl(idCountryMapped, Validators.required),
         countryName: new FormControl(countryNameMapped),
         country: new FormControl(countryMapped, Validators.required),

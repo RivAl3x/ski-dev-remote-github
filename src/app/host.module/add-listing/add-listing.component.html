@@ -37,6 +37,7 @@
         <!-- <ng-template matStepLabel>{{ 'host.listing.step-description' | translate }}</ng-template> -->
         <ng-template matStepLabel>Describe your lessons</ng-template>
         <app-description
+          [skiAmenities]="skiAmenities"
           [listingForm]="listingForm"
           [officeTypes]="officeTypes"
           [lessonTypes]="lessonTypes"

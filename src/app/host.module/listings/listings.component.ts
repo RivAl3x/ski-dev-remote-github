@@ -108,7 +108,7 @@ export class ListingsComponent implements OnInit {
     // console.info('filterValue', filterValue);
     this.filteredListingsSki = this.listingsSki.filter((listing) => {
       if (listing.description) {
-        return listing.description.toLowerCase().search(filterValue.trim().toLowerCase()) !== -1;
+        return listing.description.description.toLowerCase().search(filterValue.trim().toLowerCase()) !== -1;
       }
     });
     console.log("filteredListingsSki",this.filteredListingsSki);

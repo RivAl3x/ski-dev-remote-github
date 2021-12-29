@@ -23,6 +23,9 @@ export class DescriptionComponent implements OnInit {
   @Input() officeTypes: ListOption[] = [];
   //28.12.2021
   @Input() lessonTypes: ListOption[] = [];
+  @Input() skiAmenities:  ListOption[] = [];
+
+
   @Input() selectedOfficeTypes: Array<any>;
 
   @Input() amenities: ListOption[] = [];

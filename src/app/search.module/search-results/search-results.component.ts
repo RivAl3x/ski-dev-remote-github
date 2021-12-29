@@ -36,78 +36,70 @@ export class SearchResultsComponent implements OnInit {
   filterForm: FormGroup;
   submittedValue: any;
 
-
   // @Input() officeTypes: ListOption[] = [];
-  @Input() selectedSlideFiltersLessonType: Array<any>;
-  @Input() selectedFiltersActivity: Array<any>;
-  @Input() selectedFiltersAge: Array<any>;
-  @Input() selectedFiltersLanguage: Array<any>;
-  @Input() selectedFiltersAbility: Array<any>;
+  selectedGroupType: ListOption[] = [];
+  selectedFiltersActivity: ListOption[] = [];
+  selectedFiltersAge: ListOption[] = [];
+  selectedFiltersLanguage: ListOption[] = [];
+  selectedFiltersAbility: ListOption[] = [];
 
-
-  slideFiltersLessonType = [
+  groupType = [
     {
       id: 1,
       name: 'Group',
-      value: 'group',
+      code: 'group',
     },
     {
       id: 2,
       name: 'Private',
-      value: 'Private',
-    }];
+      code: 'private',
+    },
+  ];
 
-    slideFiltersActivity = [
+  participantsAge = [
+    {
+      id: 1,
+      name: 'Adults',
+      code: 'adults',
+    },
+    {
+      id: 2,
+      name: 'Teens',
+      code: 'teens',
+    },
     {
       id: 3,
-      name: 'Skiing',
-      value: 'skiing',
-    },
-    {
-      id: 4,
-      name: 'Snowboarding',
-      value: 'snowboarding',
-    }];
-
-    slideFiltersAge = [
-    {
-      id: 5,
-      name: 'Adults',
-      value: 'adults',
-    },
-    {
-      id: 6,
-      name: 'Teens',
-      value: 'teens',
+      name: 'Children',
+      code: 'children',
     },
   ];
 
-  slideFiltersLanguage = [
+  spokenLanguage = [
     {
-      id: 5,
-      name: 'Adults',
-      value: 'adults',
+      id: 1,
+      name: 'English',
+      code: 'english',
     },
     {
-      id: 6,
-      name: 'Teens',
-      value: 'teens',
+      id: 2,
+      name: 'Romana',
+      code: 'romana',
     },
   ];
 
-  slideFiltersAbility = [
+  ability = [
     {
-      id: 7,
+      id: 1,
       name: 'Beginner',
       value: 'beginner',
     },
     {
-      id: 8,
+      id: 2,
       name: 'Intermediate',
       value: 'intermediate',
     },
     {
-      id: 9,
+      id: 3,
       name: 'Advanced',
       value: 'advanced',
     },
@@ -155,8 +147,6 @@ export class SearchResultsComponent implements OnInit {
   type: string;
   public documente: SkiSchoolModel[];
   filteredListings: SkiSchoolModel[];
-;
-
   constructor(
     public appSettings: AppSettings,
     private activatedRoute: ActivatedRoute,
@@ -171,60 +161,51 @@ export class SearchResultsComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.extraFilters = {typeOfLessons:"private"};
-
+    this.extraFilters = { typeOfLessons: 'private' };
 
     this.imagesLoaded = true;
 
-
-    console.log("Extra-filters=>",this.extraFilters);
-
+    console.log('Extra-filters=>', this.extraFilters);
 
     this.getSkiSchools();
 
-
-
     this.filterForm = this.fb.group({
-      slideFiltersLessonType: new FormArray([]),
-      slideFiltersActivity: new FormArray([]),
-      slideFiltersAge: new FormArray([]),
-      slideFiltersLanguage: new FormArray([]),
-      slideFiltersAbility: new FormArray([]),
+      groupType: new FormArray([]),
+      participantsAge: new FormArray([]),
 
+      slideFiltersLanguage: new FormArray([]),
+      ability: new FormArray([]),
     });
     this.filters = history.state.data || {};
     // console.info('history.state.data: ', history.state.data);
   }
 
-
-
   onLessonTypeChange(e, filterItemId) {
     // console.info('mat slide event -- ', e);
-    const selectedSlideFiltersLessonType: FormArray = this.filterForm.get(
-      'slideFiltersLessonType'
+    const selectedGroupType: FormArray = this.filterForm.get(
+      'groupType'
     ) as FormArray;
 
     if (e.checked) {
-      selectedSlideFiltersLessonType.push(new FormControl(filterItemId));
+      selectedGroupType.push(new FormControl(filterItemId));
     } else {
       let i: number = 0;
-      selectedSlideFiltersLessonType.controls.forEach((item: FormControl) => {
+      selectedGroupType.controls.forEach((item: FormControl) => {
         if (item.value == filterItemId) {
-          selectedSlideFiltersLessonType.removeAt(i);
+          selectedGroupType.removeAt(i);
           return;
         }
         i++;
       });
     }
-    console.info('selected filter const:', selectedSlideFiltersLessonType);
+    console.info('selected filter const:', selectedGroupType);
     this.onFormSubmit();
     console.info('Filter form values from first array:', this.filterForm.value);
-
   }
   onActivityChange(e, filterItemId) {
     console.info('mat slide event -- ', e);
     const selectedFiltersActivity: FormArray = this.filterForm.get(
-      'slideFiltersActivity'
+      'participantsAge'
     ) as FormArray;
 
     if (e.checked) {
@@ -287,7 +268,7 @@ export class SearchResultsComponent implements OnInit {
   onAbilityChange(e, filterItemId) {
     console.info('mat slide event -- ', e);
     const selectedFiltersAbility: FormArray = this.filterForm.get(
-      'slideFiltersAbility'
+      'ability'
     ) as FormArray;
 
     if (e.checked) {
@@ -313,20 +294,18 @@ export class SearchResultsComponent implements OnInit {
     this.getSkiSchools();
   }
 
-  ngOnDestroy() {
-
-  }
+  ngOnDestroy() {}
 
   onScroll(): void {
     this.imagesLoaded = true;
 
     this.searchResultsService
       .getSkiSchools(
-       this.filters,
-       this.extraFilters,
-       ++this.pageNumber,
-       this.pageSize
-     )
+        this.filters,
+        this.extraFilters,
+        ++this.pageNumber,
+        this.pageSize
+      )
       .subscribe((response) => {
         this.resultsSki.push(...response);
       });
@@ -360,7 +339,6 @@ export class SearchResultsComponent implements OnInit {
   //     });
   // }
 
-
   @HostListener('window:resize')
   public onWindowResize(): void {
     window.innerWidth < 575 ? (this.mode = 'over') : (this.mode = 'side');
@@ -373,30 +351,32 @@ export class SearchResultsComponent implements OnInit {
     this.getSkiSchools();
   }
   //start decembrie
-  public getSkiSchools(){
-    this.searchResultsService.getSkiSchools(
-      this.filters,
-      this.extraFilters,
-      ++this.pageNumber,
-      this.pageSize)
-      .subscribe(data => {
-      this.documente = data;
-      console.log("getSkiSchools =>",this.documente);
-      console.log("Extra-filters=>",this.extraFilters);
-
-    })
+  public getSkiSchools() {
+    this.searchResultsService
+      .getSkiSchools(
+        this.filters,
+        this.extraFilters,
+        ++this.pageNumber,
+        this.pageSize
+      )
+      .subscribe((data) => {
+        this.documente = data;
+        console.log('getSkiSchools =>', this.documente);
+        console.log('Extra-filters=>', this.extraFilters);
+      });
   }
-
 
   applyKeywordFilter(event: Event) {
     const filterValue = (event.target as HTMLInputElement).value;
 
     console.info('filterValue', filterValue);
 
-    this.filteredListings = this.documente.filter(listing => {
-
-        return listing.skiSchoolName.toLowerCase().search(filterValue.trim().toLowerCase()) !== -1;
-
+    this.filteredListings = this.documente.filter((listing) => {
+      return (
+        listing.skiSchoolName
+          .toLowerCase()
+          .search(filterValue.trim().toLowerCase()) !== -1
+      );
     });
   }
 }

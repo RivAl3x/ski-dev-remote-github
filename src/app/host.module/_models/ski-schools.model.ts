@@ -1,6 +1,7 @@
 import { SpokenLanguagesModel } from "./listing-spoken-languages.model";
 import { ListingSkiLocationModel } from "./listing-ski-location.model";
 import { ListingSkiPriceModel } from "./listing-ski-price.model";
+import { ListingSkiDescriptionModel } from "./listing-ski-description.model";
 
 export class SkiSchoolModel {
 
@@ -12,7 +13,7 @@ export class SkiSchoolModel {
   skiSchoolName?: any;
   about?: any;
   image?:any;
-  description?:any;
+  description?:ListingSkiDescriptionModel;
   maximumParticipants?:any;
   minimumAge?:any;
   typeOfLessons?:any;
@@ -32,7 +33,7 @@ export class SkiSchoolModel {
     skiSchoolName:any= null,
     about:any= null,
     image:any=null,
-    description:any=null,
+    description:ListingSkiDescriptionModel= new ListingSkiDescriptionModel,
     maximumParticipants:any=null,
     minimumAge:any=null,
     typeOfLessons:any=null,

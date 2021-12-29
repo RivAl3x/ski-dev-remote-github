@@ -1,11 +1,12 @@
 [
-
   {
     "id": 1,
     "idStatus": "1",
-    "statusCode":"loc-local",
+    "statusCode": "loc-local",
     "skiSchoolId": "65435634",
-    "description": "Private Ski Lesson (All Levels)",
+    "description": {
+      "description": "Private Ski Lesson (All Levels)"
+    },
     "skiSchoolName": "Ski School Predeal",
     "typeOfLessons": "private",
     "maximumParticipants": 4,
@@ -15,10 +16,18 @@
     "ratingsCount": "3",
     "about": "Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum ha",
     "image": "https://www.slovenija.eu.com/wp-content/uploads/2018/12/Ski-school-slovenia.jpg",
-    "spokenLanguages":[{"code":"en", "src":"https://cdnjs.cloudflare.com/ajax/libs/flag-icon-css/3.4.3/flags/4x3/ro.svg"},
-      {"code":"ro", "src":"https://cdnjs.cloudflare.com/ajax/libs/flag-icon-css/3.4.3/flags/4x3/gb.svg"}],
+    "spokenLanguages": [
+      {
+        "code": "en",
+        "src": "https://cdnjs.cloudflare.com/ajax/libs/flag-icon-css/3.4.3/flags/4x3/ro.svg"
+      },
+      {
+        "code": "ro",
+        "src": "https://cdnjs.cloudflare.com/ajax/libs/flag-icon-css/3.4.3/flags/4x3/gb.svg"
+      }
+    ],
 
-    "location":{
+    "location": {
       "apartmentSuite": "2",
       "countryName": "Romania",
       "floor": "2",
@@ -34,22 +43,28 @@
       "name": "Ski School Predeal",
       "stateName": "Prahova",
       "streetAddress": "strada Bradului",
-      "zipCode": "123456"},
+      "zipCode": "123456"
+    },
 
-      "reviews": [
-        { "id":432,"idRef": "1", "content": "1AAAAA This ski was a game changer for me when I first got on it in spring of 2017. Transitioning from the Atomic Century 102 in a 156 (2012?) to the Backland FR W 102 was the perfect step in progression." },
-        { "id":543,"idRef": "1", "content": "1BBBBB" },
-        { "id":234,"idRef": "1", "content": "1CCCCC" }
-      ]
-
-
+    "reviews": [
+      {
+        "id": 432,
+        "idRef": "1",
+        "content": "1AAAAA This ski was a game changer for me when I first got on it in spring of 2017. Transitioning from the Atomic Century 102 in a 156 (2012?) to the Backland FR W 102 was the perfect step in progression."
+      },
+      { "id": 543, "idRef": "1", "content": "1BBBBB" },
+      { "id": 234, "idRef": "1", "content": "1CCCCC" }
+    ]
   },
   {
-    "id":2,
+    "id": 2,
     "idStatus": "1",
-    "statusCode":"loc-local",
+    "statusCode": "loc-local",
     "skiSchoolId": "4324325",
-    "description": "Adult Group Ski Lessons (All Levels)",
+    "description": {
+      "description": "Adult Group Ski Lessons (All Levels)"
+    },
+
     "skiSchoolName": "Ski School Brasov",
     "typeOfLessons": "group",
     "maximumParticipants": 2,
@@ -59,8 +74,13 @@
     "ratingsCount": "4",
     "about": " Lorem Ipsum, you need to be sure ther eerror sit voluptatem accusantium   of text. ",
     "image": "https://media.istockphoto.com/photos/powder-skiing-picture-id623101316?k=20&m=623101316&s=612x612&w=0&h=dUdFM4jtoQyxTmgsg--m6bIvtBiocaR9Qn6avNzDBBw=",
-    "spokenLanguages":[{"code":"en", "src":"https://cdnjs.cloudflare.com/ajax/libs/flag-icon-css/3.4.3/flags/4x3/ro.svg"}],
-    "location":{
+    "spokenLanguages": [
+      {
+        "code": "en",
+        "src": "https://cdnjs.cloudflare.com/ajax/libs/flag-icon-css/3.4.3/flags/4x3/ro.svg"
+      }
+    ],
+    "location": {
       "apartmentSuite": "2",
       "countryName": "Romania",
       "floor": "2",
@@ -76,20 +96,28 @@
       "name": "Brasov ski school",
       "stateName": "Brasov",
       "streetAddress": "strada Soarelui",
-      "zipCode": "123456"},
-      "reviews": [
-        { "id":234,"idRef": "2", "content": "2AAAAA I got this ski used in spring of 2020 and my this skiing has given me a lot of mixed feelings. Note that this review is coming from a female riding a men’s ski so my experience is going to be drastically different from most." },
-        {"id":123, "idRef": "2", "content": "2BBBBB" },
-        { "id":422,"idRef": "2", "content": "2CCCCC" },
-        { "id":796,"idRef": "2", "content": "2DDDDD" }
-      ]
+      "zipCode": "123456"
+    },
+    "reviews": [
+      {
+        "id": 234,
+        "idRef": "2",
+        "content": "2AAAAA I got this ski used in spring of 2020 and my this skiing has given me a lot of mixed feelings. Note that this review is coming from a female riding a men’s ski so my experience is going to be drastically different from most."
+      },
+      { "id": 123, "idRef": "2", "content": "2BBBBB" },
+      { "id": 422, "idRef": "2", "content": "2CCCCC" },
+      { "id": 796, "idRef": "2", "content": "2DDDDD" }
+    ]
   },
   {
     "id": 3,
     "idStatus": "4",
-    "statusCode":"loc-local",
+    "statusCode": "loc-local",
     "skiSchoolId": "8766966",
-    "description": "Private Off Piste Guiding",
+    "description": {
+      "description": "Private Off Piste Guiding"
+    },
+
     "skiSchoolName": "Ski School Sinaia",
     "typeOfLessons": "private",
     "maximumParticipants": 8,
@@ -99,38 +127,50 @@
     "ratingsCount": "10",
     "about": "Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium dolomnis iste natus error sit voluptatem accusantium doloremque lamnis iste natus error sit voluptatem accusantium doloremque laremque laudantium",
     "image": "https://images.unsplash.com/photo-1551698618-1dfe5d97d256?ixid=MnwxMjA3fDB8MHxzZWFyY2h8Mnx8c2tpfGVufDB8fDB8fA%3D%3D&ixlib=rb-1.2.1&w=1000&q=80",
-    "spokenLanguages":[{"code":"en", "src":"https://cdnjs.cloudflare.com/ajax/libs/flag-icon-css/3.4.3/flags/4x3/ro.svg"},
-      {"code":"ro", "src":"https://cdnjs.cloudflare.com/ajax/libs/flag-icon-css/3.4.3/flags/4x3/gb.svg"}],
-      "location":{
-        "apartmentSuite": "2",
-        "countryName": "Romania",
-        "floor": "2",
-        "idCountry": 1,
-        "idLocality": null,
-        "idState": null,
-        "landmark": null,
-        "latitude": "45.63659667582455",
-        "listingId": 3,
-        "listingType": "apartment",
-        "localityName": null,
-        "longitude": "25.63290596008301",
-        "name": "Brasov ski school",
-        "stateName": "Brasov",
-        "streetAddress": "strada Bujorilor",
-        "zipCode": "123456"},
-        "reviews": [
-          { "id":987,"idRef": "3", "content": "3AAAAA" },
-          { "id":789,"idRef": "3", "content": "3BBBBB" },
-          { "id":897,"idRef": "3", "content": "3CCCCC" },
-          { "id":675,"idRef": "3", "content": "3DDDDD" }
-        ]
+    "spokenLanguages": [
+      {
+        "code": "en",
+        "src": "https://cdnjs.cloudflare.com/ajax/libs/flag-icon-css/3.4.3/flags/4x3/ro.svg"
+      },
+      {
+        "code": "ro",
+        "src": "https://cdnjs.cloudflare.com/ajax/libs/flag-icon-css/3.4.3/flags/4x3/gb.svg"
+      }
+    ],
+    "location": {
+      "apartmentSuite": "2",
+      "countryName": "Romania",
+      "floor": "2",
+      "idCountry": 1,
+      "idLocality": null,
+      "idState": null,
+      "landmark": null,
+      "latitude": "45.63659667582455",
+      "listingId": 3,
+      "listingType": "apartment",
+      "localityName": null,
+      "longitude": "25.63290596008301",
+      "name": "Brasov ski school",
+      "stateName": "Brasov",
+      "streetAddress": "strada Bujorilor",
+      "zipCode": "123456"
+    },
+    "reviews": [
+      { "id": 987, "idRef": "3", "content": "3AAAAA" },
+      { "id": 789, "idRef": "3", "content": "3BBBBB" },
+      { "id": 897, "idRef": "3", "content": "3CCCCC" },
+      { "id": 675, "idRef": "3", "content": "3DDDDD" }
+    ]
   },
   {
     "id": 4,
     "idStatus": "5",
-    "statusCode":"loc-local",
+    "statusCode": "loc-local",
     "skiSchoolId": "543543543",
-    "description": "Ski School Bușteni",
+    "description": {
+      "description": "Ski School Bușteni"
+    },
+
     "skiSchoolName": "Ski School Bușteni",
     "typeOfLessons": "private",
     "maximumParticipants": 4,
@@ -140,33 +180,35 @@
     "ratingsCount": "10",
     "about": "Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium",
     "image": "https://res.cloudinary.com/whistler/image/upload/w_500,c_scale,dpr_3.0,q_auto/v1/s3/images/header/kids-ski-lessons-whistler.jpg",
-    "spokenLanguages":[
-      {"code":"ro", "src":"https://cdnjs.cloudflare.com/ajax/libs/flag-icon-css/3.4.3/flags/4x3/gb.svg"}],
-      "location":{
-        "apartmentSuite": "2",
-        "countryName": "Romania",
-        "floor": "2",
-        "idCountry": 1,
-        "idLocality": null,
-        "idState": null,
-        "landmark": null,
-        "latitude": "45.63659667582455",
-        "listingId": 4,
-        "listingType": "apartment",
-        "localityName": null,
-        "longitude": "25.63290596008301",
-        "name": "Brasov ski school",
-        "stateName": "Brasov",
-        "streetAddress": "strada X",
-        "zipCode": "123456"},
-        "reviews": [
-          { "id":534,"idRef": "4", "content": "4AAAAA" },
-          { "id":645,"idRef": "4", "content": "4BBBBB" },
-          { "id":453,"idRef": "4", "content": "4CCCCC" },
-          { "id":999,"idRef": "4", "content": "4DDDDD" }
-        ]
+    "spokenLanguages": [
+      {
+        "code": "ro",
+        "src": "https://cdnjs.cloudflare.com/ajax/libs/flag-icon-css/3.4.3/flags/4x3/gb.svg"
+      }
+    ],
+    "location": {
+      "apartmentSuite": "2",
+      "countryName": "Romania",
+      "floor": "2",
+      "idCountry": 1,
+      "idLocality": null,
+      "idState": null,
+      "landmark": null,
+      "latitude": "45.63659667582455",
+      "listingId": 4,
+      "listingType": "apartment",
+      "localityName": null,
+      "longitude": "25.63290596008301",
+      "name": "Brasov ski school",
+      "stateName": "Brasov",
+      "streetAddress": "strada X",
+      "zipCode": "123456"
+    },
+    "reviews": [
+      { "id": 534, "idRef": "4", "content": "4AAAAA" },
+      { "id": 645, "idRef": "4", "content": "4BBBBB" },
+      { "id": 453, "idRef": "4", "content": "4CCCCC" },
+      { "id": 999, "idRef": "4", "content": "4DDDDD" }
+    ]
   }
-
-
-
 ]
